@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:id="@+id/editDialogParent"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:background="@drawable/dialog_bg">
+	
+	<TextView
+		android:id="@+id/editDialogTitle"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginLeft="18dp"
+		android:layout_marginTop="18dp"
+		android:gravity="center"
+		android:singleLine="true"
+		android:text="@string/mark_add"
+		android:textAppearance="?android:attr/textAppearanceMedium"
+		android:textColor="@color/accent"
+		android:textSize="18sp"
+		android:textStyle="bold" />
+	
+	<LinearLayout
+		android:id="@+id/editDialogEditorParent"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_below="@id/editDialogTitle"
+		android:layout_alignLeft="@id/editDialogTitle"
+		android:layout_marginTop="16dp"
+		android:layout_marginRight="18dp"
+		android:layout_marginBottom="0dp"
+		android:gravity="center_vertical"
+		android:orientation="vertical"
+		android:padding="8dp"
+		android:scrollbars="vertical"
+		android:textColor="@color/light">
+		
+		<com.zmide.lit.view.Editor
+			android:id="@+id/editDialogTitleEditor"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			app:drawableLeft="@drawable/quill_pen_line"
+			app:drawableLeftAfter="@drawable/quill_pen_fill"
+			app:hint="@string/title"
+			app:singleLine="true"
+			app:textColor="@color/accent"
+			app:textSize="14sp" />
+		
+		<com.zmide.lit.view.Editor
+			android:id="@+id/editDialogUrl"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="8dp"
+			android:visibility="gone"
+			app:drawableLeft="@drawable/links_line"
+			app:hint="链接"
+			app:singleLine="true"
+			app:textColor="@color/accent"
+			app:textSize="14sp" />
+		
+		<RelativeLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
+			
+			<TextView
+				android:id="@+id/editDialogIndex"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="8dp"
+				android:background="@drawable/blue_15"
+				android:gravity="center"
+				android:padding="6dp"
+				android:text="@string/root_index"
+				android:textColor="#fff"
+				android:textSize="14sp" />
+		
+		</RelativeLayout>
+	
+	</LinearLayout>
+	
+	<RelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_below="@id/editDialogEditorParent"
+		android:padding="8dp">
+		
+		<TextView
+			android:id="@+id/editDialogCancel"
+			android:layout_width="wrap_content"
+			android:layout_height="32dp"
+			android:layout_centerVertical="true"
+			android:background="@drawable/ripple_15"
+			android:gravity="center"
+			android:paddingLeft="16dp"
+			android:paddingRight="16dp"
+			android:text="@string/give_up"
+			android:textColor="@color/light"
+			android:textSize="14sp"
+			android:textStyle="normal" />
+		
+		
+		<TextView
+			android:id="@+id/editDialogOk"
+			android:layout_width="wrap_content"
+			android:layout_height="32dp"
+			android:layout_alignParentRight="true"
+			android:layout_centerVertical="true"
+			android:background="@drawable/ripple_positive"
+			android:gravity="center"
+			android:paddingLeft="16dp"
+			android:paddingRight="16dp"
+			android:text="@string/new_add"
+			android:textColor="#ffffff"
+			android:textSize="14sp"
+			android:textStyle="normal" />
+	
+	</RelativeLayout>
+
+</RelativeLayout>
+

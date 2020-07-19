@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?><!--Android API21及以上引入了控件点击的水波纹效果-->
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+	android:color="#48484848">
+	<item>
+		<shape
+			android:shape="rectangle"
+			android:useLevel="false">
+			<corners android:radius="5dp" />
+			<gradient
+				android:angle="45"
+				android:endColor="@color/bgcolor"
+				android:startColor="@color/bgcolor" />
+			<!--size android:width="5dp" android:height="5dp" /-->
+		</shape>
+	</item>
+</ripple>

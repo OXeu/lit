@@ -1,0 +1,59 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content">
+	
+	<RelativeLayout
+		android:id="@+id/mainWindowsParents"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_margin="16dp"
+		android:elevation="6dp"
+		android:padding="4dp">
+		
+		<com.zmide.lit.view.MaxHeightRecyclerView
+			android:id="@+id/mainWindowsRecyclerView"
+			android:layout_width="match_parent"
+			android:layout_height="200dp"
+			app:maxHeight="200dp" />
+		
+		<LinearLayout
+			android:id="@+id/mainWindowAdd"
+			android:layout_width="48dp"
+			android:layout_height="48dp"
+			android:layout_below="@id/mainWindowsRecyclerView"
+			android:layout_alignParentStart="true"
+			android:background="@drawable/ripple_circle">
+			
+			<ImageView
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:padding="16dp"
+				android:src="@drawable/plus"
+				android:tint="@color/accent"
+				tools:ignore="ContentDescription" />
+		
+		</LinearLayout>
+		
+		<LinearLayout
+			android:id="@+id/mainWindowCancel"
+			android:layout_width="48dp"
+			android:layout_height="48dp"
+			android:layout_below="@id/mainWindowsRecyclerView"
+			android:layout_alignParentEnd="true"
+			android:background="@drawable/ripple_circle">
+			
+			<ImageView
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:padding="12dp"
+				android:src="@drawable/ic_back"
+				android:tint="@color/accent"
+				tools:ignore="ContentDescription" />
+		
+		</LinearLayout>
+	
+	</RelativeLayout>
+
+</LinearLayout>

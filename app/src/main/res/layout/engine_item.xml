@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="wrap_content"
+	android:layout_height="match_parent"
+	android:gravity="center_vertical"
+	android:orientation="vertical">
+	
+	<TextView
+		android:id="@+id/engineItemText"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginRight="12dp"
+		android:background="@drawable/ripple_circle_outer"
+		android:paddingLeft="8dp"
+		android:paddingTop="4dp"
+		android:paddingRight="8dp"
+		android:paddingBottom="4dp"
+		android:text="Text" />
+</LinearLayout>

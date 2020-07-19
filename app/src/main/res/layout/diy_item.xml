@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/diyParent"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:layout_margin="0dp">
+	<!--
+	<ImageView
+		android:layout_width="20dp"
+		android:layout_height="20dp"
+		android:src="@drawable/code"
+		android:id="@+id/diyImage"
+		android:layout_marginLeft="8dp"
+		android:layout_alignTop="@id/diyItemTitle"/>-->
+	
+	<TextView
+		android:id="@+id/diyItemTitle"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginLeft="24dp"
+		android:layout_marginTop="16dp"
+		android:text="Medium Text"
+		android:textAppearance="?android:attr/textAppearanceMedium"
+		android:textSize="14sp" />
+	
+	<TextView
+		android:id="@+id/diyItemDescription"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@id/diyItemTitle"
+		android:layout_alignLeft="@id/diyItemTitle"
+		android:layout_marginTop="8dp"
+		android:layout_marginBottom="16dp"
+		android:text="Text"
+		android:textSize="12sp" />
+	
+	<Switch
+		android:id="@+id/diyItemSwitch"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignTop="@id/diyItemTitle"
+		android:layout_alignParentRight="true"
+		android:layout_marginRight="24dp" />
+</RelativeLayout>

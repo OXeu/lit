@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	
+	<style name="Light" parent="@android:style/Theme.Material.NoActionBar">
+		<item name="android:windowBackground">@android:color/transparent</item>
+		<item name="android:colorPrimary">#ff2196f3</item>
+		<item name="android:colorPrimaryDark">#ff1976d2</item>
+		<item name="android:colorAccent">#ff448aff</item>
+		<item name="android:windowIsTranslucent">true</item>
+		<item name="android:windowLightStatusBar">false</item>
+		<item name="android:windowLightNavigationBar">true</item>
+		
+		<!--item name="android:windowAnimationStyle">@android:style/Animation.Translucent</item-->
+		<item name="android:windowFullscreen">false</item>
+		<!--Android 5.x开始需要把颜色设置透明，否则导航栏会呈现系统默认的浅灰色-->
+		<item name="android:statusBarColor">#00000000</item>
+	</style>
+	
+	<style name="Main" parent="@android:style/Theme.Material.NoActionBar">
+		<!--        <item name="android:windowBackground">@android:color/transparent</item>-->
+		<item name="android:colorPrimary">#ff2196f3</item>
+		<item name="android:colorPrimaryDark">#ff1976d2</item>
+		<item name="android:colorAccent">#ff448aff</item>
+		<!--        <item name="android:windowIsTranslucent">true</item>-->
+		<item name="android:windowLightStatusBar">true</item>
+		<item name="android:windowLightNavigationBar">true</item>
+		<!--		<item name="android:navigationBarColor">#ffffff</item>-->
+		<!--item name="android:windowAnimationStyle">@android:style/Animation.Translucent</item-->
+		<item name="android:windowFullscreen">false</item>
+		<!--Android 5.x开始需要把颜色设置透明，否则导航栏会呈现系统默认的浅灰色-->
+		<item name="android:statusBarColor">#00000000</item>
+	</style>
+</resources>

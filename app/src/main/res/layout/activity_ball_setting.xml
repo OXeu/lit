@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:background="@color/bgcolor"
+	android:fitsSystemWindows="true">
+	
+	<RelativeLayout
+		android:id="@+id/ballToolBar"
+		android:layout_width="match_parent"
+		android:layout_height="48dp"
+		android:layout_alignParentBottom="false">
+		
+		<ImageView
+			android:id="@+id/ballBack"
+			android:layout_width="32dp"
+			android:layout_height="32dp"
+			android:layout_centerVertical="true"
+			android:layout_marginStart="8dp"
+			android:background="@drawable/ripple_circle"
+			android:padding="4dp"
+			android:src="@drawable/ic_back"
+			android:tint="@color/accent"
+			tools:ignore="ContentDescription" />
+		
+		<TextView
+			android:id="@+id/ballToolBarTitle"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_centerVertical="true"
+			android:layout_marginStart="8dp"
+			android:layout_toEndOf="@id/ballBack"
+			android:text="@string/ball_setting"
+			android:textColor="@color/accent"
+			android:textSize="16sp"
+			android:transitionName="setting" />
+	</RelativeLayout>
+	
+	<RelativeLayout
+		android:id="@+id/ballParent"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent">
+		
+		<androidx.cardview.widget.CardView
+			android:id="@+id/ballGestureColor"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_centerInParent="true"
+			android:layout_marginStart="40dp"
+			android:layout_marginTop="40dp"
+			android:layout_marginEnd="40dp"
+			android:layout_marginBottom="40dp"
+			android:gravity="center"
+			android:padding="0dp"
+			android:visibility="gone"
+			app:cardCornerRadius="16dp"
+			app:cardElevation="2dp">
+			
+			<ImageView
+				android:id="@+id/ballGestureImage"
+				android:layout_width="32dp"
+				android:layout_height="32dp"
+				android:layout_margin="8dp"
+				android:padding="8dp"
+				android:src="@drawable/forward"
+				android:tint="#ffffffff" />
+		
+		</androidx.cardview.widget.CardView>
+		
+		
+		<LinearLayout
+			android:id="@+id/ballThirdLevel"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignParentEnd="false"
+			android:layout_alignParentBottom="true"
+			android:layout_centerHorizontal="true"
+			android:layout_margin="56dp"
+			android:background="@drawable/blue_90">
+			
+			<LinearLayout
+				android:id="@+id/ballSecondLevel"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:background="@drawable/blue_90">
+				
+				<LinearLayout
+					android:id="@+id/ballFirstLevel"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:background="@drawable/gray_90">
+					
+					<LinearLayout
+						android:id="@+id/ballNonLevel"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:background="@drawable/white_90">
+						
+						<androidx.cardview.widget.CardView
+							android:id="@+id/ballCardView"
+							android:layout_width="48dp"
+							android:layout_height="48dp"
+							android:elevation="0dp"
+							app:cardCornerRadius="24dp">
+							
+							<RelativeLayout
+								android:layout_width="match_parent"
+								android:layout_height="match_parent">
+								
+								<LinearLayout
+									android:id="@+id/ballBall"
+									android:layout_width="48dp"
+									android:layout_height="48dp"
+									android:layout_alignParentEnd="true"
+									android:background="@drawable/ripple_circle"
+									android:gravity="center"
+									android:orientation="horizontal">
+									
+									<ImageView
+										android:layout_width="match_parent"
+										android:layout_height="match_parent"
+										android:padding="16dp"
+										android:src="@drawable/dialog" />
+								
+								</LinearLayout>
+							
+							</RelativeLayout>
+						
+						</androidx.cardview.widget.CardView>
+					
+					</LinearLayout>
+				
+				</LinearLayout>
+			
+			</LinearLayout>
+		
+		</LinearLayout>
+	
+	</RelativeLayout>
+
+</RelativeLayout>

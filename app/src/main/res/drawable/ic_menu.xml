@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+	android:width="36dp"
+	android:height="36dp"
+	android:viewportWidth="36"
+	android:viewportHeight="36">
+	<group
+		android:translateX="-382.000000"
+		android:translateY="-899.000000">
+		<group
+			android:translateX="360.000000"
+			android:translateY="877.000000">
+			<group
+				android:translateX="22.000000"
+				android:translateY="22.000000">
+				<group
+					android:translateX="2.000000"
+					android:translateY="2.000000">
+					<path
+						
+						android:pathData="M 0 0 H 32 V 32 H 0 V 0 Z"
+						android:strokeWidth="1" />
+					<path
+						android:fillColor="#FFFFFF"
+						
+						android:pathData="M 3 3 L 18 3 Q 19 3 19 4 L 19 6 Q 19 7 18 7 L 3 7 Q 2 7 2 6 L 2 4 Q 2 3 3 3 Z"
+						android:strokeWidth="1" />
+					<path
+						android:fillColor="#FFFFFF"
+						
+						android:pathData="M 3 25 L 18 25 Q 19 25 19 26 L 19 28 Q 19 29 18 29 L 3 29 Q 2 29 2 28 L 2 26 Q 2 25 3 25 Z"
+						android:strokeWidth="1" />
+					<path
+						android:fillColor="#FFFFFF"
+						
+						android:pathData="M 14 14 L 29 14 Q 30 14 30 15 L 30 17 Q 30 18 29 18 L 14 18 Q 13 18 13 17 L 13 15 Q 13 14 14 14 Z"
+						android:strokeWidth="1" />
+					<path
+						android:fillAlpha="0.800000012"
+						android:fillColor="#FFFFFF"
+						
+						android:pathData="M 3 14 L 9 14 Q 10 14 10 15 L 10 17 Q 10 18 9 18 L 3 18 Q 2 18 2 17 L 2 15 Q 2 14 3 14 Z"
+						android:strokeWidth="1"
+						android:strokeAlpha="0.800000012" />
+					<path
+						android:fillAlpha="0.800000012"
+						android:fillColor="#FFFFFF"
+						
+						android:pathData="M 23 3 L 29 3 Q 30 3 30 4 L 30 6 Q 30 7 29 7 L 23 7 Q 22 7 22 6 L 22 4 Q 22 3 23 3 Z"
+						android:strokeWidth="1"
+						android:strokeAlpha="0.800000012" />
+					<path
+						android:fillAlpha="0.800000012"
+						android:fillColor="#FFFFFF"
+						
+						android:pathData="M 23 25 L 29 25 Q 30 25 30 26 L 30 28 Q 30 29 29 29 L 23 29 Q 22 29 22 28 L 22 26 Q 22 25 23 25 Z"
+						android:strokeWidth="1"
+						android:strokeAlpha="0.800000012" />
+				</group>
+			</group>
+		</group>
+	</group>
+</vector>

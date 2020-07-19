@@ -1,0 +1,20 @@
+[
+  {
+    "outputType": {
+      "type": "APK"
+    },
+    "apkData": {
+      "type": "MAIN",
+      "splits": [],
+      "versionCode": 200327,
+      "versionName": "3.0(Beta1.4)",
+      "enabled": true,
+      "outputFile": "V3.0(Beta1.4).apk",
+      "fullName": "release",
+      "baseName": "release",
+      "dirName": ""
+    },
+    "path": "V3.0(Beta1.4).apk",
+    "properties": {}
+  }
+]

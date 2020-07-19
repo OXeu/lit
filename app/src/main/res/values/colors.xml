@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<color name="mlight">#FFEEEEEE</color><!--灰色-->
+	<color name="light">#FF999999</color><!--次黑色-->
+	<color name="accent">#FF333333</color><!--黑色-->
+	<color name="accentColor">#FF5F87FF</color><!--夜间主题色-->
+	<color name="accentColor2">#FF122EF1</color><!--渐变色1-->
+	<color name="anti">#FF333333</color><!--反色-->
+	<!--color name="transparent">#ffffffff</color><!-透明色-->
+	<color name="bgcolor">#FFFFFFFF</color><!--Background color-->
+	<color name="listbg">#FFEEEEEE</color><!--List Background color-->
+	<color name="mask">#00484848</color><!--图片蒙版 color-->
+	<!--
+	<color name="mlight_night">#ff666666</color>
+	<color name="light_night">#ff999999</color>
+	<color name="accent_night">#ffc8c8c8</color>
+	<color name="accentColor_night">#ff5f87ff</color>
+	<color name="accentColor2_night">#ff122ef1</color>
+	<color name="anti_night">#ffeeeeee</color>
+	<color name="bgcolor_night">#ff303030</color>
+	<color name="listbg_night">#ff303030</color>
+	<color name="mask_night">#48484848</color>-->
+</resources>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">Lit</string>
+	<string name="night">夜间模式</string>
+	<string name="seachbar">关键词/表达式/网址</string>
+	<string name="search">搜索</string>
+	<string name="joinQQGroup">加入QQ群</string>
+	<string name="copyright">Copyright 2019–2020 Dream Studio All rights reserved</string>
+	<string name="check_update">检测更新</string>
+	<string name="title">标题</string>
+	<string name="sync_now">立即同步</string>
+	<string name="mark_add">添加目录</string>
+	<string name="give_up">放弃</string>
+	<string name="new_add">添加</string>
+	<string name="root_index">根目录</string>
+	<string name="mark">书签</string>
+	<string name="cancel">取消</string>
+	<string name="delete">删除</string>
+	<string name="edit">编辑</string>
+	<string name="mod">修改</string>
+	<string name="folder_mod">目录修改</string>
+	<string name="folder_add">新建目录</string>
+	<string name="ball_setting">小球灵敏度调整</string>
+	<string name="app_name_LIT">Lit</string>
+	<string name="add">添加</string>
+	<string name="regex_match">正则表达式匹配</string>
+	
+	<!--	<string name="id_dialog_bg">Lit</string>-->
+	<!--	<string name="id_editor">Lit</string>-->
+	<!--	<string name="id_menu_small_bar_bg">Lit</string>-->
+	<!--	<string name="id_pop_bg">Lit</string>-->
+	<!--	<string name="id_progress_bar">Lit</string>-->
+	<!--	<string name="id_ripple_5">Lit</string>-->
+	<!--	<string name="id_ripple_15">Lit</string>-->
+	<!--	<string name="id_ripple_circle">Lit</string>-->
+	<!--	<string name="id_ripple_circle_outer">Lit</string>-->
+	<!--	<string name="id_ripple_dialog_button">Lit</string>-->
+	<!--	<string name="id_ripple_normal">Lit</string>-->
+	<!--	<string name="id_ripple_positive">Lit</string>-->
+	<!--	<string name="id_search_bar_bg">Lit</string>-->
+	<!--	<string name="id_searchbar_index">Lit</string>-->
+</resources>

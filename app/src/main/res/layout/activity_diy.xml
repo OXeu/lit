@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:background="@color/bgcolor"
+	android:fitsSystemWindows="true">
+	
+	<RelativeLayout
+		android:id="@+id/diyRelativeLayout1"
+		android:layout_width="match_parent"
+		android:layout_height="48dp"
+		android:layout_alignParentBottom="false">
+		
+		<ImageView
+			android:id="@+id/diyBack"
+			android:layout_width="32dp"
+			android:layout_height="32dp"
+			android:layout_centerVertical="true"
+			android:layout_marginLeft="8dp"
+			android:background="@drawable/ripple_circle"
+			android:padding="4dp"
+			android:src="@drawable/ic_back"
+			android:tint="@color/accent"
+			android:visibility="gone" />
+		
+		<TextView
+			android:id="@+id/diyTitle"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_centerInParent="true"
+			android:text="DIY"
+			android:textColor="@color/accent"
+			android:textSize="16sp"
+			android:transitionName="diy" />
+		
+		<TextView
+			android:id="@+id/diyDefault"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignParentRight="true"
+			android:layout_centerVertical="true"
+			android:layout_marginRight="8dp"
+			android:background="@drawable/ripple_circle"
+			android:padding="8dp"
+			android:text="默认"
+			android:textColor="@color/accent"
+			android:textSize="16sp" />
+	</RelativeLayout>
+	
+	<RelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:layout_below="@id/diyRelativeLayout1">
+		
+		<androidx.recyclerview.widget.RecyclerView
+			android:id="@+id/diyRecyclerView"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:background="@color/bgcolor" />
+		
+		<TextView
+			android:id="@+id/diyEmpty"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_centerInParent="true"
+			android:text="空空如也"
+			android:textColor="@color/light"
+			android:textSize="14sp" />
+	</RelativeLayout>
+	
+	<ImageView
+		android:id="@+id/diyAdd"
+		android:layout_width="48dp"
+		android:layout_height="48dp"
+		android:layout_alignParentRight="true"
+		android:layout_alignParentBottom="true"
+		android:layout_margin="40dp"
+		android:background="@drawable/ripple_circle"
+		android:elevation="12dp"
+		android:padding="16dp"
+		android:src="@drawable/plus"
+		android:tint="@color/accent" />
+</RelativeLayout>

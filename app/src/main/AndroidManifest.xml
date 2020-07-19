@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	package="com.zmide.lit">
+	<!--
+	<uses-permission android:name="android.permission.READ_PHONE_STATE" />-->
+	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+	<!-- <uses-permission android:name="android.permission.READ_LOGS"/> -->
+	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+	
+	<application
+		android:name=".base.MApplication"
+		android:allowBackup="true"
+		android:icon="@drawable/ic_launcher"
+		android:label="@string/app_name"
+		android:networkSecurityConfig="@xml/network_security_config"
+		android:theme="@style/Light">
+		<activity android:name=".ui.AboutActivity" />
+		<activity
+			android:name=".ui.MainActivity"
+			android:configChanges="uiMode|orientation|screenSize"
+			android:hardwareAccelerated="true"
+			android:label="@string/app_name"
+			android:launchMode="singleTask"
+			android:theme="@style/Main"
+			android:windowSoftInputMode="adjustPan|stateHidden">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				
+				<category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.LAUNCHER" />
+				<category android:name="android.intent.category.BROWSABLE" />
+				<category android:name="android.intent.category.APP_BROWSER" />
+			</intent-filter>
+			<intent-filter tools:ignore="AppLinkUrlError">
+				<action android:name="android.intent.action.VIEW" />
+				
+				<category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.BROWSABLE" />
+			</intent-filter>
+			<intent-filter>
+				<action android:name="android.intent.action.VIEW" />
+				
+				<category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.BROWSABLE" />
+				
+				<data android:scheme="http" />
+				<data android:scheme="https" />
+				<data android:scheme="javascript" />
+			</intent-filter>
+			<intent-filter>
+				<action android:name="android.intent.action.VIEW" />
+				
+				<category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.BROWSABLE" />
+				
+				<data android:scheme="file" />
+				<data android:scheme="inline" />
+				<data android:mimeType="text/html" />
+				<data android:mimeType="text/markdown" />
+				<data android:mimeType="text/mht" />
+				<data android:mimeType="text/mhtml" />
+				<data android:mimeType="text/plain" />
+				<data android:mimeType="application/xhtml+xml" />
+				<data android:mimeType="application/vnd.wap.xhtml+xml" />
+			</intent-filter>
+			<intent-filter>
+				<action android:name="android.intent.action.WEB_SEARCH" />
+				
+				<category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.BROWSABLE" />
+			</intent-filter>
+		</activity>
+		<activity android:name=".ui.MarkActivity" />
+		<activity android:name=".ui.HistoryActivity" />
+		<activity
+			android:name=".ui.SettingActivity"
+			android:configChanges="uiMode" />
+		<activity
+			android:name=".ui.SettingChildActivity"
+			android:configChanges="uiMode" />
+		<activity
+			android:name=".ui.DiyActivity"
+			android:configChanges="uiMode" />
+		<activity
+			android:name=".ui.DiyNewActivity"
+			android:configChanges="uiMode" />
+		<activity
+			android:name=".ui.SetWallpaper"
+			android:configChanges="uiMode" />
+		<activity
+			android:name=".ui.BookmarkImport"
+			android:configChanges="uiMode" />
+		
+		<activity android:name=".ui.SetBallIcon" />
+		<activity
+			android:name=".ui.VideoPlayerActivity"
+			android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
+			android:screenOrientation="fullSensor" />
+		<!--		<activity android:name=".ui.ModBallSetting" />-->
+		
+		<meta-data
+			android:name="android.max_aspect"
+			android:value="4.0" />
+		
+		<!--友盟配置-->
+		<meta-data
+			android:name="UMENG_APPKEY"
+			android:value="5e65c6710cafb234d9000091" />
+		<meta-data
+			android:name="UMENG_CHANNEL"
+			android:value="Coolapk" />
+		<!--
+		<meta-data
+			android:name="UMENG_CHANNEL"
+			android:value="${UMENG_CHANNEL_VALUE}" />-->
+	</application>
+
+</manifest>

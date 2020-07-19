@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+	
+	<data class="SettingAdapterDB">
+		
+		<variable
+			name="mbean"
+			type="com.zmide.lit.bean.Setting" />
+	</data>
+	
+	<RelativeLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:background="@color/bgcolor">
+		
+		<RelativeLayout
+			android:id="@+id/settingItemParent"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:background="@drawable/ripple_normal"
+			android:onClick="@{mbean::onclick}"
+			android:paddingTop="16dp"
+			android:paddingBottom="16dp">
+			
+			<TextView
+				android:id="@+id/settingItemTitle"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="24dp"
+				android:text="@{mbean.title}"
+				android:textColor="@color/accent"
+				android:textSize="14sp" />
+			
+			<ImageView
+				android:layout_width="24dp"
+				android:layout_height="24dp"
+				android:layout_alignParentEnd="true"
+				android:layout_centerVertical="true"
+				android:layout_marginEnd="12dp"
+				android:padding="6dp"
+				android:rotation="180"
+				android:src="@drawable/back"
+				android:tint="@color/light" />
+		</RelativeLayout>
+	</RelativeLayout>
+</layout>

@@ -1,0 +1,49 @@
+<resources>
+	<!-- Base application theme. -->
+	<style name="Light" parent="@android:style/Theme.Material.NoActionBar">
+		<item name="android:windowBackground">@android:color/transparent</item>
+		<item name="android:colorPrimary">#ff2196f3</item>
+		<item name="android:colorPrimaryDark">#ff1976d2</item>
+		<item name="android:colorAccent">#ff448aff</item>
+		<item name="android:windowIsTranslucent">true</item>
+		
+		<!--        <item name="android:windowAnimationStyle">@android:style/Animation.Translucent</item>-->
+		<item name="android:windowFullscreen">false</item>
+		<!--Android 5.x开始需要把颜色设置透明，否则导航栏会呈现系统默认的浅灰色-->
+		<item name="android:statusBarColor">#00000000</item>
+	</style>
+	
+	<style name="Main" parent="@android:style/Theme.Material.NoActionBar">
+		<!--		<item name="android:windowBackground">@android:color/transparent</item>-->
+		<item name="android:colorPrimary">#ff2196f3</item>
+		<item name="android:colorPrimaryDark">#ff1976d2</item>
+		<item name="android:colorAccent">#ff448aff</item>
+		<!--		<item name="android:windowIsTranslucent">true</item>-->
+		
+		<!--        <item name="android:windowAnimationStyle">@android:style/Animation.Translucent</item>-->
+		<item name="android:windowFullscreen">false</item>
+		<!--Android 5.x开始需要把颜色设置透明，否则导航栏会呈现系统默认的浅灰色-->
+		<item name="android:statusBarColor">#00000000</item>
+	</style>
+	
+	<style name="custom_dialog" parent="@android:style/Theme.Dialog">
+		<item name="android:windowFrame">@null</item>
+		<!-- Dialog的windowFrame框为无 -->
+		<!-- 背景透明,设置圆角对话框必须设置背景透明，否则四角会有背景色小块-->
+		<item name="android:windowBackground">@android:color/transparent</item>
+		<!-- 没有标题 -->
+		<item name="android:windowNoTitle">true</item>
+		<!-- 背景模糊 -->
+		<item name="android:backgroundDimEnabled">true</item>
+		<item name="android:windowContentOverlay">@null</item>
+		<!-- 去除黑色边框的关键设置项 -->
+		<!-- 屏幕背景是否变暗 -->
+		<item name="android:backgroundDimAmount">0.3</item>
+	</style>
+	
+	<style name="ClickToast" parent="@android:style/Animation.Toast">
+		<item name="android:windowEnterAnimation">@anim/anim_toast_in</item>
+		<item name="android:windowExitAnimation">@anim/anim_toast_out</item>
+	</style>
+
+</resources>

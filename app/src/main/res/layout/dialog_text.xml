@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/dialogTextParent"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:background="@drawable/dialog_bg">
+	
+	<TextView
+		android:id="@+id/dialogCopy"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentRight="true"
+		android:layout_margin="18dp"
+		android:background="@drawable/ripple_15"
+		android:gravity="center"
+		android:padding="6dp"
+		android:text="复制链接"
+		android:textColor="@color/accentColor"
+		android:textSize="12sp"
+		android:textStyle="normal" />
+	
+	<TextView
+		android:id="@+id/dialogTextTitle"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignTop="@id/dialogCopy"
+		android:layout_alignBottom="@id/dialogCopy"
+		android:layout_marginLeft="18dp"
+		android:gravity="center"
+		android:singleLine="true"
+		android:text="Title"
+		android:textAppearance="?android:attr/textAppearanceMedium"
+		android:textColor="@color/accent"
+		android:textSize="18sp"
+		android:textStyle="bold" />
+	
+	<TextView
+		android:id="@+id/dialogTextText"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_below="@id/dialogTextTitle"
+		android:layout_alignLeft="@id/dialogTextTitle"
+		android:layout_marginTop="16dp"
+		android:layout_marginRight="18dp"
+		android:layout_marginBottom="18dp"
+		android:gravity="center_vertical"
+		android:maxHeight="200dp"
+		android:scrollbars="vertical"
+		android:text="This is text"
+		android:textColor="@color/light"
+		android:textSize="13sp"
+		android:typeface="sans" />
+	
+	<RelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_below="@id/dialogTextText"
+		android:padding="8dp">
+		
+		<TextView
+			android:id="@+id/dialogTextCancel"
+			android:layout_width="wrap_content"
+			android:layout_height="32dp"
+			android:layout_centerVertical="true"
+			android:background="@drawable/ripple_15"
+			android:gravity="center"
+			android:paddingLeft="16dp"
+			android:paddingRight="16dp"
+			android:text="Cancel"
+			android:textColor="@color/light"
+			android:textSize="14sp"
+			android:textStyle="normal" />
+		
+		<TextView
+			android:id="@+id/dialogTextMore"
+			android:layout_width="wrap_content"
+			android:layout_height="48dp"
+			android:layout_centerHorizontal="true"
+			android:background="@drawable/ripple_15"
+			android:gravity="center"
+			android:paddingLeft="16dp"
+			android:paddingRight="16dp"
+			android:text="ADM"
+			android:textColor="@color/light"
+			android:textSize="14sp"
+			android:textStyle="normal" />
+		
+		<TextView
+			android:id="@+id/dialogTextOk"
+			android:layout_width="wrap_content"
+			android:layout_height="32dp"
+			android:layout_alignParentRight="true"
+			android:layout_centerVertical="true"
+			android:background="@drawable/ripple_positive"
+			android:gravity="center"
+			android:paddingLeft="16dp"
+			android:paddingRight="16dp"
+			android:text="OK"
+			android:textColor="#ffffff"
+			android:textSize="14sp"
+			android:textStyle="normal" />
+	
+	</RelativeLayout>
+
+</RelativeLayout>
+

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+	android:width="36dp"
+	android:height="36dp"
+	android:viewportWidth="36"
+	android:viewportHeight="36">
+	<group
+		android:translateX="-52.000000"
+		android:translateY="-899.000000">
+		<group
+			android:translateX="30.000000"
+			android:translateY="877.000000">
+			<group
+				android:translateX="22.000000"
+				android:translateY="22.000000">
+				<group
+					android:translateX="2.000000"
+					android:translateY="2.000000">
+					<path
+						
+						android:pathData="M 0 0 H 32 V 32 H 0 V 0 Z"
+						android:strokeWidth="1" />
+					<path
+						android:fillColor="#FFFFFF"
+						
+						android:pathData="M 22 14 L 29 14 Q 30 14 30 15 L 30 17 Q 30 18 29 18 L 22 18 Q 21 18 21 17 L 21 15 Q 21 14 22 14 Z"
+						android:strokeWidth="1" />
+					<path
+						android:fillAlpha="0.800000012"
+						android:fillColor="#FFFFFF"
+						
+						android:pathData="M 3 14 L 15 14 Q 16 14 16 15 L 16 17 Q 16 18 15 18 L 3 18 Q 2 18 2 17 L 2 15 Q 2 14 3 14 Z"
+						android:strokeWidth="1"
+						android:strokeAlpha="0.800000012" />
+					<path
+						android:fillColor="#FFFFFF"
+						
+						android:pathData="M 15 2 L 17 2 Q 18 2 18 3 L 18 17 Q 18 18 17 18 L 15 18 Q 14 18 14 17 L 14 3 Q 14 2 15 2 Z"
+						android:strokeWidth="1" />
+					<path
+						android:fillAlpha="0.800000012"
+						android:fillColor="#FFFFFF"
+						
+						android:pathData="M 15 21 L 17 21 Q 18 21 18 22 L 18 29 Q 18 30 17 30 L 15 30 Q 14 30 14 29 L 14 22 Q 14 21 15 21 Z"
+						android:strokeWidth="1"
+						android:strokeAlpha="0.800000012" />
+				</group>
+			</group>
+		</group>
+	</group>
+</vector>
