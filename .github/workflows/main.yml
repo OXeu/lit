@@ -35,13 +35,6 @@ jobs:
     #引用外部Action,拉取代码仓库到虚拟机工作目录
 
     - uses: actions/checkout@v1
-
-    #编译iOS运行库
-
-    - name: BuildIOS
-
-      run: sh ./BuildIOS.sh  
-
       
 
     #编译Android运行库,由于Mac预装了NDK,可以直接用;
