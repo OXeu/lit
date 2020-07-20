@@ -142,7 +142,7 @@ def copyMapping() {
 		rename {
 			renameName
 		}
-		/*
+		
 		String appName = "lit_" + VersionName+ ".apk"
 		println "\n=====apkName:" + appName + "======\n"
 		from "$buildDir" + '/release/'
@@ -150,7 +150,7 @@ def copyMapping() {
 		into "issue/apk/"
 		rename {
 			appName
-		}*/
+		}
 	}
 }
 */
