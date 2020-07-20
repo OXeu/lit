@@ -10,6 +10,7 @@ import android.util.Base64;
 
 import com.blankj.utilcode.util.FileUtils;
 import com.blankj.utilcode.util.PathUtils;
+import com.zmide.lit.base.MApplication;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -39,7 +40,7 @@ public class MFileUtils {
 			MExceptionUtils.reportException(e);
 		}
 	}
-	
+
 	/**
 	 * Gets bitmap md 5.
 	 *
@@ -228,12 +229,12 @@ public class MFileUtils {
 		if (bitmap == null)
 			return;
 		FileOutputStream fileOutputStream;
-		String file = PathUtils.getExternalAppPicturesPath();
+		//String file = MApplication.getContext().getExternalFilesDir("picture")+"";
 		if (name == null)
 			name = MFileUtils.getBitmapMd5(bitmap);
-		File filename = new File(file, name);
+		//File filename = new File(file, name);
 		try {
-			fileOutputStream = new FileOutputStream(filename);
+			fileOutputStream = MApplication.getContext().openFileOutput(name, Context.MODE_PRIVATE);
 			bitmap = Bitmap.createScaledBitmap(bitmap, bitmap.getWidth() / 2, bitmap.getHeight() / 2, true);
 			bitmap.compress(Bitmap.CompressFormat.PNG, 80, fileOutputStream);
 			fileOutputStream.flush();

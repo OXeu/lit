@@ -36,8 +36,10 @@ import com.zmide.lit.util.MToastUtils;
 import com.zmide.lit.util.MarkEditDialog;
 import com.zmide.lit.view.LitWebView;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+
+import static com.zmide.lit.main.MainViewBindUtils.getAdMark;
 
 public class MenuDialog {
 	
@@ -90,6 +92,7 @@ public class MenuDialog {
 		final LinearLayout mMenuMarkAdd = d.getWindow().findViewById(R.id.menuMarkAdd);
 		LinearLayout mMenuPlugin = d.getWindow().findViewById(R.id.menuPlugin);
 		LinearLayout mMenuResource = d.getWindow().findViewById(R.id.menuResource_catcher);
+		LinearLayout mMenuAdMark = d.getWindow().findViewById(R.id.menuAdMark);
 		LinearLayout mMenuRefresh = d.findViewById(R.id.menuRefresh);
 		LinearLayout mMenuHistory = d.getWindow().findViewById(R.id.menuHistory);
 		LinearLayout mMenuSetting = d.getWindow().findViewById(R.id.menuSetting);
@@ -272,15 +275,75 @@ public class MenuDialog {
 		}));
 		
 		mMenuResource.setOnClickListener(view -> activity.runOnUiThread(() -> {
-			ArrayList<Uri> uris = ResourceCatcher.getResources(ResourceCatcher.TYPE.VIDEO);
-			if (uris.size() != 0) {
+			List<Uri> uris = ResourceCatcher.getResources(ResourceCatcher.TYPE.VIDEO);
+			if (uris.size() != 0){
 				activity.startActivity(new Intent(activity, VideoPlayerActivity.class)
 						.setData(uris.get(0))
-						.putExtra("title", WebContainer.getTitle())
+						.putExtra("title",WebContainer.getTitle())
 				);
-			} else {
+			}else{
 				MToastUtils.makeText("暂未嗅探到视频资源").show();
 			}
+			d.dismiss();
+		}));
+		
+		mMenuAdMark.setOnClickListener(view -> activity.runOnUiThread(() -> {
+			getAdMark().setVisibility(View.VISIBLE);
+			WebContainer.getWebView().evaluateJavascript("(function () {\n" +
+					"    var old;\n" +
+					"    this.clicklistener = function (event) {\n" +
+					"        var length = document.all.length;\n" +
+					"        console.log(length);\n" +
+					"        for (var i = 0; i < length; i++) {\n" +
+					"            document.all[i].classList.remove(\"selected\");\n" +
+					"        }\n" +
+					"        this.classList.add(\"selected\");\n" +
+					"        let classNames = this.className.split(\".\");\n" +
+					"        if (classNames.length === 0)\n" +
+					"            classNames = '';\n" +
+					"        else\n" +
+					"            classNames = '.'+classNames;\n" +
+					"        let id = this.id;\n" +
+					"        if (typeof id != 'undefined' && id != null && id !== '') id = '#'+id; else id = '';\n" +
+					"        window.lit.putElement(this.tagName + classNames + id);\n" +
+					"        window.lit.putCode(this + '');\n" +
+					"        old = this;\n" +
+					"        event.stopPropagation();\n" +
+					"        event.preventDefault()\n" +
+					"        event.stopImmediatePropagation()\n" +
+					"    }\n" +
+					"    //这是遍历绑定点击事件\n" +
+					"        var length = document.all.length;\n" +
+					"        for (var i = 0; i < length; i++) {\n" +
+					"            document.all[i].onclick = clicklistener;\n" +
+					"        }\n" +
+					"    function addCSS(cssText) {\n" +
+					"        var style = document.createElement('style'),  //创建一个style元素\n" +
+					"            head = document.head || document.getElementsByTagName('head')[0]; //获取head元素\n" +
+					"        style.type = 'text/css'; //这里必须显示设置style元素的type属性为text/css，否则在ie中不起作用\n" +
+					"        if (style.styleSheet) { //IE\n" +
+					"            var func = function () {\n" +
+					"                try { //防止IE中stylesheet数量超过限制而发生错误\n" +
+					"                    style.styleSheet.cssText = cssText;\n" +
+					"                } catch (e) {\n" +
+					"\n" +
+					"                }\n" +
+					"            }\n" +
+					"            //如果当前styleSheet还不能用，则放到异步中则行\n" +
+					"            if (style.styleSheet.disabled) {\n" +
+					"                setTimeout(func, 10);\n" +
+					"            } else {\n" +
+					"                func();\n" +
+					"            }\n" +
+					"        } else { //w3c\n" +
+					"            //w3c浏览器中只要创建文本节点插入到style元素中就行了\n" +
+					"            var textNode = document.createTextNode(cssText);\n" +
+					"            style.appendChild(textNode);\n" +
+					"        }\n" +
+					"        head.appendChild(style); //把创建的style元素插入到head中\n" +
+					"    }\n" +
+					"    addCSS('.selected{border-style:solid;border-color:#0000ff;}');\n" +
+					"})();", null);
 			d.dismiss();
 		}));
 		
@@ -312,12 +375,12 @@ public class MenuDialog {
 				tt.setText(indexName);
 		}*/
 		mMenuMarkAdd.setOnClickListener(view -> activity.runOnUiThread(() -> {
-			if (!Objects.equals(mWebView().getUrl(), "") && !mWebView().getUrl().contains("file")) {
+			if (!Objects.equals(mWebView().getUrl(), "") && !mWebView().getUrl().startsWith("file:///")) {
 				String path = MFileUtils.saveFile(mWebView().getFavicon(), null, false);
 				String url0 = mWebView().getUrl();
 				String title0 = mWebView().getTitle();
 				DBC.getInstance(view.getContext()).addMark(title0, path, url0, 0);
-				MToastUtils.makeText(activity, "添加书签成功", "编辑", v -> new MarkEditDialog(activity).createMarkEditDialog(activity, "0", title0, url0, true), MToastUtils.LENGTH_LONG).show();
+				MToastUtils.makeText(activity,"添加书签成功", "编辑", v -> new MarkEditDialog(activity).createMarkEditDialog(activity, "0", title0, url0, true), MToastUtils.LENGTH_LONG).show();
 				mMenuMarked.setVisibility(View.VISIBLE);
 				mMenuMarkAdd.setVisibility(View.GONE);
 			} else {
@@ -370,7 +433,7 @@ public class MenuDialog {
 			});
 		}
 		if (mWebView.getUrl() != null)
-			if (mWebView.getUrl().equals("") || mWebView.getUrl().contains("file")) {
+			if (mWebView.getUrl().equals("") || mWebView.getUrl().startsWith("file:///")) {
 				activity.runOnUiThread(() -> {
 					mMenuMarkAdd.setVisibility(View.GONE);
 					mMenuMarked.setVisibility(View.GONE);

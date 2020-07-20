@@ -29,7 +29,6 @@ public class MWebStateSaveUtils {
 	public static ArrayList<WebState> resumeAllStates() {
 		return DBC.getInstance(context).getStates();
 	}
-	
 	public static boolean hasStates() {
 		return DBC.getInstance(context).hasStates();
 	}

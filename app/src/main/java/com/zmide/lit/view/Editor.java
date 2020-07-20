@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.zmide.lit.R;
 import com.zmide.lit.util.MWindowsUtils;
@@ -20,7 +22,8 @@ public class Editor extends LinearLayout {
 	private Drawable afterDrawable;
 	private Drawable beforeDrawable;
 	private ImageView etd;
-	private LinearLayout etl;
+	private TextView etBt;
+	private RelativeLayout etl;
 	
 	public Editor(Context context) {
 		super(context);
@@ -29,7 +32,7 @@ public class Editor extends LinearLayout {
 	@SuppressLint({"Recycle", "SetTextI18n"})
 	public Editor(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		LayoutInflater.from(context).inflate(R.layout.editor_layout, this, true);
+		LayoutInflater.from(context).inflate(R.layout.editor_bt, this, true);
 		init();
 		TypedArray t = getContext().obtainStyledAttributes(attrs,
 				R.styleable.Editor);
@@ -42,7 +45,11 @@ public class Editor extends LinearLayout {
 		et.setSingleLine(t.getBoolean(R.styleable.Editor_singleLine, false));
 		et.setHint(t.getString(R.styleable.Editor_hint) + "");
 		if (t.getString(R.styleable.Editor_text) != null)
-			et.setText(t.getString(R.styleable.Editor_text) + "");
+		et.setText(t.getString(R.styleable.Editor_text) + "");
+		if (t.getString(R.styleable.Editor_button_text) != null) {
+			etBt.setText(t.getString(R.styleable.Editor_button_text) + "");
+			etBt.setVisibility(VISIBLE);
+		}
 		et.setTextColor(textColor);
 		//et.setTextSize(textSize);
 		et.setHintTextColor(getResources().getColor(R.color.light));
@@ -56,6 +63,7 @@ public class Editor extends LinearLayout {
 		et = findViewById(R.id.et);
 		etd = findViewById(R.id.etDrawable);
 		etl = findViewById(R.id.etl);
+		etBt = findViewById(R.id.etBt);
 		/*et.addTextChangedListener(new TextWatcher() {
 			
 			@Override
@@ -109,6 +117,23 @@ public class Editor extends LinearLayout {
 		});*/
 		
 	}
+	
+	public void setBtDrawable(Drawable drawable) {
+		etBt.setBackground(drawable);
+	}
+	
+	public String getBtText() {
+		return etBt.getText() + "";
+	}
+	
+	public void setBtText(String text) {
+		etBt.setText(text);
+	}
+	
+	public void setBtOnClick(OnClickListener click) {
+		etBt.setOnClickListener(click);
+	}
+	
 	
 	public EditText getEditor() {
 		return et;

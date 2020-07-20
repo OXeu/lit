@@ -93,15 +93,16 @@ public class SetWallpaper extends BaseActivity {
 				// 获取到用户所选图片的Uri
 				uri = data.getData();
 				Bitmap bm = convertUri(uri);
-				if (uri == null) {
+				if (uri == null || bm == null) {
 					MToastUtils.makeText("设置失败，获取图片失败").show();
-				} else {
+				}else {
 					// 返回的Uri为content类型的Uri,不能进行复制等操作,需要转换为文件Uri
 					MFileUtils.saveFileOnFile(bm, path);
 					sp.edit().putBoolean("wall", !sp.getBoolean("wall", true)).apply();
 					//startImageZoom(uri);
 				}
-			} catch (SecurityException e) {
+			}
+			catch (SecurityException e){
 				MToastUtils.makeText("不支持的路径，请使用其他方式").show();
 			}
 		}

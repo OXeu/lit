@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.zmide.lit.R;
+import com.zmide.lit.interfaces.BaseInterface;
 import com.zmide.lit.main.SearchEnvironment;
 import com.zmide.lit.object.Diy;
 import com.zmide.lit.skin.SkinManager;

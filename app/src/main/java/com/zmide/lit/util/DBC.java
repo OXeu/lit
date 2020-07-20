@@ -17,8 +17,11 @@ import com.zmide.lit.object.Contract;
 import com.zmide.lit.object.Diy;
 import com.zmide.lit.object.History;
 import com.zmide.lit.object.Mark;
+import com.zmide.lit.object.MarkBean;
 import com.zmide.lit.object.Parent;
+import com.zmide.lit.object.ParentBean;
 import com.zmide.lit.object.WebState;
+import com.zmide.lit.object.WebsiteSetting;
 
 import java.util.ArrayList;
 
@@ -41,7 +44,6 @@ public class DBC {
 		//由于数据库只需要调用一次，所以在单例中建出来
 		dbHelper = new DbHelper(ctx);
 	}
-	
 	
 	//常用方法  增删改查
 	
@@ -66,7 +68,7 @@ public class DBC {
 		values.put(Contract.HistoryEntry._NAME, title);
 		values.put(Contract.HistoryEntry._ICON, icon);
 		values.put(Contract.HistoryEntry._URL, url);
-		values.put(Contract.HistoryEntry._TIME, System.currentTimeMillis());
+		values.put(Contract.HistoryEntry._TIME, System.currentTimeMillis() / 1000);
 		// Insert the new row, returning the primary key value of the new row
 		db.insert(Contract.HistoryEntry.TABLE_NAME, null, values);
 	}
@@ -80,9 +82,43 @@ public class DBC {
 		values.put(Contract.MarkEntry._NAME, title);
 		values.put(Contract.MarkEntry._ICON, icon);
 		values.put(Contract.MarkEntry._URL, url);
-		values.put(Contract.MarkEntry._TIME, System.currentTimeMillis());
+		values.put(Contract.ParentEntry._LEVEL, 0);
+		values.put(Contract.MarkEntry._DID, MSharedPreferenceUtils.getSharedPreference().getString("did", "1"));
+		values.put(Contract.MarkEntry._TIME, System.currentTimeMillis() / 1000);
 		// Insert the new row, returning the primary key value of the new row
 		db.insert(Contract.MarkEntry.TABLE_NAME, null, values);
+	}
+	
+	public void addMark(MarkBean mark) {
+		// Gets the data repository in write mode
+		// Create a new map of values, where column names are the keys
+		db = dbHelper.getWritableDatabase();
+		ContentValues values = new ContentValues();
+		values.put(Contract.MarkEntry._PARENT, mark.pid);
+		values.put(Contract.MarkEntry._NAME, mark.title);
+		values.put(Contract.MarkEntry._ICON, mark.icon);
+		values.put(Contract.MarkEntry._URL, mark.url);
+		values.put(Contract.MarkEntry._TIME, mark.mod_time);
+		values.put(Contract.MarkEntry._DID, mark.did);
+		values.put(Contract.MarkEntry._ID, mark.oid);
+		values.put(Contract.MarkEntry._LEVEL, mark.level);
+		// Insert the new row, returning the primary key value of the new row
+		db.insert(Contract.MarkEntry.TABLE_NAME, null, values);
+	}
+	
+	public void addParent(ParentBean mark) {
+		// Gets the data repository in write mode
+		// Create a new map of values, where column names are the keys
+		db = dbHelper.getWritableDatabase();
+		ContentValues values = new ContentValues();
+		values.put(Contract.ParentEntry._PARENT, mark.pid);
+		values.put(Contract.ParentEntry._NAME, mark.title);
+		values.put(Contract.ParentEntry._TIME, mark.mod_time);
+		values.put(Contract.ParentEntry._DID, mark.did);
+		values.put(Contract.ParentEntry._ID, mark.oid);
+		values.put(Contract.ParentEntry._LEVEL, mark.level);
+		// Insert the new row, returning the primary key value of the new row
+		db.insert(Contract.ParentEntry.TABLE_NAME, null, values);
 	}
 	
 	public boolean addParent(String title, String parent) {
@@ -93,6 +129,9 @@ public class DBC {
 			ContentValues values = new ContentValues();
 			values.put(Contract.ParentEntry._PARENT, parent);
 			values.put(Contract.ParentEntry._NAME, title);
+			values.put(Contract.ParentEntry._DID, MSharedPreferenceUtils.getSharedPreference().getString("did", "1"));
+			values.put(Contract.ParentEntry._LEVEL, 0);
+			values.put(Contract.ParentEntry._TIME, System.currentTimeMillis() / 1000);
 			// Insert the new row, returning the primary key value of the new row
 			db.insert(Contract.ParentEntry.TABLE_NAME, null, values);
 			return true;
@@ -161,6 +200,17 @@ public class DBC {
 				selectionArgs);
 	}
 	
+	public void deleteAllMarks() {
+		//创建游标对象
+		db = dbHelper.getReadableDatabase();
+		// Filter results WHERE "title" = 'My Title'
+		
+		// How you want the results sorted in the resulting Cursor
+		db.delete(Contract.MarkEntry.TABLE_NAME,
+				null,
+				null);
+	}
+	
 	public void deleteHistory(String id) {
 		//创建游标对象
 		db = dbHelper.getReadableDatabase();
@@ -174,6 +224,55 @@ public class DBC {
 				selectionArgs);
 	}
 	
+	public ArrayList<MarkBean> getAllMarks() {
+		//创建游标对象
+		db = dbHelper.getReadableDatabase();
+		String[] projection = new String[]{
+				Contract.MarkEntry._PARENT,
+				Contract.MarkEntry._ICON,
+				Contract.MarkEntry._ID,
+				Contract.MarkEntry._NAME,
+				Contract.MarkEntry._TIME,
+				Contract.MarkEntry._DID,
+				Contract.MarkEntry._LEVEL,
+				Contract.MarkEntry._URL};
+		// How you want the results sorted in the resulting Cursor
+		String sortOrder =
+				Contract.MarkEntry._TIME + " DESC";
+		Cursor cursor = db.query(Contract.MarkEntry.TABLE_NAME,
+				projection,
+				null,
+				null,
+				null,
+				null,
+				sortOrder);
+		//利用游标遍历所有数据对象
+		ArrayList<MarkBean> marks = new ArrayList<>();
+		while (cursor.moveToNext()) {
+			String name = cursor.getString(cursor.getColumnIndex(Contract.MarkEntry._NAME));
+			long time = cursor.getLong(cursor.getColumnIndex(Contract.MarkEntry._TIME));
+			String url = cursor.getString(cursor.getColumnIndex(Contract.MarkEntry._URL));
+			int id = cursor.getInt(cursor.getColumnIndex(Contract.MarkEntry._ID));
+			int did = cursor.getInt(cursor.getColumnIndex(Contract.MarkEntry._DID));
+			int pid = cursor.getInt(cursor.getColumnIndex(Contract.MarkEntry._PARENT));
+			int level = cursor.getInt(cursor.getColumnIndex(Contract.MarkEntry._LEVEL));
+			String icon = cursor.getString(cursor.getColumnIndex(Contract.MarkEntry._ICON));
+			MarkBean mark = new MarkBean();
+			mark.oid = id;
+			mark.did = did;
+			mark.level = level;
+			mark.pid = pid;
+			mark.icon = icon;
+			mark.title = name;
+			mark.url = url;
+			mark.mod_time = time;
+			marks.add(mark);
+		}
+		// 关闭游标，释放资源
+		cursor.close();
+		return marks;
+	}
+
 	public ArrayList<Mark> getMarks(String parent) {
 		//创建游标对象
 		db = dbHelper.getReadableDatabase();
@@ -187,7 +286,7 @@ public class DBC {
 		// Filter results WHERE "title" = 'My Title'
 		String selection = Contract.MarkEntry._PARENT + " = ?";
 		String[] selectionArgs = {parent + ""};
-		
+
 		// How you want the results sorted in the resulting Cursor
 		String sortOrder =
 				Contract.MarkEntry._TIME + " DESC";
@@ -215,6 +314,7 @@ public class DBC {
 			mark.time = time;
 			marks.add(mark);
 		}
+
 		// 关闭游标，释放资源
 		cursor.close();
 		return marks;
@@ -347,6 +447,58 @@ public class DBC {
 		return parents;
 	}
 	
+	/**
+	 * 获取指定文件夹下文件夹
+	 **/
+	public ArrayList<ParentBean> getAllParents() {
+		//创建游标对象
+		db = dbHelper.getReadableDatabase();
+		String[] projection = new String[]{
+				Contract.ParentEntry._PARENT,
+				Contract.ParentEntry._ID,
+				Contract.ParentEntry._NAME,
+				Contract.ParentEntry._TIME,
+				Contract.ParentEntry._DID,
+				Contract.ParentEntry._LEVEL,
+				Contract.ParentEntry._ICON,
+			
+		};
+		// Filter results WHERE "title" = 'My Title'
+		
+		// How you want the results sorted in the resulting Cursor
+		String sortOrder =
+				Contract.ParentEntry._NAME + "";
+		Cursor cursor = db.query(Contract.ParentEntry.TABLE_NAME,
+				projection,
+				null,
+				null,
+				null,
+				null,
+				sortOrder);
+		//利用游标遍历所有数据对象
+		ArrayList<ParentBean> parents = new ArrayList<>();
+		while (cursor.moveToNext()) {
+			String name = cursor.getString(cursor.getColumnIndex(Contract.ParentEntry._NAME));
+			int time = cursor.getInt(cursor.getColumnIndex(Contract.ParentEntry._TIME));
+			String icon = cursor.getString(cursor.getColumnIndex(Contract.ParentEntry._ICON));
+			int id = cursor.getInt(cursor.getColumnIndex(Contract.ParentEntry._ID));
+			int pid = cursor.getInt(cursor.getColumnIndex(Contract.ParentEntry._PARENT));
+			int did = cursor.getInt(cursor.getColumnIndex(Contract.ParentEntry._DID));
+			int lv = cursor.getInt(cursor.getColumnIndex(Contract.ParentEntry._LEVEL));
+			ParentBean parent = new ParentBean();
+			parent.oid = id;
+			parent.pid = pid;
+			parent.did = did;
+			parent.mod_time = time;
+			parent.level = lv;
+			parent.icon = icon;
+			parent.title = name;
+			parents.add(parent);
+		}
+		// 关闭游标，释放资源
+		cursor.close();
+		return parents;
+	}
 	
 	public ArrayList<History> getHistorys() {
 		//创建游标对象
@@ -392,7 +544,6 @@ public class DBC {
 		cursor.close();
 		return marks;
 	}
-	
 	
 	public ArrayList<Diy> getDiys(int type, boolean OnlyRun) {
 		//创建游标对象
@@ -625,7 +776,7 @@ public class DBC {
 			values.put(Contract.DiyEntry._EXTRA, extra);
 			values.put(Contract.DiyEntry._VALUE, value);
 			values.put(Contract.DiyEntry._ISRUN, isrun);
-			values.put(Contract.DiyEntry._TIME, System.currentTimeMillis());
+			values.put(Contract.DiyEntry._TIME, System.currentTimeMillis() /1000);
 			values.put(Contract.DiyEntry._DESCRIPTION, description);
 			// Insert the new row, returning the primary key value of the new row
 			db.insert(Contract.DiyEntry.TABLE_NAME, null, values);
@@ -644,7 +795,7 @@ public class DBC {
 			values.put(Contract.DiyEntry._EXTRA, extra);
 			values.put(Contract.DiyEntry._VALUE, value);
 			values.put(Contract.DiyEntry._ISRUN, isrun);
-			values.put(Contract.DiyEntry._TIME, System.currentTimeMillis());
+			values.put(Contract.DiyEntry._TIME, System.currentTimeMillis() /1000);
 			values.put(Contract.DiyEntry._DESCRIPTION, description);
 			// Insert the new row, returning the primary key value of the new row
 			db.insert(Contract.DiyEntry.TABLE_NAME, null, values);
@@ -722,6 +873,15 @@ public class DBC {
 				selectionArgs);
 	}
 	
+	public void deleteAllParents() {
+		db = dbHelper.getReadableDatabase();
+		// Filter results WHERE "title" = 'My Title'
+		// How you want the results sorted in the resulting Cursor
+		db.delete(Contract.ParentEntry.TABLE_NAME,
+				null,
+				null);
+	}
+	
 	public void deleteMarkAndFolder(String folderId) {
 		db = dbHelper.getReadableDatabase();
 		// Filter results WHERE "title" = 'My Title'
@@ -747,6 +907,7 @@ public class DBC {
 		values.put(Contract.MarkEntry._NAME, newTitle);//key为字段名，value为值
 		values.put(Contract.MarkEntry._URL, newUrl);
 		values.put(Contract.MarkEntry._PARENT, folderId);
+		values.put(Contract.MarkEntry._TIME, System.currentTimeMillis() /1000);
 		db.update(Contract.MarkEntry.TABLE_NAME, values, Contract.MarkEntry._NAME + "=? and " + Contract.MarkEntry._URL + "=?", new String[]{title0, url0});
 		db.close();
 	}
@@ -759,6 +920,7 @@ public class DBC {
 		ContentValues values = new ContentValues();
 		values.put(Contract.ParentEntry._NAME, name);//key为字段名，value为值
 		values.put(Contract.ParentEntry._PARENT, folderId);
+		values.put(Contract.ParentEntry._TIME, System.currentTimeMillis() /1000);
 		db.update(Contract.ParentEntry.TABLE_NAME, values, Contract.ParentEntry._ID + "=?", new String[]{id});
 		db.close();
 	}
@@ -833,7 +995,6 @@ public class DBC {
 		db.insert(Contract.StateEntry.TABLE_NAME, null, values);
 	}
 	
-	
 	private void modWebState(int sid, String url) {
 		SQLiteDatabase db = dbHelper.getWritableDatabase();
 		ContentValues values = new ContentValues();
@@ -891,7 +1052,6 @@ public class DBC {
 		cursor.close();
 		return isExist;
 	}
-	
 	
 	public String getState(int sid) {
 		//创建游标对象
@@ -953,7 +1113,6 @@ public class DBC {
 		return states;
 	}
 	
-	
 	public void deleteAllState() {
 		db = dbHelper.getReadableDatabase();
 		// Filter results WHERE "title" = 'My Title'
@@ -965,7 +1124,6 @@ public class DBC {
 				null,
 				null);
 	}
-	
 	
 	public void deleteState(int sid) {
 		//创建游标对象
@@ -982,6 +1140,94 @@ public class DBC {
 		);
 	}
 	
+	//以下为Website所需
+	public WebsiteSetting getWebsiteSetting(String website) {
+		//创建游标对象
+		db = dbHelper.getReadableDatabase();
+		String[] projection = new String[]{
+				Contract.WebsiteEntry._ID,
+				Contract.WebsiteEntry._SITE,
+				Contract.WebsiteEntry._STATE,
+				Contract.WebsiteEntry._UA,
+				Contract.WebsiteEntry._NO_PIC,
+				Contract.WebsiteEntry._NO_HISTORY,
+				Contract.WebsiteEntry._JS,
+				Contract.WebsiteEntry._APP,
+				Contract.WebsiteEntry._AD_HOST,
+		};
+		//Filter results WHERE "title" = 'My Title'
+		String selection =
+				Contract.WebsiteEntry._SITE + " = ? ";
+		String[] selectionArgs = {website + ""};
+		
+		// How you want the results sorted in the resulting Cursor
+		Cursor cursor = db.query(Contract.WebsiteEntry.TABLE_NAME,
+				projection,
+				selection,
+				selectionArgs,
+				null,
+				null,
+				null
+		);
+		WebsiteSetting websiteSetting = new WebsiteSetting();
+		if (cursor.moveToFirst()) {
+			websiteSetting.id = cursor.getInt(cursor.getColumnIndex(Contract.WebsiteEntry._ID));
+			websiteSetting.ad_host = cursor.getString(cursor.getColumnIndex(Contract.WebsiteEntry._AD_HOST));
+			websiteSetting.app = cursor.getInt(cursor.getColumnIndex(Contract.WebsiteEntry._APP)) == 0;
+			websiteSetting.js = cursor.getInt(cursor.getColumnIndex(Contract.WebsiteEntry._JS)) == 0;
+			websiteSetting.no_history = cursor.getInt(cursor.getColumnIndex(Contract.WebsiteEntry._NO_HISTORY)) == 0;
+			websiteSetting.no_picture = cursor.getInt(cursor.getColumnIndex(Contract.WebsiteEntry._NO_PIC)) == 0;
+			websiteSetting.site = cursor.getString(cursor.getColumnIndex(Contract.WebsiteEntry._SITE));
+			websiteSetting.state = cursor.getInt(cursor.getColumnIndex(Contract.WebsiteEntry._STATE)) == 0;
+			websiteSetting.ua = cursor.getInt(cursor.getColumnIndex(Contract.WebsiteEntry._UA));
+		}
+		// 关闭游标，释放资源
+		cursor.close();
+		return websiteSetting;
+	}
 	
+	public ArrayList<WebsiteSetting> getWebsiteSettings() {
+		//创建游标对象
+		db = dbHelper.getReadableDatabase();
+		String[] projection = new String[]{
+				Contract.WebsiteEntry._ID,
+				Contract.WebsiteEntry._SITE,
+				Contract.WebsiteEntry._STATE,
+				Contract.WebsiteEntry._UA,
+				Contract.WebsiteEntry._NO_PIC,
+				Contract.WebsiteEntry._NO_HISTORY,
+				Contract.WebsiteEntry._JS,
+				Contract.WebsiteEntry._APP,
+				Contract.WebsiteEntry._AD_HOST,
+		};
+		//Filter results WHERE "title" = 'My Title'
+		
+		// How you want the results sorted in the resulting Cursor
+		Cursor cursor = db.query(Contract.WebsiteEntry.TABLE_NAME,
+				projection,
+				null,
+				null,
+				null,
+				null,
+				null
+		);
+		ArrayList<WebsiteSetting> websiteSettings = new ArrayList<>();
+		while (cursor.moveToNext()) {
+			WebsiteSetting websiteSetting = new WebsiteSetting();
+			websiteSetting.id = cursor.getInt(cursor.getColumnIndex(Contract.WebsiteEntry._ID));
+			websiteSetting.ad_host = cursor.getString(cursor.getColumnIndex(Contract.WebsiteEntry._AD_HOST));
+			websiteSetting.app = cursor.getInt(cursor.getColumnIndex(Contract.WebsiteEntry._APP)) == 0;
+			websiteSetting.js = cursor.getInt(cursor.getColumnIndex(Contract.WebsiteEntry._JS)) == 0;
+			websiteSetting.no_history = cursor.getInt(cursor.getColumnIndex(Contract.WebsiteEntry._NO_HISTORY)) == 0;
+			websiteSetting.no_picture = cursor.getInt(cursor.getColumnIndex(Contract.WebsiteEntry._NO_PIC)) == 0;
+			websiteSetting.site = cursor.getString(cursor.getColumnIndex(Contract.WebsiteEntry._SITE));
+			websiteSetting.state = cursor.getInt(cursor.getColumnIndex(Contract.WebsiteEntry._STATE)) == 0;
+			websiteSetting.ua = cursor.getInt(cursor.getColumnIndex(Contract.WebsiteEntry._UA));
+			websiteSettings.add(websiteSetting);
+		}
+		// 关闭游标，释放资源
+		cursor.close();
+		return websiteSettings;
+	}
 }
 

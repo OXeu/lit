@@ -8,8 +8,6 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import java.io.File;
-import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayDeque;
@@ -31,7 +29,7 @@ public class BookmarkParser {
 	private ArrayList<Bookmark> bookmarks = new ArrayList<>();
 	
 	
-	public BookmarkParser(File theDoc) throws IOException {
+	public BookmarkParser(String theDoc) {
 		Document doc = Jsoup.parse(theDoc, "UTF-8");
 		first = doc.select("DL").first();
 		date = System.currentTimeMillis();

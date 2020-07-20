@@ -69,15 +69,15 @@ public class WindowsAdapter extends RecyclerView.Adapter<WindowsAdapter.MyViewHo
 			viewHolder.mWindowParent.setBackgroundResource(R.drawable.box_blue_15_normal);
 		else
 			viewHolder.mWindowParent.setBackgroundResource(R.drawable.box_gray_15_normal);
-		
+			
 		Bitmap bitmap2 = BitmapFactory.decodeFile(webs.get(position).getIcon());
 		if (bitmap2 != null)
 			viewHolder.mWindowIcon.setImageBitmap(bitmap2);
 		else
 			viewHolder.mWindowIcon.setImageResource(R.drawable.dialog);
 		viewHolder.mWindowParent.setOnClickListener(view -> {
-			WebContainer.switchWindow(position);
-			WindowsManager.hideWindows();
+				WebContainer.switchWindow(position);
+				WindowsManager.hideWindows();
 		});
 		Animation animation = new Animation() {
 			@Override

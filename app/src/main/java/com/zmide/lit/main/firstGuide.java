@@ -3,7 +3,6 @@ package com.zmide.lit.main;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
-import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.PopupWindow;
@@ -11,7 +10,6 @@ import android.widget.TextView;
 
 import com.zmide.lit.R;
 import com.zmide.lit.ui.MainActivity;
-import com.zmide.lit.util.MSharedPreferenceUtils;
 
 public class firstGuide {
 	private static MainActivity activity;
@@ -23,16 +21,17 @@ public class firstGuide {
 	}
 	
 	public static void showGuide() {
-		View mBall = MainViewBindUtils.getBall();
+		/*View mBall = MainViewBindUtils.getBallCardView();
 		mBall.setBackgroundResource(R.color.accentColor);
 		initPop("小球在这里");
 		pop.showAsDropDown(mBall);
 		pop.setOnDismissListener(() -> {
 			mBall.setBackgroundResource(R.drawable.ripple_circle);
 			initPop("向上滑动返回主页\n向下滑动打开菜单\n左右滑动前进/后退\n向上长划/双击小球打开多窗口\n左右长划返回上一个窗口\n非默认主页点击展开/收缩标题栏");
-			pop.showAtLocation(MainViewBindUtils.getMainBallParent(), Gravity.CENTER, 0, 200);
+			pop.showAtLocation(MainViewBindUtils.getMainBallParent(),Gravity.CENTER,0, 200);
 			pop.setOnDismissListener(() -> MSharedPreferenceUtils.getSharedPreference().edit().putBoolean("isfirst", false).apply());
-		});
+		});*/
+		WebContainer.loadUrl("http://106.15.249.189/2020/04/09/73");
 	}
 	
 	

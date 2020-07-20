@@ -12,8 +12,8 @@ public class SkinUtils {
 //        context.getResources().getIdentifier("id_layout_test_image", "id", getPackageName());
 //        return ;
 //    }
-	
-	
+
+
 	/**
 	 * 通过view的类名和属性返回该View
 	 *
@@ -33,5 +33,5 @@ public class SkinUtils {
 		}
 		return view;
 	}
-	
+
 }

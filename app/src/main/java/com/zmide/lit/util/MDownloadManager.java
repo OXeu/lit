@@ -6,7 +6,6 @@ import android.app.Service;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
-import android.os.Environment;
 import android.webkit.URLUtil;
 
 import java.util.Objects;
@@ -28,7 +27,7 @@ public class MDownloadManager {
 		// 允许下载的网路类型
 		request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE);
 		// 设置下载文件保存的路径和
-		request.setDestinationInExternalFilesDir(context, Environment.DIRECTORY_DOWNLOADS, fileName);
+		request.setDestinationInExternalFilesDir(context, "", fileName);
 //        另外可选一下方法，自定义下载路径
 //        request.setDestinationUri()
 //        request.setDestinationInExternalFilesDir()

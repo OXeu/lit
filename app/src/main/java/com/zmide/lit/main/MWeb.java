@@ -1,6 +1,7 @@
 package com.zmide.lit.main;
 
 import android.annotation.SuppressLint;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.zmide.lit.R;
 import com.zmide.lit.ui.MainActivity;
 import com.zmide.lit.util.MFileUtils;
+import com.zmide.lit.util.MSharedPreferenceUtils;
 import com.zmide.lit.util.MWebStateSaveUtils;
 import com.zmide.lit.view.LitWebView;
 
@@ -27,7 +29,10 @@ public class MWeb {
 	private String url;
 	private String title;
 	private String icon;
-	
+	private SharedPreferences.OnSharedPreferenceChangeListener sharedPreferenceChangeListener = (sharedPreferences, key) -> {
+		canRefresh();
+	};
+
 	public MWeb(MainActivity activity) {
 		@SuppressLint("InflateParams") View view = LayoutInflater.from(activity).inflate(R.layout.web_layout, null);
 		this.view = view;
@@ -35,8 +40,9 @@ public class MWeb {
 		getSwipe().setColorSchemeResources(R.color.accentColor, R.color.accentColor2);
 		getSwipe().setOnRefreshListener(() -> getWebView().reload());
 		getSwipe().setOnChildScrollUpCallback((parent, child) -> getWebView().getScrollY() > 0);
+		canRefresh();
+		MSharedPreferenceUtils.getWebViewSharedPreference().registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);
 	}
-	
 	
 	public MWeb(MainActivity activity, WebView webView) {
 		@SuppressLint("InflateParams") View view = LayoutInflater.from(activity).inflate(R.layout.web_layout, null);
@@ -47,8 +53,18 @@ public class MWeb {
 		this.view = view;
 		this.a = activity;
 		getSwipe().setColorSchemeResources(R.color.accentColor, R.color.accentColor2);
-		getSwipe().setOnRefreshListener(() -> getWebView().reload());
+		getSwipe().setOnRefreshListener(()->getWebView().reload());
 		getSwipe().setOnChildScrollUpCallback((parent, child) -> getWebView().getScrollY() > 0);
+		canRefresh();
+		MSharedPreferenceUtils.getWebViewSharedPreference().registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);
+	}
+	
+	private void canRefresh() {
+		if (MSharedPreferenceUtils.getWebViewSharedPreference().getString("can_refresh", "false").equals("true")) {
+			getSwipe().setEnabled(true);
+		} else {
+			getSwipe().setEnabled(false);
+		}
 	}
 	
 	public View getView() {
@@ -60,7 +76,7 @@ public class MWeb {
 	}
 	
 	public String getUrl() {
-		return url == null ? getWebView().getUrl() + "" : "" + url;
+		return url == null ? getWebView().getUrl()+"" : ""+url;
 	}
 	
 	public void setUrl(String url) {
@@ -68,7 +84,7 @@ public class MWeb {
 	}
 	
 	public String getTitle() {
-		return title == null ? getWebView().getTitle() + "" : "" + title;
+		return title == null ? getWebView().getTitle()+"" : ""+title;
 	}
 	
 	public void setTitle(String title) {
@@ -78,7 +94,7 @@ public class MWeb {
 	public String getIcon() {
 		Bitmap favicon = getWebView().getFavicon();
 		if (favicon != null)
-			return icon == null ? MFileUtils.saveFile(favicon, MFileUtils.getBitmapMd5(favicon) + ".png", false) + "" : "" + icon;
+		return icon == null ? MFileUtils.saveFile(favicon, MFileUtils.getBitmapMd5(favicon) + ".png", false) + "" : "" + icon;
 		return null;
 	}
 	
@@ -132,6 +148,7 @@ public class MWeb {
 	private void initWebView(LitWebView litWebView, String url) {
 	
 	}
+	
 	
 	
 	public int getCode() {

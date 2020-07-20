@@ -20,8 +20,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.zmide.lit.R;
 import com.zmide.lit.adapter.WindowsAdapter;
+import com.zmide.lit.object.GMap;
 import com.zmide.lit.skin.SkinManager;
 import com.zmide.lit.ui.MainActivity;
+
+import static com.zmide.lit.util.MDataBaseSettingUtils.WebIndex;
 
 public class WindowsManager {
 	private static MainActivity activity;
@@ -29,12 +32,12 @@ public class WindowsManager {
 	private static RecyclerView mPopRv;
 	private static WindowsAdapter mAdapter;//实例化适配器
 	@SuppressLint("StaticFieldLeak")
-	private static LinearLayout mPopAdd, mPopCancel;
+	private static LinearLayout mPopAdd,mPopCancel;
 	
 	public static void init(MainActivity mainActivity) {
 		if (activity == null) {
 			activity = mainActivity;
-			mAdapter = new WindowsAdapter(activity, WebContainer.getAllWindows());
+			mAdapter = new WindowsAdapter(activity,WebContainer.getAllWindows());
 		}
 		initWindows();
 	}
@@ -46,7 +49,7 @@ public class WindowsManager {
 		mPopRv.setLayoutManager(mLayoutManager);//设置布局管理器
 		mPopRv.setAdapter(mAdapter);//设置适配器
 		mPopAdd.setOnClickListener(view -> {
-			WebContainer.createWindow(null, true);
+			WebContainer.createWindow(null,true);
 			pop.dismiss();
 		});
 		mPopCancel.setOnClickListener(view -> pop.dismiss());

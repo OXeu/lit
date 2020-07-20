@@ -29,7 +29,7 @@ public class WebContainer {
 	#WebContainer最大的任务，就是防止Exception发生
 	 */
 	private static ArrayList<MWeb> mWebs = new ArrayList<>();
-	private static WindowsInterface mWindowsInterface;
+	private static WindowsInterface mWindowsInterface ;
 	private static Index webIndex = new Index();
 	private static MainActivity activity;
 	
@@ -44,7 +44,7 @@ public class WebContainer {
 	
 	private static void initWebs() {
 		if (mWebs.isEmpty()) {
-			createWindow(null, true);
+			createWindow(null,true);
 			WebEnvironment.refreshFrame();
 			WindowsManager.hideWindows();
 		}
@@ -78,7 +78,7 @@ public class WebContainer {
 		MWeb web = new MWeb(activity);
 		if (url != null && !Objects.equals(url, "")) {
 			web.getWebView().loadUrl(url);
-		} else {
+		}else{
 			web.getWebView().loadUrl(MDataBaseSettingUtils.getSingleSetting(Diy.WEBPAGE));
 		}
 		if (isOnTop) {
@@ -113,7 +113,7 @@ public class WebContainer {
 	public static void removeWindow(int wid) {
 		if (wid < mWebs.size()) {
 			MWebStateSaveUtils.deleteStates(mWebs.get(wid).getCode());
-			if (wid == getWindowId()) {
+			if (wid == getWindowId()) {//移除当前Web
 				mWebs.remove(wid);
 				if (wid == 0)
 					switchWindow(0);
@@ -121,7 +121,7 @@ public class WebContainer {
 					switchWindow(mWebs.size() - 1);
 				else
 					switchWindow(wid - 1);
-			} else {
+			} else {//移除其他Web
 				MWeb web = getWindow();
 				mWebs.remove(wid);
 				setWindowId(mWebs.indexOf(web));
@@ -149,9 +149,9 @@ public class WebContainer {
 	
 	public static int getWindowId() {
 		if (mWebs.size() != 0)
-			return webIndex.getIndex();
+		return webIndex.getIndex();
 		else
-			createWindow(null, true);
+			createWindow(null,true);
 		return 0;
 	}
 	
@@ -185,7 +185,7 @@ public class WebContainer {
 		setWindowId(wid);
 		WebEnvironment.refreshFrame();
 		if (getWebView() != null)
-			if (!MDataBaseSettingUtils.WebIndex.contentEquals(getWebView().getUrl()))
+			if (!Objects.equals(MDataBaseSettingUtils.WebIndex, getWebView().getUrl()))
 				IndexEnvironment.hideIndex();
 			else
 				IndexEnvironment.showIndex();
@@ -193,9 +193,9 @@ public class WebContainer {
 	
 	
 	public static void changeWindow(int wid) {
-		if (getWindowId() >= getWindowCount() - 1 && wid == 1)//最后一个页面,且向后滑
+		if(getWindowId() >= getWindowCount() - 1 && wid == 1)//最后一个页面,且向后滑
 			switchWindow(0);
-		else if (getWindowId() <= 0 && wid == -1)//第一个页面,且向前滑
+		else if(getWindowId() <= 0 && wid == -1)//第一个页面,且向前滑
 			switchWindow(getWindowCount() - 1);
 		else
 			switchWindow(getWindowId() + wid);

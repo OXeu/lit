@@ -33,7 +33,7 @@ public class MApplication extends Application {
 		Chiper.init(this);
 		MExceptionUtils.init(this);
 		MToastUtils.init(this);
-		UMConfigure.setLogEnabled(true);
+		UMConfigure.setLogEnabled(false);
 		UMConfigure.init(getApplicationContext(),
 				UMConfigure.DEVICE_TYPE_PHONE, null);
 	}

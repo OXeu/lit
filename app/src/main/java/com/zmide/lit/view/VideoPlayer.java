@@ -37,9 +37,6 @@ import com.zmide.lit.skin.SkinManager;
  */
 
 public class VideoPlayer extends StandardGSYVideoPlayer {
-	/******************* 下方重载方法，在播放开始不显示底部进度和按键，不需要可屏蔽 ********************/
-	
-	protected boolean byStartedClick;
 	int mDefaultRes;
 	private ImageView mMore;
 	
@@ -55,6 +52,14 @@ public class VideoPlayer extends StandardGSYVideoPlayer {
 		super(context, attrs);
 	}
 	
+	class vh extends RecyclerView.ViewHolder{
+		vh(@NonNull View itemView) {
+			super(itemView);
+			textView = itemView.findViewById(R.id.textView);
+		}
+		TextView textView;
+	}
+	
 	@Override
 	protected void init(Context context) {
 		super.init(context);
@@ -62,26 +67,24 @@ public class VideoPlayer extends StandardGSYVideoPlayer {
 		mMore = findViewById(R.id.more);
 		LinearLayout slideBar = findViewById(R.id.slide_bar);
 		slideBar.setVisibility(GONE);
-		mMore.setOnClickListener((view) -> {
+		mMore.setOnClickListener((view)->{
 			if (ScreenUtils.isLandscape())
 				slideBar.setOrientation(LinearLayout.HORIZONTAL);
 			else
 				slideBar.setOrientation(LinearLayout.VERTICAL);
 			slideBar.setVisibility(VISIBLE);
 		});
-		findViewById(R.id.slide_mask).setOnClickListener((view) -> {
+		findViewById(R.id.slide_mask).setOnClickListener((view)->{
 			slideBar.setVisibility(GONE);
 		});
-		findViewById(R.id.slide_holder).setOnClickListener((view) -> {
-		});
+		findViewById(R.id.slide_holder).setOnClickListener((view)->{});
 		RecyclerView speedRv = findViewById(R.id.speedRv);
 		RecyclerView sizeRv = findViewById(R.id.sizeRv);
-		LinearLayoutManager lm = new GridLayoutManager(context, 6);
+		LinearLayoutManager lm = new GridLayoutManager(context,6);
 		lm.setOrientation(RecyclerView.VERTICAL);
 		speedRv.setLayoutManager(lm);
 		speedRv.setAdapter(new RecyclerView.Adapter<vh>() {
-			float[] speedDouble = {0.5f, 0.75f, 1.0f, 1.25f, 1.5f, 2.0f};
-			
+			float[] speedDouble= {0.5f,0.75f,1.0f,1.25f,1.5f,2.0f};
 			@NonNull
 			@Override
 			public vh onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -96,9 +99,9 @@ public class VideoPlayer extends StandardGSYVideoPlayer {
 					holder.textView.setTextColor(SkinManager.getInstance().getColor(R.color.accentColor));
 				else
 					holder.textView.setTextColor(0xffffffff);
-				holder.textView.setText(speedDouble[position] + "");
+				holder.textView.setText(speedDouble[position]+"");
 				holder.textView.setOnClickListener(view -> {
-					setSpeed(speedDouble[position], true);
+					setSpeed(speedDouble[position],true);
 					//holder.textView.setTextColor(SkinManager.getInstance().getColor(R.color.accentColor));
 					notifyDataSetChanged();
 				});
@@ -110,11 +113,11 @@ public class VideoPlayer extends StandardGSYVideoPlayer {
 			}
 			
 		});
-		LinearLayoutManager lm2 = new GridLayoutManager(context, 6);
+		LinearLayoutManager lm2 = new GridLayoutManager(context,6);
 		GSYVideoType.setShowType(GSYVideoType.SCREEN_TYPE_FULL);///////////////////////////////////////////////
 		sizeRv.setLayoutManager(lm2);
 		sizeRv.setAdapter(new RecyclerView.Adapter<vh>() {
-			String[] texts = {"适应", "16:9", "4:3", "18:9", "铺满", "填充"};
+			String[] texts = {"适应","16:9","4:3","18:9","铺满","填充"};
 			int[] ints = {
 					GSYVideoType.SCREEN_TYPE_DEFAULT,
 					GSYVideoType.SCREEN_TYPE_16_9,
@@ -123,7 +126,6 @@ public class VideoPlayer extends StandardGSYVideoPlayer {
 					GSYVideoType.SCREEN_TYPE_FULL,
 					GSYVideoType.SCREEN_MATCH_FULL,
 			};
-			
 			@NonNull
 			@Override
 			public vh onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -138,7 +140,7 @@ public class VideoPlayer extends StandardGSYVideoPlayer {
 					holder.textView.setTextColor(SkinManager.getInstance().getColor(R.color.accentColor));
 				else
 					holder.textView.setTextColor(0xffffffff);
-				holder.textView.setText(texts[position] + "");
+				holder.textView.setText(texts[position]+"");
 				holder.textView.setOnClickListener(view -> {
 					GSYVideoType.setShowType(ints[position]);
 					//holder.textView.setTextColor(SkinManager.getInstance().getColor(R.color.accentColor));
@@ -259,6 +261,10 @@ public class VideoPlayer extends StandardGSYVideoPlayer {
 		}
 	}
 	
+	/******************* 下方重载方法，在播放开始不显示底部进度和按键，不需要可屏蔽 ********************/
+	
+	protected boolean byStartedClick;
+	
 	@Override
 	protected void onClickUiToggle() {
 		if (mIfCurrentIsFullscreen && mLockCurScreen && mNeedLockFull) {
@@ -317,14 +323,5 @@ public class VideoPlayer extends StandardGSYVideoPlayer {
 	public void onStartTrackingTouch(SeekBar seekBar) {
 		byStartedClick = true;
 		super.onStartTrackingTouch(seekBar);
-	}
-	
-	class vh extends RecyclerView.ViewHolder {
-		TextView textView;
-		
-		vh(@NonNull View itemView) {
-			super(itemView);
-			textView = itemView.findViewById(R.id.textView);
-		}
 	}
 }

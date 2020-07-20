@@ -8,6 +8,7 @@ public class SettingChild {
 	public final static int CHOOSE = 2;
 	public static final int DOWNLOAD = 3;
 	public static final int CHOOSE2 = 4;
+	public static final int TAB = 5;
 	public boolean isWebSetting = false;
 	public String title;
 	public String description;
@@ -29,8 +30,7 @@ public class SettingChild {
 		this.defaultValue = defaultValue;
 		this.isWebSetting = false;
 	}
-	
-	public SettingChild(boolean isWebSetting, String title, String description, String[] choose, String target, String defaultValue, Intent intent, int type) {
+	public SettingChild(boolean isWebSetting , String title, String description, String[] choose, String target, String defaultValue, Intent intent, int type) {
 		this.isWebSetting = isWebSetting;
 		this.title = title;
 		this.description = description;
@@ -39,5 +39,10 @@ public class SettingChild {
 		this.intent = intent;
 		this.type = type;
 		this.defaultValue = defaultValue;
+	}
+	
+	public SettingChild(String title) {
+		this.title = title;
+		this.type = TAB;
 	}
 }

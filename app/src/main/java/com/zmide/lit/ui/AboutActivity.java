@@ -28,7 +28,7 @@ public class AboutActivity extends BaseActivity {
 		AboutDB db = DataBindingUtil.setContentView(this, R.layout.activity_about);
 		db.setBean(new AboutBean(AppUtils.getAppVersionName()));
 		db.setEvent(new EventListener());
-		db.icon.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher));
+		db.icon.setImageBitmap(BitmapFactory.decodeResource(getResources(),R.drawable.ic_launcher));
 	}
 	
 	public class EventListener extends BaseEvenListener {
@@ -60,6 +60,16 @@ public class AboutActivity extends BaseActivity {
 				// 未安装手Q或安装的版本不支持
 				MToastUtils.makeText("未安装QQ或安装的版本不支持").show();
 			}
+		}
+		
+		public void Green(View view) {
+			Intent i = new Intent();
+			i.putExtra("url", "https://green-android.org/")
+					.setData(null)
+					.setPackage(getPackageName())
+					.putExtra("ifNew", true)
+					.setAction(Intent.ACTION_VIEW);
+			view.getContext().startActivity(i);
 		}
 	}
 	

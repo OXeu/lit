@@ -7,12 +7,12 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -88,96 +88,103 @@ public class SettingChildAdapter extends RecyclerView.Adapter<SettingChildAdapte
 	@Override
 	public void onBindViewHolder(final MyViewHolder viewHolder, final int position) {
 		final SettingChild Setting = settings.get(position);
-		Log.i("Setting", Setting.title + " " + Setting.isWebSetting);
-		if (Setting.isWebSetting)
-			sharedPreferences = MSharedPreferenceUtils.getWebViewSharedPreference();
-		else
-			sharedPreferences = MSharedPreferenceUtils.getSharedPreference();
-		
-		viewHolder.mSettingItemTitle.setText(Setting.title);
-		if (Setting.description.equals(""))
-			viewHolder.mSettingItemDescription.setVisibility(View.GONE);
-		else
-			viewHolder.mSettingItemDescription.setText(Setting.description);
-		if (Setting.type == SettingChild.CHOOSE) {//选择
-			viewHolder.mSettingItemSwitch.setVisibility(View.GONE);
-			viewHolder.mSettingItemTo.setVisibility(View.VISIBLE);
-			viewHolder.mSettingItemValue.setVisibility(View.VISIBLE);
-			viewHolder.mSettingItemValue.setText(Setting.choose[Integer.parseInt(Objects.requireNonNull(sharedPreferences.getString(Setting.target, Setting.defaultValue + "")))]);
-			OnClickListener listener = view -> {
-				d.show();
-				Slide.slideToUp(Objects.requireNonNull(d.getWindow()).findViewById(R.id.rvLinear));
-				tt.setText(Setting.title);
-				rv.setLayoutManager(mLayoutManager);
-				rv.setAdapter(new ChooseItemAdapter(mContext, Setting, viewHolder.mSettingItemValue, d));
-			};
-			viewHolder.mSettingItemParent.setOnClickListener(listener);
-		} else if (Setting.type == SettingChild.CHOOSE2) {//选择
-			viewHolder.mSettingItemSwitch.setVisibility(View.GONE);
-			viewHolder.mSettingItemTo.setVisibility(View.VISIBLE);
-			viewHolder.mSettingItemValue.setVisibility(View.VISIBLE);
-			viewHolder.mSettingItemValue.setText(Setting.choose[Integer.parseInt(Objects.requireNonNull(sharedPreferences.getString(Setting.target, Setting.defaultValue + "")))]);
-			OnClickListener listener = view -> {
-				d.show();
-				Slide.slideToUp(Objects.requireNonNull(d.getWindow()).findViewById(R.id.rvLinear));
-				tt.setText(Setting.title);
-				rv.setLayoutManager(new LinearLayoutManager(mContext));
-				rv.setAdapter(new ChooseItemAdapter(mContext, Setting, viewHolder.mSettingItemValue, d));
-			};
-			viewHolder.mSettingItemParent.setOnClickListener(listener);
-		} else if (Setting.type == SettingChild.INTENT) {//Intent
-			viewHolder.mSettingItemSwitch.setVisibility(View.GONE);
-			viewHolder.mSettingItemTo.setVisibility(View.VISIBLE);
-			viewHolder.mSettingItemValue.setVisibility(View.GONE);
-			OnClickListener listener = view -> mContext.startActivity(Setting.intent);
-			viewHolder.mSettingItemParent.setOnClickListener(listener);
-		} else if (Setting.type == SettingChild.DOWNLOAD) {
-			viewHolder.mSettingItemSwitch.setVisibility(View.GONE);
-			viewHolder.mSettingItemTo.setVisibility(View.VISIBLE);
-			viewHolder.mSettingItemValue.setVisibility(View.VISIBLE);
-			viewHolder.mSettingItemValue.setVisibility(View.GONE);
-			viewHolder.mSettingItemValue.setText(sharedPreferences.getString(Setting.target, Setting.defaultValue + ""));
-			OnClickListener listener = view -> {
-				ArrayList<String> appName = new ArrayList<>();
-				ArrayList<String> packName = new ArrayList<>();
-				d.show();
-				Slide.slideToUp(Objects.requireNonNull(d.getWindow()).findViewById(R.id.rvLinear));
-				tt.setText(Setting.title);
-				rv.setLayoutManager(new LinearLayoutManager(mContext));
-				PackageManager packageManager = mContext.getPackageManager();
-				for (String str : new String[]{"com.dv.adm.pay", "idm.internet.download.manager.plus", "com.dv.adm", "idm.internet.download.manager", "com.vanda_adm.vanda"}) {
-					try {
-						PackageInfo packageInfo = packageManager.getPackageInfo(str, 0);
-						ApplicationInfo applicationInfo = packageManager.getApplicationInfo(str, PackageManager.GET_META_DATA);
-						if (packageInfo != null && packageInfo.applicationInfo.enabled) {
-							appName.add(packageManager.getApplicationLabel(applicationInfo).toString());
-							packName.add(str);
+		if (Setting.type == SettingChild.TAB) {
+			viewHolder.mSettingTabText.setText(Setting.title);
+			viewHolder.mSettingTabParent.setVisibility(View.VISIBLE);
+			viewHolder.mSettingItemParent.setVisibility(View.GONE);
+		} else {
+			viewHolder.mSettingTabParent.setVisibility(View.GONE);
+			viewHolder.mSettingItemParent.setVisibility(View.VISIBLE);
+			if (Setting.isWebSetting)
+				sharedPreferences = MSharedPreferenceUtils.getWebViewSharedPreference();
+			else
+				sharedPreferences = MSharedPreferenceUtils.getSharedPreference();
+			
+			viewHolder.mSettingItemTitle.setText(Setting.title);
+			if (Setting.description.equals(""))
+				viewHolder.mSettingItemDescription.setVisibility(View.GONE);
+			else
+				viewHolder.mSettingItemDescription.setText(Setting.description);
+			if (Setting.type == SettingChild.CHOOSE) {//选择
+				viewHolder.mSettingItemSwitch.setVisibility(View.GONE);
+				viewHolder.mSettingItemTo.setVisibility(View.VISIBLE);
+				viewHolder.mSettingItemValue.setVisibility(View.VISIBLE);
+				viewHolder.mSettingItemValue.setText(Setting.choose[Integer.parseInt(Objects.requireNonNull(sharedPreferences.getString(Setting.target, Setting.defaultValue + "")))]);
+				OnClickListener listener = view -> {
+					d.show();
+					Slide.slideToUp(Objects.requireNonNull(d.getWindow()).findViewById(R.id.rvLinear));
+					tt.setText(Setting.title);
+					rv.setLayoutManager(mLayoutManager);
+					rv.setAdapter(new ChooseItemAdapter(mContext, Setting, viewHolder.mSettingItemValue, d));
+				};
+				viewHolder.mSettingItemParent.setOnClickListener(listener);
+			} else if (Setting.type == SettingChild.CHOOSE2) {//选择
+				viewHolder.mSettingItemSwitch.setVisibility(View.GONE);
+				viewHolder.mSettingItemTo.setVisibility(View.VISIBLE);
+				viewHolder.mSettingItemValue.setVisibility(View.VISIBLE);
+				viewHolder.mSettingItemValue.setText(Setting.choose[Integer.parseInt(Objects.requireNonNull(sharedPreferences.getString(Setting.target, Setting.defaultValue + "")))]);
+				OnClickListener listener = view -> {
+					d.show();
+					Slide.slideToUp(Objects.requireNonNull(d.getWindow()).findViewById(R.id.rvLinear));
+					tt.setText(Setting.title);
+					rv.setLayoutManager(new LinearLayoutManager(mContext));
+					rv.setAdapter(new ChooseItemAdapter(mContext, Setting, viewHolder.mSettingItemValue, d));
+				};
+				viewHolder.mSettingItemParent.setOnClickListener(listener);
+			} else if (Setting.type == SettingChild.INTENT) {//Intent
+				viewHolder.mSettingItemSwitch.setVisibility(View.GONE);
+				viewHolder.mSettingItemTo.setVisibility(View.VISIBLE);
+				viewHolder.mSettingItemValue.setVisibility(View.GONE);
+				OnClickListener listener = view -> mContext.startActivity(Setting.intent);
+				viewHolder.mSettingItemParent.setOnClickListener(listener);
+			} else if (Setting.type == SettingChild.DOWNLOAD) {
+				viewHolder.mSettingItemSwitch.setVisibility(View.GONE);
+				viewHolder.mSettingItemTo.setVisibility(View.VISIBLE);
+				viewHolder.mSettingItemValue.setVisibility(View.VISIBLE);
+				viewHolder.mSettingItemValue.setVisibility(View.GONE);
+				viewHolder.mSettingItemValue.setText(sharedPreferences.getString(Setting.target, Setting.defaultValue + ""));
+				OnClickListener listener = view -> {
+					ArrayList<String> appName = new ArrayList<>();
+					ArrayList<String> packName = new ArrayList<>();
+					d.show();
+					Slide.slideToUp(Objects.requireNonNull(d.getWindow()).findViewById(R.id.rvLinear));
+					tt.setText(Setting.title);
+					rv.setLayoutManager(new LinearLayoutManager(mContext));
+					PackageManager packageManager = mContext.getPackageManager();
+					for (String str : new String[]{"com.dv.adm.pay", "idm.internet.download.manager.plus", "com.dv.adm", "idm.internet.download.manager", "com.vanda_adm.vanda"}) {
+						try {
+							PackageInfo packageInfo = packageManager.getPackageInfo(str, 0);
+							ApplicationInfo applicationInfo = packageManager.getApplicationInfo(str, PackageManager.GET_META_DATA);
+							if (packageInfo != null && packageInfo.applicationInfo.enabled) {
+								appName.add(packageManager.getApplicationLabel(applicationInfo).toString());
+								packName.add(str);
+							}
+						} catch (Exception ignored) {
 						}
-					} catch (Exception ignored) {
 					}
-				}
-				appName.add("系统下载器");
-				packName.add("");
-				rv.setAdapter(new DownloadItemAdapter(mContext, appName, packName, viewHolder.mSettingItemValue, d));
-			};
-			viewHolder.mSettingItemParent.setOnClickListener(listener);
-		} else {//开关
-			viewHolder.mSettingItemSwitch.setVisibility(View.VISIBLE);
-			viewHolder.mSettingItemTo.setVisibility(View.GONE);
-			viewHolder.mSettingItemValue.setVisibility(View.GONE);
-			viewHolder.mSettingItemSwitch.setChecked(Objects.equals(sharedPreferences.getString(Setting.target, Setting.defaultValue + ""), "true"));
-			OnClickListener listener = view -> {
-				boolean result = viewHolder.mSettingItemSwitch.isChecked();
-				viewHolder.mSettingItemSwitch.setChecked(!result);
-			};
-			viewHolder.mSettingItemParent.setOnClickListener(listener);
-			viewHolder.mSettingItemSwitch.setOnCheckedChangeListener((c, isChecked) -> {
-				if (Setting.isWebSetting)
-					sharedPreferences = MSharedPreferenceUtils.getWebViewSharedPreference();
-				else
-					sharedPreferences = MSharedPreferenceUtils.getSharedPreference();
-				sharedPreferences.edit().putString(Setting.target, isChecked + "").apply();
-			});
+					appName.add("系统下载器");
+					packName.add("");
+					rv.setAdapter(new DownloadItemAdapter(mContext, appName, packName, viewHolder.mSettingItemValue, d));
+				};
+				viewHolder.mSettingItemParent.setOnClickListener(listener);
+			} else {//开关
+				viewHolder.mSettingItemSwitch.setVisibility(View.VISIBLE);
+				viewHolder.mSettingItemTo.setVisibility(View.GONE);
+				viewHolder.mSettingItemValue.setVisibility(View.GONE);
+				viewHolder.mSettingItemSwitch.setChecked(Objects.equals(sharedPreferences.getString(Setting.target, Setting.defaultValue + ""), "true"));
+				OnClickListener listener = view -> {
+					boolean result = viewHolder.mSettingItemSwitch.isChecked();
+					viewHolder.mSettingItemSwitch.setChecked(!result);
+				};
+				viewHolder.mSettingItemParent.setOnClickListener(listener);
+				viewHolder.mSettingItemSwitch.setOnCheckedChangeListener((c, isChecked) -> {
+					if (Setting.isWebSetting)
+						sharedPreferences = MSharedPreferenceUtils.getWebViewSharedPreference();
+					else
+						sharedPreferences = MSharedPreferenceUtils.getSharedPreference();
+					sharedPreferences.edit().putString(Setting.target, isChecked + "").apply();
+				});
+			}
 		}
 	}
 	
@@ -194,6 +201,8 @@ public class SettingChildAdapter extends RecyclerView.Adapter<SettingChildAdapte
 	
 	//自定义的ViewHolder，持有item的所有控件
 	static class MyViewHolder extends RecyclerView.ViewHolder {
+		private LinearLayout mSettingTabParent;
+		private TextView mSettingTabText;
 		private RelativeLayout mSettingItemParent;
 		private TextView mSettingItemTitle;
 		private ImageView mSettingItemTo;
@@ -210,6 +219,8 @@ public class SettingChildAdapter extends RecyclerView.Adapter<SettingChildAdapte
 			mSettingItemSwitch = view.findViewById(R.id.settingItem2Switch);
 			mSettingItemValue = view.findViewById(R.id.settingItem2Value);
 			mSettingItemDescription = view.findViewById(R.id.settingItem2Description);
+			mSettingTabParent = view.findViewById(R.id.tabParent);
+			mSettingTabText = view.findViewById(R.id.tabText);
 			SkinManager mSkinManager = SkinManager.getInstance();
 			mSettingItemParent.setBackground(mSkinManager.getDrawable(R.drawable.ripple_normal));
 			mSettingItemValue.setTextColor(mSkinManager.getColor(R.color.light));

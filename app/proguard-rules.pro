@@ -4,9 +4,9 @@
 -dontusemixedcaseclassnames
 -dontskipnonpubliclibraryclasses
 -verbose
--obfuscationdictionary special.txt #外部字典
--classobfuscationdictionary special.txt #类字典
--packageobfuscationdictionary special.txt #包字典
+-obfuscationdictionary o0O.txt #外部字典
+-classobfuscationdictionary o0O.txt #类字典
+-packageobfuscationdictionary o0O.txt #包字典
 # 将.class信息中的类名重新定义为"Proguard"字符串
 #-renamesourcefileattribute Lit
 # 并保留源文件名为"Proguard"字符串，而非原始的类名 并保留行号 
@@ -80,13 +80,20 @@
     @android.support.annotation.Keep <init>(...);
 }
 -keep public class * extends android.database.sqlite.SQLiteOpenHelper
--keep public class com.zmide.lit.Main.Jsi
+-keep public class com.zmide.lit.javascript.EasySearch
+-keep public class com.zmide.lit.javascript.LitJavaScript
 -keepattributes *Annotation*
 -keepattributes *JavascriptInterface*
 -keepclassmembers class * {
 @android.webkit.JavascriptInterface <methods>;
 }
--keepclassmembers public class com.zmide.lit.Main.Jsi{
+-keepclassmembers public class com.zmide.lit.javascript.EasySearch{
+<fields>;
+<methods>;
+public *;
+private *;
+}
+-keepclassmembers public class com.zmide.lit.javascript.LitJavaScript{
 <fields>;
 <methods>;
 public *;
@@ -103,11 +110,17 @@ private *;
 -keepattributes *Annotation*
 
 # Gson specific classes
--keep class com.zmide.lit.object.DataUpdate { *; }
--keep class com.zmide.lit.object.Datastd { *; }
--keep class com.zmide.lit.object.UpdateData { *; }
--keep class com.zmide.lit.object.BaiduSug { *; }
-#-keep class com.google.gson.stream.** { *; }
+-keep class com.zmide.lit.object.json.DataUpdate { *; }
+-keep class com.zmide.lit.object.json.DataStd { *; }
+-keep class com.zmide.lit.object.json.DataUpdate.UpdateData { *; }
+-keep class com.zmide.lit.object.json.BaiduSug { *; }
+-keep class com.zmide.lit.object.json.NewsData { *; }
+-keep class com.zmide.lit.object.json.MarksData { *; }
+-keepnames class com.zmide.lit.object.json.MarksData$* {
+    public <fields>;
+    public <methods>;
+}
+-keep class com.google.gson.stream.** { *; }
 
 # Application classes that will be serialized/deserialized over Gson
 -keep class com.google.gson.examples.android.model.** { *; }

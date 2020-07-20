@@ -180,6 +180,34 @@
 		</LinearLayout>
 		
 		<LinearLayout
+			android:id="@+id/menuAdMark"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="1.0"
+			android:gravity="center"
+			android:orientation="vertical"
+			android:visibility="gone">
+			
+			<ImageView
+				android:layout_width="32dp"
+				android:layout_height="32dp"
+				android:padding="4dp"
+				android:src="@drawable/shield"
+				android:tint="@color/accent" />
+			
+			<TextView
+				android:layout_width="48dp"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="4dp"
+				android:gravity="center"
+				android:text="广告标记"
+				android:textColor="@color/accent"
+				android:textSize="12sp"
+				android:transitionName="download" />
+		
+		</LinearLayout>
+		
+		<LinearLayout
 			android:id="@+id/menuSetting"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"

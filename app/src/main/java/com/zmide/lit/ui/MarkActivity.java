@@ -1,6 +1,7 @@
 package com.zmide.lit.ui;
 
 import android.annotation.SuppressLint;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -10,6 +11,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
@@ -20,14 +22,17 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.zmide.lit.R;
 import com.zmide.lit.adapter.TagAdapter;
 import com.zmide.lit.base.BaseActivity;
+import com.zmide.lit.http.HttpRequest;
 import com.zmide.lit.interfaces.TagViewOperate;
 import com.zmide.lit.object.Mark;
 import com.zmide.lit.object.Parent;
 import com.zmide.lit.object.Tag;
 import com.zmide.lit.util.DBC;
 import com.zmide.lit.util.MDialogUtils;
+import com.zmide.lit.util.MSharedPreferenceUtils;
 import com.zmide.lit.util.MWindowsUtils;
 import com.zmide.lit.util.MarkEditDialog;
+import com.zmide.lit.util.TimeUtil;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -54,8 +59,24 @@ public class MarkActivity extends BaseActivity implements TagViewOperate {
 		loadMark("0");
 	}
 	
+	private SharedPreferences.OnSharedPreferenceChangeListener sharedPreferenceChangeListener = (sharedPreferences, key) -> {
+		if ("last_time".equals(key)) {
+			TextView mTime = findViewById(R.id.time);
+			mTime.setText(TimeUtil.getTimeFormatText(MSharedPreferenceUtils.getSharedPreference().getString("last_time", "0") + "000"));
+			loadMark(parentId);
+		}
+	};
+	
 	private void initView() {
 		ImageView mMarkBack = findViewById(R.id.markBack);
+		ImageView mMarkSync = findViewById(R.id.markSync);
+		TextView mTime = findViewById(R.id.time);
+		LinearLayout mMarkSyncLayout = findViewById(R.id.markSyncLayout);
+		mMarkSyncLayout.setOnClickListener(view -> {
+			HttpRequest.MarkSync(MarkActivity.this);
+		});
+		MSharedPreferenceUtils.getSharedPreference().registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);
+		mTime.setText(TimeUtil.getTimeFormatText(MSharedPreferenceUtils.getSharedPreference().getString("last_time", "0") + "000"));
 		mMarkTitle = findViewById(R.id.markTitle);
 		mMarkRecyclerView = findViewById(R.id.markRecyclerView);
 		mMarkEmpty = findViewById(R.id.markEmpty);
@@ -64,93 +85,7 @@ public class MarkActivity extends BaseActivity implements TagViewOperate {
 		mSwipe = findViewById(R.id.markSwipe);
 		mSwipe.setColorSchemeResources(R.color.accentColor, R.color.accentColor2);
 		mSwipe.setOnRefreshListener(() -> loadMark(parentId));
-		/*mMarkAdd.setOnClickListener(v -> {
-			FolderId = parentId;
-			Dialog dialog = new Dialog(this);
-			View layout = LayoutInflater.from(this).inflate(R.layout.dialog_mark_editor, null);
-			dialog.setContentView(layout);
-			TextView ok = layout.findViewById(R.id.editDialogOk);
-			TextView cancel = layout.findViewById(R.id.editDialogCancel);
-			TextView title = layout.findViewById(R.id.editDialogTitle);
-			Editor titleEditor = layout.findViewById(R.id.editDialogTitleEditor);
-			Editor urlEditor = layout.findViewById(R.id.editDialogUrl);
-			TextView indexChooser = layout.findViewById(R.id.editDialogIndex);
-			title.setText(R.string.mark_add);
-			String indexName;
-			if (Objects.equals(parentId, "0"))
-				indexName = "根目录";
-			else
-				indexName = DBC.getInstance(this).getIndexName(parentId);
-			if (Objects.equals(indexName, "") || indexName == null)
-				indexChooser.setText(R.string.root_index);
-			else
-				indexChooser.setText(indexName);
-			indexChooser.setOnClickListener((view) -> {
-				
-				MDialogUtils.Builder dialogs = new MDialogUtils.Builder(view.getContext());
-				@SuppressLint("InflateParams") View dv = LayoutInflater.from(view.getContext()).inflate(R.layout.rv_button, null);
-				rv = dv.findViewById(R.id.recyclerView);
-				mLayoutManager = new LinearLayoutManager(v.getContext());//这里我们使用默认的线性布局管理器,将其设为垂直显示
-				mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-				rv.setLayoutManager(mLayoutManager);//设置布局管理器
-				FolderAdapter adapter = new FolderAdapter(view.getContext(), DBC.getInstance(view.getContext()).getParents(parentId));
-				rv.setAdapter(adapter);
-				ImageView back = dv.findViewById(R.id.rvBack);
-				back.setOnClickListener((view1) -> {
-					if (Objects.equals(FolderId, "0") || FolderId == null)
-						toast("已经是根目录了");
-					else {
-						String parent = DBC.getInstance(MarkActivity.this).getParentByFolder(FolderId) + "";
-						onLoadFoldersIndex(parent);
-						FolderId = parent;
-					}
-				});
-				tt = dv.findViewById(R.id.rvTitle);
-				tt.setText(indexChooser.getText());
-				Dialog dialog1 = dialogs.setContentView(dv).create();
-				TextView cancel2 = dv.findViewById(R.id.rvCancel);
-				cancel2.setOnClickListener((view1) -> {
-					dialog1.cancel();
-				});
-				cancel2.setText("取消");
-				TextView ok2 = dv.findViewById(R.id.rvOk);
-				ok2.setText("选择");
-				ok2.setOnClickListener((view1) -> {
-					indexChooser.setText(DBC.getInstance(view.getContext()).getIndexName(FolderId));
-					dialog1.cancel();
-				});
-				dialog1.show();
-			});
-			ok.setOnClickListener((view) -> {
-				String name = titleEditor.getText().toString();
-				//String url = urlEditor.getText().toString();
-				if (name.equals(""))//||url.equals(""))
-				{
-					toast("请输入标题");
-				} else {
-					if (!DBC.getInstance(this).addParent(name, FolderId))
-						MToastUtils.makeText(this, "添加失败，目录已存在", MToastUtils.LENGTH_SHORT).show();
-					loadMark(FolderId);
-					dialog.cancel();
-				}
-			});
-			cancel.setOnClickListener((view) -> {
-				dialog.cancel();
-			});
-			WindowManager.LayoutParams lp = dialog.getWindow().getAttributes();
-			lp.gravity = Gravity.BOTTOM;
-			lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
-			lp.width = WindowManager.LayoutParams.MATCH_PARENT;
-			lp.dimAmount = 0.2f;
-			dialog.getWindow().setAttributes(lp);
-			//设置该属性，dialog可以铺满屏幕
-			dialog.getWindow().setBackgroundDrawable(null);
-			View holder = layout;
-			FrameLayout.LayoutParams lps = (FrameLayout.LayoutParams) holder.getLayoutParams();
-			lps.setMargins(30, 30, 30, 30);
-			holder.setLayoutParams(lps);
-			dialog.show();
-		});*/
+		
 		mMarkAdd.setOnClickListener((view) -> new MarkEditDialog(this).createFolderEditDialog(this, parentId, "", false));
 		mMarkBack.setOnClickListener(view -> {
 			if (Objects.equals(parentId, "0") || parentId == null)
@@ -162,23 +97,6 @@ public class MarkActivity extends BaseActivity implements TagViewOperate {
 			}
 		});
 	}
-	/*
-	@Override
-	public void onLoadFoldersIndex(String id) {
-		FolderAdapter adapter = new FolderAdapter(this, DBC.getInstance(this).getParents(id));
-		rv.setAdapter(adapter);
-		FolderId = id;
-		String indexName;
-		if (Objects.equals(FolderId, "0"))
-			indexName = "根目录";
-		else
-			indexName = DBC.getInstance(this).getIndexName(FolderId);
-		if (Objects.equals(indexName, "") || indexName == null)
-			tt.setText(R.string.root_index);
-		else
-			tt.setText(indexName);
-	}*/
-	
 	@Override
 	public void onBackPressed() {
 		if (Objects.equals(parentId, "0") || parentId == null)
@@ -258,106 +176,6 @@ public class MarkActivity extends BaseActivity implements TagViewOperate {
 		loadMark(child);
 	}
 	
-	/*{
-		pop.dismiss();
-		FolderId = parentId;
-		Dialog dialog = new Dialog(this);
-		View layout = LayoutInflater.from(this).inflate(R.layout.dialog_mark_editor, null);
-		dialog.setContentView(layout);
-		TextView ok = layout.findViewById(R.id.editDialogOk);
-		TextView cancel = layout.findViewById(R.id.editDialogCancel);
-		TextView title = layout.findViewById(R.id.editDialogTitle);
-		Editor titleEditor = layout.findViewById(R.id.editDialogTitleEditor);
-		titleEditor.setText(tag.title);
-		Editor urlEditor = layout.findViewById(R.id.editDialogUrl);
-		urlEditor.setVisibility(View.GONE);
-		TextView indexChooser = layout.findViewById(R.id.editDialogIndex);
-		title.setText(R.string.mark_add);
-		String indexName;
-		if (Objects.equals(parentId, "0"))
-			indexName = "根目录";
-		else
-			indexName = DBC.getInstance(this).getIndexName(parentId);
-		if (Objects.equals(indexName, "") || indexName == null)
-			indexChooser.setText(R.string.root_index);
-		else
-			indexChooser.setText(indexName);
-		indexChooser.setOnClickListener((view2) -> {
-			
-			MDialogUtils.Builder dialogs = new MDialogUtils.Builder(view.getContext());
-			@SuppressLint("InflateParams") View dv = LayoutInflater.from(view.getContext()).inflate(R.layout.rv_button, null);
-			rv = dv.findViewById(R.id.recyclerView);
-			mLayoutManager = new LinearLayoutManager(v.getContext());//这里我们使用默认的线性布局管理器,将其设为垂直显示
-			mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-			rv.setLayoutManager(mLayoutManager);//设置布局管理器
-			FolderAdapter adapter = new FolderAdapter(view.getContext(), DBC.getInstance(view.getContext()).getParents(parentId));
-			rv.setAdapter(adapter);
-			ImageView back = dv.findViewById(R.id.rvBack);
-			back.setOnClickListener((view1) -> {
-				if (Objects.equals(FolderId, "0") || FolderId == null)
-					toast("已经是根目录了");
-				else {
-					String parent = DBC.getInstance(MarkActivity.this).getParentByFolder(FolderId) + "";
-					onLoadFoldersIndex(parent);
-					FolderId = parent;
-				}
-			});
-			tt = dv.findViewById(R.id.rvTitle);
-			tt.setText(indexChooser.getText());
-			Dialog dialog1 = dialogs.setContentView(dv).create();
-			TextView cancel2 = dv.findViewById(R.id.rvCancel);
-			cancel2.setOnClickListener((view1) -> {
-				dialog1.cancel();
-			});
-			cancel2.setText("取消");
-			TextView ok2 = dv.findViewById(R.id.rvOk);
-			ok2.setText("选择");
-			ok2.setOnClickListener((view1) -> {
-				String indexName2;
-				if (Objects.equals(parentId, "0"))
-					indexName2 = "根目录";
-				else
-					indexName2 = DBC.getInstance(this).getIndexName(parentId);
-				if (Objects.equals(indexName2, "") || indexName2 == null)
-					indexChooser.setText(R.string.root_index);
-				else
-					indexChooser.setText(indexName2);
-				dialog1.cancel();
-			});
-			dialog1.show();
-		});
-		ok.setOnClickListener((view2) -> {
-			String name = titleEditor.getText().toString();
-			//String url = urlEditor.getText().toString();
-			if (name.equals(""))//||url.equals(""))
-			{
-				toast("请输入标题");
-			} else {
-				if (!DBC.getInstance(this).modParent(tag.id, name, FolderId))
-					MToastUtils.makeText(this, "修改失败，目录已存在", MToastUtils.LENGTH_SHORT).show();
-				else {
-					loadMark(FolderId);
-					dialog.cancel();
-				}
-			}
-		});
-		cancel.setOnClickListener((view2) -> {
-			dialog.cancel();
-		});
-		WindowManager.LayoutParams lp = dialog.getWindow().getAttributes();
-		lp.gravity = Gravity.BOTTOM;
-		lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
-		lp.width = WindowManager.LayoutParams.MATCH_PARENT;
-		lp.dimAmount = 0.2f;
-		dialog.getWindow().setAttributes(lp);
-		//设置该属性，dialog可以铺满屏幕
-		dialog.getWindow().setBackgroundDrawable(null);
-		View holder = layout;
-		FrameLayout.LayoutParams lps = (FrameLayout.LayoutParams) holder.getLayoutParams();
-		lps.setMargins(30, 30, 30, 30);
-		holder.setLayoutParams(lps);
-		dialog.show();
-	}*/
 	@SuppressLint("RtlHardcoded")
 	@Override
 	public void TagLongClickListener(View view, MotionEvent ev, final Tag tag) {

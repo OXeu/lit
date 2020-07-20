@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:id="@+id/toastContainer"
 	android:layout_width="match_parent"
-	android:layout_height="match_parent">
+	android:layout_height="match_parent"
+	android:id="@+id/toastContainer"
+	>
+<LinearLayout
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:background="@drawable/toast_bg"
+	android:gravity="center"
+	android:orientation="horizontal"
+	android:paddingLeft="6dp"
+	android:paddingTop="2dp"
+	android:paddingRight="6dp"
+	android:paddingBottom="2dp">
 	
-	<LinearLayout
+	<TextView
+		android:id="@+id/toastText"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:background="@drawable/toast_bg"
-		android:gravity="center"
-		android:orientation="horizontal"
-		android:paddingLeft="6dp"
-		android:paddingTop="2dp"
-		android:paddingRight="6dp"
-		android:paddingBottom="2dp">
-		
-		<TextView
-			android:id="@+id/toastText"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_margin="6dp"
-			android:singleLine="true"
-			android:text=""
-			android:textColor="#fff" />
-		
-		<TextView
-			android:id="@+id/toastButton"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_marginEnd="4dp"
-			android:background="?android:attr/selectableItemBackgroundBorderless"
-			android:clickable="true"
-			android:focusable="true"
-			android:padding="6dp"
-			android:text=""
-			android:textColor="@color/accentColor" />
-	</LinearLayout>
+		android:layout_margin="6dp"
+		android:singleLine="true"
+		android:text=""
+		android:textColor="#fff" />
+	
+	<TextView
+		android:id="@+id/toastButton"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginEnd="4dp"
+		android:background="?android:attr/selectableItemBackgroundBorderless"
+		android:clickable="true"
+		android:focusable="true"
+		android:padding="6dp"
+		android:text=""
+		android:textColor="@color/accentColor" />
+</LinearLayout>
 </LinearLayout>

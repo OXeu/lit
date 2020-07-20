@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data class="LoginDB">
+
+        <variable
+            name="bean"
+            type="com.zmide.lit.ui.LoginActivity.Bean" />
+
+        <variable
+            name="event"
+            type="com.zmide.lit.ui.LoginActivity.EventListener" />
+    </data>
+
+    <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:animateLayoutChanges="true"
+        android:background="@color/bgcolor"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/aboutBar"
+            android:layout_width="match_parent"
+            android:layout_height="48dp">
+
+            <ImageView
+                android:id="@+id/aboutBack"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/ripple_circle"
+                android:onClick="@{event::back}"
+                android:padding="4dp"
+                android:src="@drawable/ic_back"
+                android:tint="@color/accent" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+            android:text="@string/login_or_register"
+            android:textColor="@color/accent"
+            android:textSize="30sp" />
+
+        <com.zmide.lit.view.Editor
+            android:id="@+id/nicknameEditor"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:visibility="gone"
+            app:drawableLeft="@drawable/outlet_line"
+            app:hint="昵称"
+            app:singleLine="true"
+            app:textColor="@color/accent"
+            app:textSize="14sp" />
+
+        <com.zmide.lit.view.Editor
+            android:id="@+id/userEditor"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            app:drawableLeft="@drawable/user_line"
+            app:hint="邮箱/ID"
+            app:singleLine="true"
+            app:textColor="@color/accent"
+            app:textSize="14sp">
+
+        </com.zmide.lit.view.Editor>
+
+        <com.zmide.lit.view.Editor
+            android:id="@+id/verifyEditor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:visibility="gone"
+            app:button_text="@string/get_code"
+            app:drawableLeft="@drawable/message_line"
+            app:hint="验证码"
+            app:singleLine="true"
+            app:textColor="@color/accent" />
+
+        <com.zmide.lit.view.Editor
+            android:id="@+id/pwEditor"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            app:drawableLeft="@drawable/key_line"
+            app:hint="密码"
+            app:singleLine="true"
+            app:textColor="@color/accent"
+            app:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:background="@drawable/ripple_blue_24"
+            android:gravity="center"
+            android:paddingStart="16dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="8dp"
+            android:text="@string/login"
+            android:textColor="#fff"
+            android:textSize="18sp"
+            android:visibility="gone" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:animateLayoutChanges="true">
+
+            <TextView
+                android:id="@+id/lor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_margin="16dp"
+                android:background="@drawable/ripple_15"
+                android:onClick="@{event::change}"
+                android:paddingStart="16dp"
+                android:paddingTop="4dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="4dp"
+                android:text="@string/register"
+                android:textColor="@color/accentColor"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/forget"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_margin="16dp"
+                android:layout_toEndOf="@id/lor"
+                android:background="@drawable/ripple_15"
+                android:onClick="@{event::forget}"
+                android:paddingStart="8dp"
+                android:paddingTop="4dp"
+                android:paddingEnd="8dp"
+                android:paddingBottom="4dp"
+                android:text="@string/forget_pw"
+                android:textColor="@color/accentColor"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/runButton"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_margin="16dp"
+                android:background="@drawable/ripple_blue_32"
+                android:onClick="@{event::RunGo}"
+                android:padding="16dp"
+                android:rotation="180"
+                android:src="@drawable/ic_back"
+                android:tint="#fff" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</layout>

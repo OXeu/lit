@@ -24,8 +24,16 @@
 	<string name="app_name_LIT">Lit</string>
 	<string name="add">添加</string>
 	<string name="regex_match">正则表达式匹配</string>
-	
-	<!--	<string name="id_dialog_bg">Lit</string>-->
+	<string name="remark">标记</string>
+    <string name="green_android">Passed the Green-Android Convention</string>
+    <string name="login_or_register">登录/注册</string>
+    <string name="get_ecode">获取验证码</string>
+    <string name="login">登录</string>
+    <string name="register">注册</string>
+    <string name="get_code">获取验证码</string>
+    <string name="forget_pw">忘记密码</string>
+
+    <!--	<string name="id_dialog_bg">Lit</string>-->
 	<!--	<string name="id_editor">Lit</string>-->
 	<!--	<string name="id_menu_small_bar_bg">Lit</string>-->
 	<!--	<string name="id_pop_bg">Lit</string>-->

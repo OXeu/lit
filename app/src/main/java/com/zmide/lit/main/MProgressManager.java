@@ -8,9 +8,10 @@ public class MProgressManager {
 	public static void init(MainActivity mainActivity) {
 		if (activity == null)
 			activity = mainActivity;
+		
 	}
 	
 	public static void setProgress(int newProgress) {
-		MainViewBindUtils.getProgressBar().setLitProgressBar(newProgress);
+		MainViewBindUtils.getProgressBar().setWebProgress(newProgress);
 	}
 }

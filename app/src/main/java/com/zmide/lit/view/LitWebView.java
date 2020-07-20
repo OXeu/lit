@@ -15,7 +15,6 @@ import android.webkit.WebView;
 
 import com.blankj.utilcode.util.ActivityUtils;
 import com.zmide.lit.javascript.EasySearch;
-import com.zmide.lit.javascript.Jsi;
 import com.zmide.lit.javascript.LitJavaScript;
 import com.zmide.lit.main.MScrollListener;
 import com.zmide.lit.main.MWebChromeClient;
@@ -43,7 +42,7 @@ public class LitWebView extends WebView {
 	public LitWebView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		initWebView(null);
-		MSharedPreferenceUtils.getSharedPreference().registerOnSharedPreferenceChangeListener(onSharedPreferenceChangeListener);
+		MSharedPreferenceUtils.getWebViewSharedPreference().registerOnSharedPreferenceChangeListener(onSharedPreferenceChangeListener);
 	}
 	
 	public int getCodeId() {
@@ -59,10 +58,10 @@ public class LitWebView extends WebView {
 		webSettings.setJavaScriptEnabled(MSharedPreferenceUtils.getWebViewSharedPreference().getString("javascript", "true").equals("true"));
 		webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
 		webSettings.setUserAgentString(MSharedPreferenceUtils.getWebViewSharedPreference().getString("ua", "") + "");
-		addJavascriptInterface(LitJavaScript.getInstance(), "lit");
+		
 		addJavascriptInterface(LitJavaScript.getInstance(), "via");
-		addJavascriptInterface(Jsi.getInstance(), "webview");
 		addJavascriptInterface(EasySearch.getInstance(), "Viaduct");//简单搜索Js连接桥
+		addJavascriptInterface(LitJavaScript.getInstance(), "lit");
 		//缩放操作
 		webSettings.setSupportZoom(MSharedPreferenceUtils.getWebViewSharedPreference().getString("zoom", "true").equals("true")); //支持缩放，默认为true。是下面那个的前提。
 		webSettings.setBuiltInZoomControls(true); //设置内置的缩放控件。若为false，则该LitWebView不可缩放

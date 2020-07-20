@@ -14,7 +14,9 @@ import android.widget.TextView;
 import com.zmide.lit.R;
 
 /**
+ *
  * @author chaowen
+ *
  */
 public class ToastBox {
 	
@@ -33,12 +35,6 @@ public class ToastBox {
 	private AlphaAnimation mFadeInAnimation;
 	
 	private AlphaAnimation mFadeOutAnimation;
-	private final Runnable mHideRunnable = new Runnable() {
-		@Override
-		public void run() {
-			mContainer.startAnimation(mFadeOutAnimation);
-		}
-	};
 	private TextView mButton;
 	
 	public ToastBox(Context context) {
@@ -47,10 +43,10 @@ public class ToastBox {
 		View v = ((Activity) context).getLayoutInflater().inflate(
 				R.layout.utils_toast, container);
 		//this.gravity = gravity;
-		init(container, v);
+		init(container,v);
 	}
 	
-	private void init(ViewGroup container, View v) {
+	private void init(ViewGroup container , View v ) {
 		mContainer = v.findViewById(R.id.toastContainer);
 		mContainer.setVisibility(View.GONE);
 		mTextView = v.findViewById(R.id.toastText);
@@ -79,14 +75,14 @@ public class ToastBox {
 		
 	}
 	
-	public ToastBox setContext(String msg, String action, View.OnClickListener listener, int time) {
+	public ToastBox setContext( String msg, String action , View.OnClickListener listener , int time){
 		mTextView.setText(msg);
 		this.HIDE_DELAY = time;
-		if (action != null && listener != null) {
+		if (action != null && listener != null){
 			mButton.setText(action);
-			mButton.setOnClickListener((view) -> {
+			mButton.setOnClickListener((view)->{
 				mContainer.setVisibility(View.GONE);
-				((ViewGroup) ((Activity) view.getContext())
+				((ViewGroup)((Activity) view.getContext())
 						.findViewById(android.R.id.content)).removeView(mContainer);
 				listener.onClick(view);
 			});
@@ -101,5 +97,12 @@ public class ToastBox {
 		mContainer.startAnimation(mFadeInAnimation);
 		mHandler.postDelayed(mHideRunnable, HIDE_DELAY);
 	}
+	
+	private final Runnable mHideRunnable = new Runnable() {
+		@Override
+		public void run() {
+			mContainer.startAnimation(mFadeOutAnimation);
+		}
+	};
 	
 }

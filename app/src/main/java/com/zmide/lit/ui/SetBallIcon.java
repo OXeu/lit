@@ -95,9 +95,9 @@ public class SetBallIcon extends BaseActivity {
 			uri = data.getData();
 			Bitmap bm = convertUri(uri);
 			// 返回的Uri为content类型的Uri,不能进行复制等操作,需要转换为文件Uri
-			if (uri == null) {
+			if (uri == null || bm == null) {
 				MToastUtils.makeText("设置失败，获取图片失败").show();
-			} else {
+			}else {
 				Bitmap bm2 = Bitmap.createScaledBitmap(Objects.requireNonNull(bm), MWindowsUtils.dp2px(48), MWindowsUtils.dp2px(48), true);
 				bm = MBitmapUtils.cropBitmap(bm2);
 				MFileUtils.saveFileOnFile(bm, path);

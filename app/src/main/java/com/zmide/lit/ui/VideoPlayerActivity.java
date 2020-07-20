@@ -7,10 +7,12 @@ import android.widget.ImageView;
 
 import com.blankj.utilcode.util.ScreenUtils;
 import com.shuyu.gsyvideoplayer.GSYVideoManager;
+import com.shuyu.gsyvideoplayer.utils.GSYVideoType;
 import com.shuyu.gsyvideoplayer.utils.OrientationUtils;
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
 import com.zmide.lit.R;
 import com.zmide.lit.base.BaseActivity;
+import com.zmide.lit.util.MWindowsUtils;
 
 import java.util.Objects;
 

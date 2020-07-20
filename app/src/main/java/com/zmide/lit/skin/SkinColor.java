@@ -186,7 +186,7 @@ public class SkinColor {
 	];
 	}
 	 *//*
- 
+
  */
 /*
 	<color name="mlight">#FFEEEEEE</color><!--灰色-->

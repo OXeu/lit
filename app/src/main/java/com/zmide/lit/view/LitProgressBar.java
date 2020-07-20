@@ -43,7 +43,7 @@ import androidx.annotation.Nullable;
  * 5. 能显示渐变色
  *
  * @author jingbin
- * Link to https://github.com/youlookwhat/LitProgressBar
+ * Link to https://github.com/youlookwhat/WebProgress
  */
 public class LitProgressBar extends FrameLayout {
 	
@@ -63,17 +63,6 @@ public class LitProgressBar extends FrameLayout {
 	 * 95f - 100f动画时长
 	 */
 	public static final int DO_END_PROGRESS_DURATION = 500;
-	public static final int UN_START = 0;
-	public static final int STARTED = 1;
-	public static final int FINISH = 2;
-	/**
-	 * 默认的高度(dp)
-	 */
-	public static int WEB_PROGRESS_DEFAULT_HEIGHT = 3;
-	/**
-	 * 进度条颜色默认
-	 */
-	public static String WEB_PROGRESS_COLOR = "#2483D9";
 	/**
 	 * 当前匀速动画最大的时长
 	 */
@@ -82,10 +71,9 @@ public class LitProgressBar extends FrameLayout {
 	 * 当前加速后减速动画最大时长
 	 */
 	private static int CURRENT_MAX_DECELERATE_SPEED_DURATION = MAX_DECELERATE_SPEED_DURATION;
-	/**
-	 * 进度条颜色
-	 */
-	private int mColor;
+	public static final int UN_START = 0;
+	public static final int STARTED = 1;
+	public static final int FINISH = 2;
 	/**
 	 * 进度条的画笔
 	 */
@@ -110,17 +98,19 @@ public class LitProgressBar extends FrameLayout {
 	 * 第一次过来进度show，后面就是setProgress
 	 */
 	private boolean isShow = false;
+	/**
+	 * 默认的高度(dp)
+	 */
+	public static int WEB_PROGRESS_DEFAULT_HEIGHT = 3;
+	/**
+	 * 进度条颜色默认
+	 */
+	public static String WEB_PROGRESS_COLOR = "#2483D9";
+	/**
+	 * 进度条颜色
+	 */
+	private int mColor;
 	private float mCurrentProgress = 0F;
-	private ValueAnimator.AnimatorUpdateListener mAnimatorUpdateListener = animation -> {
-		LitProgressBar.this.mCurrentProgress = (float) animation.getAnimatedValue();
-		LitProgressBar.this.invalidate();
-	};
-	private AnimatorListenerAdapter mAnimatorListenerAdapter = new AnimatorListenerAdapter() {
-		@Override
-		public void onAnimationEnd(Animator animation) {
-			doEnd();
-		}
-	};
 	
 	public LitProgressBar(Context context) {
 		this(context, null);
@@ -129,11 +119,16 @@ public class LitProgressBar extends FrameLayout {
 	public LitProgressBar(Context context, @Nullable AttributeSet attrs) {
 		this(context, attrs, 0);
 	}
-	
-	public LitProgressBar(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-		super(context, attrs, defStyleAttr);
-		init(context);
-	}
+	private ValueAnimator.AnimatorUpdateListener mAnimatorUpdateListener = animation -> {
+		mCurrentProgress = (float) animation.getAnimatedValue();
+		invalidate();
+	};
+	private AnimatorListenerAdapter mAnimatorListenerAdapter = new AnimatorListenerAdapter() {
+		@Override
+		public void onAnimationEnd(Animator animation) {
+			doEnd();
+		}
+	};
 	
 	/**
 	 * 设置单色进度条
@@ -162,23 +157,6 @@ public class LitProgressBar extends FrameLayout {
 		this.setColor(Color.parseColor(startColor), Color.parseColor(endColor));
 	}
 	
-	private void init(Context context) {
-		mPaint = new Paint();
-		mColor = Color.parseColor(WEB_PROGRESS_COLOR);
-		mPaint.setAntiAlias(true);
-		mPaint.setColor(mColor);
-		mPaint.setDither(true);
-		mPaint.setStrokeCap(Paint.Cap.SQUARE);
-		
-		mTargetWidth = context.getResources().getDisplayMetrics().widthPixels;
-		mTargetHeight = dip2px(WEB_PROGRESS_DEFAULT_HEIGHT);
-	}
-	
-	@Override
-	protected void onDraw(Canvas canvas) {
-	
-	}
-	
 	@Override
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 		
@@ -197,14 +175,52 @@ public class LitProgressBar extends FrameLayout {
 		this.setMeasuredDimension(w, h);
 	}
 	
+	public LitProgressBar(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+		super(context, attrs, defStyleAttr);
+		init(context, attrs, defStyleAttr);
+	}
+	
 	@Override
 	protected void dispatchDraw(Canvas canvas) {
 		canvas.drawRect(0, 0, mCurrentProgress / 100 * (float) this.getWidth(), this.getHeight(), mPaint);
 	}
 	
+	private void init(Context context, AttributeSet attrs, int defStyleAttr) {
+		mPaint = new Paint();
+		mColor = Color.parseColor(WEB_PROGRESS_COLOR);
+		mPaint.setAntiAlias(true);
+		mPaint.setColor(mColor);
+		mPaint.setDither(true);
+		mPaint.setStrokeCap(Paint.Cap.SQUARE);
+		
+		mTargetWidth = context.getResources().getDisplayMetrics().widthPixels;
+		mTargetHeight = dip2px(WEB_PROGRESS_DEFAULT_HEIGHT);
+	}
+	
 	private void setFinish() {
 		isShow = false;
 		TAG = FINISH;
+	}
+	
+	@Override
+	protected void onDraw(Canvas canvas) {
+	
+	}
+	
+	@Override
+	protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+		super.onSizeChanged(w, h, oldw, oldh);
+		this.mTargetWidth = getMeasuredWidth();
+		int screenWidth = getContext().getResources().getDisplayMetrics().widthPixels;
+		if (mTargetWidth >= screenWidth) {
+			CURRENT_MAX_DECELERATE_SPEED_DURATION = MAX_DECELERATE_SPEED_DURATION;
+			CURRENT_MAX_UNIFORM_SPEED_DURATION = MAX_UNIFORM_SPEED_DURATION;
+		} else {
+			//取比值
+			float rate = this.mTargetWidth / (float) screenWidth;
+			CURRENT_MAX_UNIFORM_SPEED_DURATION = (int) (MAX_UNIFORM_SPEED_DURATION * rate);
+			CURRENT_MAX_DECELERATE_SPEED_DURATION = (int) (MAX_DECELERATE_SPEED_DURATION * rate);
+		}
 	}
 	
 	private void startAnim(boolean isFinished) {
@@ -218,7 +234,7 @@ public class LitProgressBar extends FrameLayout {
 		
 		if (!isFinished) {
 			ValueAnimator mAnimator = ValueAnimator.ofFloat(mCurrentProgress, v);
-			float residue = 1f - mCurrentProgress / 100;
+			float residue = 1f - mCurrentProgress / 100 - 0.05f;
 			mAnimator.setInterpolator(new LinearInterpolator());
 			mAnimator.setDuration((long) (residue * CURRENT_MAX_UNIFORM_SPEED_DURATION));
 			mAnimator.addUpdateListener(mAnimatorUpdateListener);
@@ -256,22 +272,6 @@ public class LitProgressBar extends FrameLayout {
 		}
 		
 		TAG = STARTED;
-	}
-	
-	@Override
-	protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-		super.onSizeChanged(w, h, oldw, oldh);
-		this.mTargetWidth = getMeasuredWidth();
-		int screenWidth = getContext().getResources().getDisplayMetrics().widthPixels;
-		if (mTargetWidth >= screenWidth) {
-			CURRENT_MAX_DECELERATE_SPEED_DURATION = MAX_DECELERATE_SPEED_DURATION;
-			CURRENT_MAX_UNIFORM_SPEED_DURATION = MAX_UNIFORM_SPEED_DURATION;
-		} else {
-			//取比值
-			float rate = this.mTargetWidth / (float) screenWidth;
-			CURRENT_MAX_UNIFORM_SPEED_DURATION = (int) (MAX_UNIFORM_SPEED_DURATION * rate);
-			CURRENT_MAX_DECELERATE_SPEED_DURATION = (int) (MAX_DECELERATE_SPEED_DURATION * rate);
-		}
 	}
 	
 	@Override
@@ -318,9 +318,6 @@ public class LitProgressBar extends FrameLayout {
 	
 	public void setProgress(float progress) {
 		// fix 同时返回两个 100，产生两次进度条的问题；
-		if (mCurrentProgress > progress) {
-			setFinish();
-		}
 		if (TAG == UN_START && progress == 100f) {
 			setVisibility(View.GONE);
 			return;
@@ -343,35 +340,30 @@ public class LitProgressBar extends FrameLayout {
 	public void show() {
 		isShow = true;
 		setVisibility(View.VISIBLE);
-		//mCurrentProgress = 0f;
+		mCurrentProgress = 0f;
 		startAnim(false);
 	}
-//228,349,365,389
 	
 	/**
 	 * 进度完成后消失
 	 */
 	public void hide() {
-		setLitProgressBar(100);
+		setWebProgress(100);
 	}
 	
 	/**
 	 * 为单独处理WebView进度条
 	 */
-	public void setLitProgressBar(int newProgress) {
+	public void setWebProgress(int newProgress) {
 		if (newProgress >= 0 && newProgress < 95) {
 			if (!isShow) {
 				show();
+			} else {
+				setProgress(newProgress);
 			}
-			setProgress(newProgress);
 		} else {
 			setProgress(newProgress);
 			setFinish();
 		}
 	}
-	
-	public boolean isShow() {
-		return isShow;
-	}
 }
-

@@ -7,14 +7,18 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 
-import com.blankj.utilcode.util.UriUtils;
 import com.zmide.lit.bookmark.Bookmark;
 import com.zmide.lit.bookmark.BookmarkParser;
 import com.zmide.lit.util.DBC;
+import com.zmide.lit.util.MExceptionUtils;
 import com.zmide.lit.util.MToastUtils;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * Copyright (C), 2019-2020, DreamStudio
@@ -43,6 +47,20 @@ public class BookmarkImport extends Activity {
 		startActivityForResult(intent, REQUEST_CHOOSE_FILE);
 	}
 	
+	private String readTextFromUri(Uri uri) throws IOException {
+		StringBuilder stringBuilder = new StringBuilder();
+		try (InputStream inputStream =
+				     getContentResolver().openInputStream(uri);
+		     BufferedReader reader = new BufferedReader(
+				     new InputStreamReader(Objects.requireNonNull(inputStream)))) {
+			String line;
+			while ((line = reader.readLine()) != null) {
+				stringBuilder.append(line);
+			}
+		}
+		return stringBuilder.toString();
+	}
+	
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {//选择文件返回
 		super.onActivityResult(requestCode, resultCode, data);
@@ -51,18 +69,28 @@ public class BookmarkImport extends Activity {
 				Uri uri = data.getData();
 				if (uri != null) {
 					try {
-						BookmarkParser bookmarkParser = new BookmarkParser(UriUtils.uri2File(uri));
-						bookmarkParser.parse();
-						ArrayList<Bookmark> bookmarks = bookmarkParser.getResult();
-						for (Bookmark bookmark : bookmarks) {
-							DBC.getInstance(this).addMarkWithParentName(bookmark);
+						String html = readTextFromUri(uri);
+						if ("".equals(html))
+							MToastUtils.makeText("解析错误或文件为空").show();
+						else {
+							BookmarkParser bookmarkParser = new BookmarkParser(html);
+							bookmarkParser.parse();
+							ArrayList<Bookmark> bookmarks = bookmarkParser.getResult();
+							for (Bookmark bookmark : bookmarks) {
+								DBC.getInstance(this).addMarkWithParentName(bookmark);
+							}
+							MToastUtils.makeText("导入成功", MToastUtils.LENGTH_SHORT).show();
+							finish();
 						}
-						MToastUtils.makeText("导入成功", MToastUtils.LENGTH_SHORT).show();
-						finish();
 					} catch (IOException e) {
-						MToastUtils.makeText(e.getMessage(), MToastUtils.LENGTH_SHORT).show();
+						MToastUtils.makeText("导入失败IOException", MToastUtils.LENGTH_SHORT).show();
+						MExceptionUtils.reportException(e);
 					} catch (SecurityException e) {
 						MToastUtils.makeText("不支持的路径，请使用其他方式").show();
+						MExceptionUtils.reportException(e);
+					} catch (Exception e) {
+						MToastUtils.makeText("导入失败" + e.getCause() + "").show();
+						MExceptionUtils.reportException(e);
 					}
 				}
 			}

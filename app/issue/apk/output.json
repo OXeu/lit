@@ -6,15 +6,15 @@
     "apkData": {
       "type": "MAIN",
       "splits": [],
-      "versionCode": 200327,
-      "versionName": "3.0(Beta1.4)",
+      "versionCode": 200523,
+      "versionName": "3.0.1",
       "enabled": true,
-      "outputFile": "V3.0(Beta1.4).apk",
+      "outputFile": "V3.0.1-2338.apk",
       "fullName": "release",
       "baseName": "release",
       "dirName": ""
     },
-    "path": "V3.0(Beta1.4).apk",
+    "path": "V3.0.1-2338.apk",
     "properties": {}
   }
 ]

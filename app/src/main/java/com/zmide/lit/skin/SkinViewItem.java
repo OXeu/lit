@@ -13,31 +13,31 @@ import java.util.ArrayList;
  * 要换肤的view以及属性集合
  */
 public class SkinViewItem {
-	
+
 	private View view;
 	private ArrayList<SkinViewAttr> attrs;
-	
+
 	public SkinViewItem(View view, ArrayList<SkinViewAttr> attrs) {
 		this.view = view;
 		this.attrs = attrs;
 	}
-	
+
 	public View getView() {
 		return view;
 	}
-	
+
 	public void setView(View view) {
 		this.view = view;
 	}
-	
+
 	public ArrayList<SkinViewAttr> getAttrs() {
 		return attrs;
 	}
-	
+
 	public void setAttrs(ArrayList<SkinViewAttr> attrs) {
 		this.attrs = attrs;
 	}
-	
+
 	/**
 	 * view执行自己的换肤方法
 	 */
@@ -46,18 +46,18 @@ public class SkinViewItem {
 			for (SkinViewAttr skinViewAttr : attrs) {
 				if ("background".equals(skinViewAttr.getAttrName())) {
 					//如果是background 改变属性
-					
+
 					if ("drawable".equals(skinViewAttr.getTypeName())) {
-						
+
 						view.setBackgroundDrawable(SkinManager.getInstance().getDrawable(skinViewAttr.getId()));
-						
+
 					} else if ("color".equals(skinViewAttr.getTypeName())) {
 						view.setBackgroundColor(SkinManager.getInstance().getColor(skinViewAttr.getId()));
 					}
-					
+
 				} else if ("textColor".equals(skinViewAttr.getAttrName()) && view instanceof TextView) {
 					//textView只改变字体
-					
+
 					((TextView) view).setTextColor(SkinManager.getInstance().getColor(skinViewAttr.getId()));
 				} else if ("tint".equals(skinViewAttr.getAttrName())) {
 					//上色

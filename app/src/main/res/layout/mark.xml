@@ -10,19 +10,20 @@
 		android:layout_width="match_parent"
 		android:layout_height="48dp"
 		android:layout_alignParentBottom="false"
-		android:elevation="4dp">
+        android:elevation="4dp"
+        android:visibility="gone">
 		
 		<ImageView
 			android:id="@+id/markBack"
 			android:layout_width="32dp"
 			android:layout_height="32dp"
 			android:layout_centerVertical="true"
-			android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
 			android:background="@drawable/ripple_circle"
 			android:padding="4dp"
 			android:src="@drawable/ic_back"
 			android:tint="@color/accent"
-			android:visibility="gone" />
+            android:visibility="visible" />
 		
 		<TextView
 			android:id="@+id/markTitle"
@@ -32,9 +33,23 @@
 			android:text=""
 			android:textColor="@color/accent"
 			android:textSize="16sp"
-			android:transitionName="mark" />
+            android:transitionName="mark"
+            android:visibility="gone" />
 	
 	</RelativeLayout>
+
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/markRelativeLayout1"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/mark"
+        android:textColor="@color/accent"
+        android:textSize="30sp" />
 	
 	<RelativeLayout
 		android:id="@+id/markRelativeLayout2"
@@ -43,16 +58,16 @@
 		android:layout_alignParentBottom="true"
 		android:elevation="4dp"
 		android:visibility="visible">
-		
+
 		<LinearLayout
-			android:id="@+id/markLinearLayout1"
+            android:id="@+id/markSyncLayout"
 			android:layout_width="wrap_content"
 			android:layout_height="match_parent"
 			android:layout_centerVertical="true"
-			android:layout_marginLeft="12dp"
-			android:gravity="center_vertical">
-			
-			<ImageView
+            android:layout_marginStart="12dp"
+            android:gravity="center_vertical">
+
+            <ImageView
 				android:id="@+id/markSync"
 				android:layout_width="32dp"
 				android:layout_height="32dp"
@@ -61,7 +76,7 @@
 				android:padding="8dp"
 				android:src="@drawable/refresh"
 				android:tint="@color/accent" />
-			
+
 			<TextView
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
@@ -72,20 +87,18 @@
 				android:textColor="@color/accent"
 				android:textSize="14sp"
 				android:transitionName="mark" />
-		
-		</LinearLayout>
-		
-		<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_centerVertical="true"
-			android:layout_marginLeft="4dp"
-			android:layout_toRightOf="@id/markLinearLayout1"
-			android:gravity="center"
-			android:text="02-02 01:17"
-			android:textColor="#FFC7C7C7"
-			android:textSize="9sp"
-			android:typeface="sans" />
+
+
+            <TextView
+                android:id="@+id/time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:gravity="center"
+                android:textColor="#FFC7C7C7"
+                android:textSize="9sp"
+                android:typeface="sans" />
+        </LinearLayout>
 		
 		<ImageView
 			android:id="@+id/markAdd"
@@ -105,7 +118,7 @@
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		android:layout_above="@id/markRelativeLayout2"
-		android:layout_below="@id/markRelativeLayout1">
+        android:layout_below="@id/title">
 		
 		<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 			android:id="@+id/markSwipe"

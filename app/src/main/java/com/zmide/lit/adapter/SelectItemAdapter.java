@@ -34,18 +34,6 @@ import java.util.ArrayList;
  * <p>
  * 获取item的数目
  * @return int
- * <p>
- * 将布局转换为View并传递给自定义的MyViewHolder
- * @param viewGroup viewGroup
- * @param viewType  int
- * @return ViewHolder
- * <p>
- * 建立起MyViewHolder中视图与数据的关联
- * @param viewHolder ViewHolder
- * @param position   int
- * <p>
- * 获取item的数目
- * @return int
  *//*
 
 

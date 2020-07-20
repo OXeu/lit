@@ -19,11 +19,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.blankj.utilcode.util.BarUtils;
+import com.blankj.utilcode.util.KeyboardUtils;
 import com.umeng.analytics.MobclickAgent;
 import com.zmide.lit.R;
 import com.zmide.lit.interfaces.Dark;
 import com.zmide.lit.skin.SkinFactory;
 import com.zmide.lit.skin.SkinManager;
+import com.zmide.lit.util.MKeyboardUtils;
 import com.zmide.lit.util.MToastUtils;
 import com.zmide.lit.util.MWindowsUtils;
 import com.zmide.lit.view.SwipeBackLayout;

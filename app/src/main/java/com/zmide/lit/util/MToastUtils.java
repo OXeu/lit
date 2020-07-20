@@ -49,7 +49,7 @@ public class MToastUtils {
 		return toast;
 	}
 	
-	public static ToastBox makeText(Activity context, String msg, String action, OnClickListener listener, int time) {
+	public static ToastBox makeText(Activity context , String msg, String action, OnClickListener listener, int time) {
 		/*Toast toast = new Toast(context);
 		@SuppressLint("InflateParams") View view = LayoutInflater.from(context).inflate(R.layout.utils_toast, null);
 		((TextView) view.findViewById(R.id.toastText)).setText(msg);
@@ -82,12 +82,12 @@ public class MToastUtils {
 			e.printStackTrace();
 		}*/
 		if (toast == null)
-			toast = new ToastBox(context);
+		toast = new ToastBox(context);
 		if (time == MToastUtils.LENGTH_SHORT)
 			time = 2000;
-		else if (time == MToastUtils.LENGTH_LONG)
+		else if (time ==MToastUtils.LENGTH_LONG)
 			time = 3000;
-		toast.setContext(msg, action, listener, time);
+		toast.setContext(msg, action, listener , time);
 		return toast;
 	}
 	

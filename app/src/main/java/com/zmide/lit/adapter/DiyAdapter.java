@@ -2,6 +2,7 @@ package com.zmide.lit.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -84,6 +85,7 @@ public class DiyAdapter extends RecyclerView.Adapter<DiyAdapter.MyViewHolder> {
 		viewHolder.mDiyItemTitle.setText(Diy.title);
 		viewHolder.mDiyItemDescription.setText(Diy.description);
 		viewHolder.mDiyItemSwitch.setChecked(Diy.isrun);
+		Log.i("WDNMD", Diy.title + Diy.isrun);
 		viewHolder.mDiyItemParent.setOnTouchListener((view, e) -> {
 			ev = e;
 			return false;

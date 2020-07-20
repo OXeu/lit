@@ -45,22 +45,23 @@ public class SettingChildActivity extends BaseActivity {
 		switch (mode) {
 			case Mode.NORMAL:
 				st = new SettingChild[]{
+						new SettingChild("通用设置"),
 						new SettingChild("主题模式", "设置主题模式", new String[]{"日间模式", "夜间模式", "跟随系统"}, "themeMode", "2", null, SettingChild.CHOOSE),
-						new SettingChild(true, "允许JavaScript", "关闭将导致部分网页异常", new String[]{""}, "javascript", "true", null, SettingChild.SWITCH),
-						new SettingChild(true, "字体大小", "调整网页字体大小", new String[]{"小", "中", "大"}, "webfont", "1", null, SettingChild.CHOOSE),
-						new SettingChild(true, "缓存策略", "更改网页缓存策略", new String[]{"本地优先（默认）", "本地优先（无论是否过期）", "仅从本地", "仅从网络"}, "cache_mode", "0", null, SettingChild.CHOOSE2),
-						new SettingChild(true, "支持缩放", "支持缩放", new String[]{""}, "zoom", "true", null, SettingChild.SWITCH),
 						new SettingChild("全屏模式", "隐藏状态栏和导航栏", new String[]{""}, "isfullscreen", "false", null, SettingChild.SWITCH),
-						new SettingChild(true, "插件执行成功提示", "插件执行成功后弹出提示框", new String[]{""}, "plugin_suc", "false", null, SettingChild.SWITCH),
-						new SettingChild(true, "插件执行失败提示", "插件执行失败后弹出提示框", new String[]{""}, "plugin_fail", "false", null, SettingChild.SWITCH),
-						new SettingChild(true, "允许打开外部应用", "允许打开外部应用", new String[]{""}, "oapp", "true", null, SettingChild.SWITCH),
-						new SettingChild("小球对齐方式", "调整小球位置", new String[]{"左", "中", "右"}, "ball_align", "2", null, SettingChild.CHOOSE),
-						new SettingChild("允许隐藏小球", "允许滑动网页时自动显示/隐藏小球", new String[]{""}, "canHide", "true", null, SettingChild.SWITCH),
-						new SettingChild("自动展开标题栏", "允许滑动网页时自动展开标题栏", new String[]{""}, "autoshow", "true", null, SettingChild.SWITCH),
-						new SettingChild("自动收缩标题栏", "允许滑动网页时自动收缩标题栏", new String[]{""}, "autoclose", "true", null, SettingChild.SWITCH),
-						new SettingChild("小球长按移动", "支持小球长按移动", new String[]{""}, "movable", "true", null, SettingChild.SWITCH),
-						new SettingChild("双子模式", "小球最小化时保留多窗口小球", new String[]{""}, "is_double_ball", "true", null, SettingChild.SWITCH),
-						new SettingChild("启动恢复", "启动时恢复上次未关闭标签页", new String[]{"禁用", "询问", "总是"}, "state_resume_type", "0", null, SettingChild.CHOOSE),
+						
+						
+						new SettingChild("网页设置"),
+						new SettingChild(true,"允许JavaScript", "关闭将导致部分网页异常", new String[]{""}, "javascript", "true", null, SettingChild.SWITCH),
+						new SettingChild(true,"字体大小", "调整网页字体大小", new String[]{"小", "中", "大"}, "webfont", "1", null, SettingChild.CHOOSE),
+						new SettingChild(true,"缓存策略", "更改网页缓存策略", new String[]{"本地优先（默认）", "本地优先（无论是否过期）", "仅从本地", "仅从网络"}, "cache_mode", "0", null, SettingChild.CHOOSE2),
+						new SettingChild(true,"支持缩放", "支持缩放", new String[]{""}, "zoom", "true", null, SettingChild.SWITCH),
+						new SettingChild(true,"插件执行成功提示", "插件执行成功后弹出提示框", new String[]{""}, "plugin_suc", "false", null, SettingChild.SWITCH),
+						new SettingChild(true, "下拉刷新", "下拉刷新当前浏览的网页", new String[]{""}, "can_refresh", "false", null, SettingChild.SWITCH),
+						new SettingChild(true,"插件执行失败提示", "插件执行失败后弹出提示框", new String[]{""}, "plugin_fail", "false", null, SettingChild.SWITCH),
+						new SettingChild(true,"允许打开外部应用", "允许打开外部应用", new String[]{""}, "oapp", "true", null, SettingChild.SWITCH),
+						
+						new SettingChild("其他设置"),
+						new SettingChild("启动恢复", "启动时恢复上次未关闭标签页", new String[]{"禁用","询问","总是"}, "state_resume_type", "0", null, SettingChild.CHOOSE),
 						new SettingChild("默认下载器", "下载默认调用的下载器", new String[]{""}, "downloader", "", null, SettingChild.DOWNLOAD),
 				};
 				break;
@@ -97,6 +98,13 @@ public class SettingChildActivity extends BaseActivity {
 				st = new SettingChild[]{
 						new SettingChild("小球图标样式", "设置小球图标", new String[]{"默认", "显示多窗口数量", "自定义"}, "is_apply_ball", "0", null, SettingChild.CHOOSE2),
 						new SettingChild("设置图标", "设置小球图标", new String[]{""}, "ball_icon", "", new Intent(SettingChildActivity.this, SetBallIcon.class), SettingChild.INTENT),
+						new SettingChild("小球对齐方式", "调整小球位置", new String[]{"左", "中", "右"}, "ball_align", "2", null, SettingChild.CHOOSE),
+						//new SettingChild("允许隐藏小球", "允许滑动网页时自动显示/隐藏小球", new String[]{""}, "canHide", "true", null, SettingChild.SWITCH),
+						new SettingChild("自动展开标题栏", "允许滑动网页时自动展开标题栏", new String[]{""}, "autoshow", "true", null, SettingChild.SWITCH),
+						new SettingChild("自动收缩标题栏", "允许滑动网页时自动收缩标题栏", new String[]{""}, "autoclose", "true", null, SettingChild.SWITCH),
+						new SettingChild("自动锁定小球", "允许滑动网页时自动锁定/解锁小球，锁定后无法进行滑动操作", new String[]{""}, "canHide", "false", null, SettingChild.SWITCH),
+						new SettingChild("小球长按移动", "支持小球长按移动", new String[]{""}, "movable", "true", null, SettingChild.SWITCH),
+						new SettingChild("双子模式", "小球最小化时保留多窗口小球", new String[]{""}, "is_double_ball", "true", null, SettingChild.SWITCH),
 						//new SettingChild("小球灵敏度", "调整小球灵敏度", new String[]{""}, "", "", new Intent(SettingChildActivity.this, ModBallSetting.class), SettingChild.INTENT),
 				};
 				break;

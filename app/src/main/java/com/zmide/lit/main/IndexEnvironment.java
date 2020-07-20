@@ -15,7 +15,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.BarUtils;
-import com.blankj.utilcode.util.PathUtils;
 import com.zmide.lit.R;
 import com.zmide.lit.interfaces.Dark;
 import com.zmide.lit.ui.MainActivity;
@@ -25,7 +24,7 @@ import com.zmide.lit.util.MToastUtils;
 import com.zmide.lit.util.MWindowsUtils;
 import com.zmide.lit.util.ViewO;
 
-import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Objects;
 
 import static com.zmide.lit.main.MainViewBindUtils.getBallCardView;
@@ -39,14 +38,15 @@ import static com.zmide.lit.main.MainViewBindUtils.getWebFrame;
 public class IndexEnvironment {
 	private static MainActivity activity;
 	private static SharedPreferences mSharedPreferences = MSharedPreferenceUtils.getSharedPreference();
-	private static SharedPreferences.OnSharedPreferenceChangeListener sharedPreferenceChangeListener = (sharedPreferences, key) -> {
-		initIndex();
-	};
 	
 	public static void init(MainActivity mainActivity) {
 		if (activity == null)
 			activity = mainActivity;
 	}
+	
+	private static SharedPreferences.OnSharedPreferenceChangeListener sharedPreferenceChangeListener = (sharedPreferences, key) -> {
+		initIndex();
+	};
 	
 	public static void hideIndex() {
 		StatusEnvironment.updateStatusColor(WebContainer.getWebView());
@@ -69,7 +69,7 @@ public class IndexEnvironment {
 	
 	
 	public static void showIndex() {
-		BarUtils.setStatusBarColor(activity, 0x00000000);
+		BarUtils.setStatusBarColor(activity,0x00000000);
 		ImageView mIndexWallpaper = getIndexWallpaper();
 		RelativeLayout mIndexParent = getIndexParent();
 		FrameLayout mWebFrame = getWebFrame();
@@ -161,18 +161,23 @@ public class IndexEnvironment {
 		} else {
 			mIndexTitle.setVisibility(View.VISIBLE);
 		}
-		ImageView mIndexWallpaper = getIndexWallpaper();
+		ImageView mIndexWallpaper =  getIndexWallpaper();
 		if (mSharedPreferences.getString("is_apply_wallpaper", "false").equals("true")) {
 			try {
 				
 				new Thread(() -> activity.runOnUiThread(() -> {
-					String path = new File(PathUtils.getExternalAppPicturesPath(), "wallpaper.png").getAbsolutePath();
-					Bitmap wallpaper = BitmapFactory.decodeFile(path);
-					if (wallpaper != null) {
-						mIndexWallpaper.setVisibility(View.VISIBLE);
-						mIndexWallpaper.setImageBitmap(wallpaper);
-					} else {
-						mIndexWallpaper.setVisibility(View.GONE);
+					
+					Bitmap wallpaper = null;
+					try {
+						wallpaper = BitmapFactory.decodeStream(activity.openFileInput("wallpaper.png"));
+						if (wallpaper != null) {
+							mIndexWallpaper.setVisibility(View.VISIBLE);
+							mIndexWallpaper.setImageBitmap(wallpaper);
+						} else {
+							mIndexWallpaper.setVisibility(View.GONE);
+						}
+					} catch (FileNotFoundException e) {
+						e.printStackTrace();
 					}
 				})).start();
 			} catch (Exception e) {
@@ -181,12 +186,12 @@ public class IndexEnvironment {
 		} else {
 			mIndexWallpaper.setVisibility(View.GONE);
 		}
-		if (!Objects.equals(WebContainer.getUrl(), MDataBaseSettingUtils.WebIndex)) {
+		if (!Objects.equals(WebContainer.getUrl(), MDataBaseSettingUtils.WebIndex)){
 			mIndexWallpaper.setVisibility(View.GONE);
 		}
 	}
 	
-	public static void start() {
+	public static void start(){
 		initIndex();
 		MSharedPreferenceUtils.getSharedPreference().registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);
 	}

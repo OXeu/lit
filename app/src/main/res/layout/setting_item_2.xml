@@ -71,4 +71,26 @@
 			android:textColor="@color/light"
 			android:textSize="12sp" />
 	</RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/tabParent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingTop="16dp"
+        android:paddingBottom="8dp"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/tabText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:gravity="center_vertical"
+            android:text="Text"
+            android:textColor="@color/accentColor"
+            android:textSize="12sp" />
+    </LinearLayout>
+
 </RelativeLayout>

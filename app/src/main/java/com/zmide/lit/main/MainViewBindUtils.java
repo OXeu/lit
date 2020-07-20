@@ -57,6 +57,12 @@ public class MainViewBindUtils {
 	private static LitProgressBar mProgressBar;
 	@SuppressLint("StaticFieldLeak")
 	private static TextView mMainTitle;
+	@SuppressLint("StaticFieldLeak")
+	private static TextView mMainCode;
+	@SuppressLint("StaticFieldLeak")
+	private static TextView mjQueryText;
+	@SuppressLint("StaticFieldLeak")
+	private static LinearLayout mAdMark;
 	
 	//获取MainActivity各View实例
 	public static void init(MainActivity mainActivity) {
@@ -86,6 +92,9 @@ public class MainViewBindUtils {
 			mIndexParent = activity.findViewById(R.id.indexParent);
 			mIndexSearchBar = activity.findViewById(R.id.indexSearchBar);
 			mIndexTitle = activity.findViewById(R.id.indexTitle);
+			mMainCode = activity.findViewById(R.id.mainCode);
+			mjQueryText = activity.findViewById(R.id.mainjQuery);
+			mAdMark = activity.findViewById(R.id.mainAdMark);
 		}
 	}
 	
@@ -175,5 +184,17 @@ public class MainViewBindUtils {
 	
 	public static TextView getMainTitle() {
 		return mMainTitle;
+	}
+	
+	public static TextView getCodeText() {
+		return mMainCode;
+	}
+	
+	public static TextView getjQueryText() {
+		return mjQueryText;
+	}
+	
+	public static LinearLayout getAdMark() {
+		return mAdMark;
 	}
 }

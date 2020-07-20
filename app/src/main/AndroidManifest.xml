@@ -8,8 +8,6 @@
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 	<!-- <uses-permission android:name="android.permission.READ_LOGS"/> -->
-	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 	
 	<application
 		android:name=".base.MApplication"
@@ -96,11 +94,11 @@
 			android:configChanges="uiMode" />
 		
 		<activity android:name=".ui.SetBallIcon" />
-		<activity
-			android:name=".ui.VideoPlayerActivity"
+		<activity android:name=".ui.VideoPlayerActivity"
 			android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
-			android:screenOrientation="fullSensor" />
-		<!--		<activity android:name=".ui.ModBallSetting" />-->
+			android:screenOrientation="fullSensor"/>
+        <activity android:name=".ui.LoginActivity" />
+        <!--		<activity android:name=".ui.ModBallSetting" />-->
 		
 		<meta-data
 			android:name="android.max_aspect"

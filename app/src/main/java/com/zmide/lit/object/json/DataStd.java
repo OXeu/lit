@@ -1,6 +1,6 @@
-package com.zmide.lit.object;
+package com.zmide.lit.object.json;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Copyright (C), 2019-2020, DreamStudio
@@ -11,8 +11,8 @@ import java.util.ArrayList;
  * <author> <time> <version> <desc>
  * 作者姓名 修改时间 版本号 描述
  */
-public class BaiduSug {
-	public String q;
-	public boolean p;
-	public ArrayList<String> s = new ArrayList<>();
+public class DataStd {
+	public int code;
+	public String msg;
+	public HashMap<String, Object> data;
 }

@@ -11,6 +11,7 @@ import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 
+import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.Utils;
 
 public class MKeyboardUtils {
@@ -43,18 +44,18 @@ public class MKeyboardUtils {
 		final int paddingBottom = contentViewChild.getPaddingBottom();
 		final int[] contentViewInvisibleHeightPre5497 = {getContentViewInvisibleHeight(window)};
 		if (listener == null)
-			listener = () -> {
-				int height = getContentViewInvisibleHeight(window);
-				if (contentViewInvisibleHeightPre5497[0] != height) {
-					contentViewChild.setPadding(
-							contentViewChild.getPaddingLeft(),
-							contentViewChild.getPaddingTop(),
-							contentViewChild.getPaddingRight(),
-							paddingBottom + getDecorViewInvisibleHeight(window)
-					);
-					contentViewInvisibleHeightPre5497[0] = height;
-				}
-			};
+		listener = () -> {
+			int height = getContentViewInvisibleHeight(window);
+			if (contentViewInvisibleHeightPre5497[0] != height) {
+				contentViewChild.setPadding(
+						contentViewChild.getPaddingLeft(),
+						contentViewChild.getPaddingTop(),
+						contentViewChild.getPaddingRight(),
+						paddingBottom + getDecorViewInvisibleHeight(window)
+				);
+				contentViewInvisibleHeightPre5497[0] = height;
+			}
+		};
 		contentView.getViewTreeObserver()
 				.addOnGlobalLayoutListener(listener);
 	}
@@ -66,8 +67,8 @@ public class MKeyboardUtils {
 		final View contentViewChild = contentView.getChildAt(0);
 		final int[] contentViewInvisibleHeightPre5497 = {getContentViewInvisibleHeight(window)};
 		if (listener != null)
-			contentView.getViewTreeObserver()
-					.removeOnGlobalLayoutListener(listener);
+		contentView.getViewTreeObserver()
+				.removeOnGlobalLayoutListener(listener);
 	}
 	
 	

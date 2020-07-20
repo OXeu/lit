@@ -15,6 +15,8 @@ public final class Contract {
 		public final static String _TIME = "time";
 		public final static String _PARENT = "parent";
 		public final static String _ICON = "icon";
+		public final static String _DID = "did";
+		public final static String _LEVEL = "level";
 		
 	}
 	
@@ -23,6 +25,10 @@ public final class Contract {
 		public final static String _ID = BaseColumns._ID;
 		public final static String _NAME = "name";
 		public final static String _PARENT = "parent";
+		public final static String _ICON = "icon";
+		public final static String _DID = "did";
+		public final static String _LEVEL = "level";
+		public final static String _TIME = "time";
 	}
 	
 	public static final class HistoryEntry implements BaseColumns {
@@ -52,6 +58,19 @@ public final class Contract {
 		public final static String _ID = BaseColumns._ID;
 		public final static String _URL = "url";
 		public final static String _SID = "sid";
+	}
+	
+	public static final class WebsiteEntry implements BaseColumns {
+		public final static String TABLE_NAME = "website";
+		public final static String _ID = BaseColumns._ID;
+		public final static String _SITE = "site";
+		public final static String _STATE = "state";
+		public final static String _NO_HISTORY = "no_history";
+		public final static String _JS = "js";
+		public final static String _NO_PIC = "no_picture";
+		public final static String _UA = "ua";
+		public final static String _APP = "app";
+		public final static String _AD_HOST = "ad_host";
 	}
 	
 }

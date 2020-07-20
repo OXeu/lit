@@ -46,7 +46,7 @@ public class MWebViewClient extends WebViewClient {
 		if (!url.startsWith("http") && !url.startsWith("file") && MSharedPreferenceUtils.getWebViewSharedPreference().getString("oapp", "true").equals("true")) {
 			try {
 				// 以下固定写法
-				MToastUtils.makeText(a, "是否允许打开外部应用", "允许", v -> {
+				MToastUtils.makeText(a,"是否允许打开外部应用", "允许", v -> {
 					try {
 						//处理intent协议
 						if (url.startsWith("intent://")) {
@@ -75,7 +75,7 @@ public class MWebViewClient extends WebViewClient {
 								a.startActivity(intent);
 							} catch (Exception e) {
 								// 防止没有安装的情况
-								MToastUtils.makeText(a, "没有可执行此操作的客户端", "详细", v1 -> {
+								MToastUtils.makeText(a,"没有可执行此操作的客户端", "详细", v1 -> {
 									MDialogUtils.Builder dialog = new MDialogUtils.Builder(a);
 									dialog.setDownloadLink(url);
 									dialog.setTitle("详细信息")

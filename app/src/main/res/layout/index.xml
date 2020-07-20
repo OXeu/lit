@@ -32,5 +32,5 @@
 		android:layout_marginLeft="32dp"
 		android:layout_marginTop="0dp"
 		android:layout_marginRight="32dp" />
-
+	
 </RelativeLayout>

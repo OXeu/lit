@@ -18,26 +18,27 @@
 		android:layout_height="match_parent">
 		
 		<LinearLayout
-			android:id="@+id/scapegoat"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:fitsSystemWindows="true"
-			android:orientation="horizontal"></LinearLayout>
+			android:id="@+id/scapegoat"
+			android:orientation="horizontal" >
+		</LinearLayout>
 		
 		<FrameLayout
 			android:id="@+id/mainWebFrame"
+			android:layout_below="@+id/scapegoat"
 			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			android:layout_below="@+id/scapegoat" />
+			android:layout_height="match_parent" />
 		
 		<include layout="@layout/index" />
 		
 		
 		<RelativeLayout
 			android:id="@+id/mainBallParent"
+			android:layout_below="@id/scapegoat"
 			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			android:layout_below="@id/scapegoat">
+			android:layout_height="match_parent">
 			
 			<androidx.cardview.widget.CardView
 				android:id="@+id/mainGestureColor"
@@ -67,7 +68,7 @@
 			<androidx.cardview.widget.CardView
 				android:id="@+id/Cardview"
 				android:layout_width="wrap_content"
-				android:layout_height="48dp"
+				android:layout_height="wrap_content"
 				android:layout_alignParentRight="false"
 				android:layout_alignParentBottom="true"
 				android:layout_centerHorizontal="true"
@@ -76,11 +77,18 @@
 				app:cardCornerRadius="24dp"
 				app:cardElevation="12dp">
 				
+				
 				<RelativeLayout
 					android:layout_width="match_parent"
-					android:layout_height="match_parent">
+					android:layout_height="wrap_content">
 					
-					<LinearLayout
+					<RelativeLayout
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:layout_below="@id/mainBallHolder">
+						
+						
+						<LinearLayout
 						android:id="@+id/mainBallWindow"
 						android:layout_width="48dp"
 						android:layout_height="48dp"
@@ -101,7 +109,7 @@
 					<LinearLayout
 						android:id="@+id/mainTitleParent"
 						android:layout_width="match_parent"
-						android:layout_height="match_parent"
+						android:layout_height="48dp"
 						android:layout_toLeftOf="@+id/mainBall"
 						android:layout_toRightOf="@id/mainBallWindow"
 						android:background="@drawable/ripple_circle"
@@ -133,8 +141,8 @@
 							android:id="@+id/mainBallImage"
 							android:layout_width="match_parent"
 							android:layout_height="match_parent"
-							android:layout_centerInParent="true"
-							android:background="@drawable/ripple_circle" />
+							android:background="@drawable/ripple_circle"
+							android:layout_centerInParent="true" />
 						
 						<TextView
 							android:id="@+id/mainBallText"
@@ -144,6 +152,17 @@
 							android:gravity="center"
 							android:textColor="@color/accent"
 							android:textSize="14sp" />
+					
+					</RelativeLayout>
+					
+					</RelativeLayout>
+					
+					<RelativeLayout
+						android:id="@+id/mainBallHolder"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content">
+						
+						<include layout="@layout/selector" />
 					
 					</RelativeLayout>
 				

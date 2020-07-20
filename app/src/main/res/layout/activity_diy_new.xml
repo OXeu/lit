@@ -1,148 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:background="@color/bgcolor"
-	android:fitsSystemWindows="true">
-	
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:fitsSystemWindows="true"
+	android:background="@color/bgcolor">
 	<RelativeLayout
-		android:id="@+id/diynewRelativeLayout1"
 		android:layout_width="match_parent"
 		android:layout_height="48dp"
-		android:layout_alignParentBottom="false">
-		
+		android:layout_alignParentBottom="false"
+		android:id="@+id/diynewRelativeLayout1">
 		<ImageView
-			android:id="@+id/diynewBack"
-			android:layout_width="32dp"
-			android:layout_height="32dp"
-			android:layout_centerVertical="true"
-			android:layout_marginLeft="8dp"
-			android:background="@drawable/ripple_circle"
-			android:padding="4dp"
 			android:src="@drawable/ic_back"
-			android:tint="@color/accent" />
-		
-		<ImageView
-			android:id="@+id/diynewGo"
 			android:layout_width="32dp"
 			android:layout_height="32dp"
-			android:layout_alignParentRight="true"
 			android:layout_centerVertical="true"
-			android:layout_marginRight="8dp"
-			android:background="@drawable/ripple_circle"
-			android:padding="8dp"
+			android:padding="4dp"
+			android:layout_marginLeft="8dp"
+			android:tint="@color/accent"
+			android:id="@+id/diynewBack"
+			android:background="@drawable/ripple_circle"/>
+		<ImageView
 			android:src="@drawable/ok"
-			android:tint="@color/accent" />
-		
+			android:layout_width="32dp"
+			android:layout_height="32dp"
+			android:layout_centerVertical="true"
+			android:padding="8dp"
+			android:layout_marginRight="8dp"
+			android:tint="@color/accent"
+			android:id="@+id/diynewGo"
+			android:background="@drawable/ripple_circle"
+			android:layout_alignParentRight="true"/>
 		<TextView
-			android:id="@+id/diynewTitle"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_centerInParent="true"
 			android:text="添加"
+			android:layout_centerInParent="true"
+			android:textSize="16sp"
 			android:textColor="@color/accent"
-			android:textSize="16sp" />
+			android:id="@+id/diynewTitle"/>
 	</RelativeLayout>
-	
 	<LinearLayout
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:layout_below="@id/diynewRelativeLayout1"
-		android:orientation="vertical">
+		android:orientation="vertical"
+		android:layout_below="@id/diynewRelativeLayout1">
 		
 		<com.zmide.lit.view.Editor
-			android:id="@+id/diynewEditTitle"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_margin="16dp"
+			android:id="@+id/diynewEditTitle"
 			app:drawableLeft="@drawable/quill_pen_line"
 			app:drawableLeftAfter="@drawable/quill_pen_fill"
 			app:hint="标题"
 			app:singleLine="true"
 			app:textColor="@color/accent"
 			app:textSize="14sp" />
-		
 		<LinearLayout
-			android:id="@+id/diyNewExtraParent"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_marginLeft="16dp"
 			android:layout_marginRight="16dp"
-			android:orientation="vertical">
+			android:orientation="vertical"
+			android:id="@+id/diyNewExtraParent">
 			
 			<com.zmide.lit.view.Editor
-				android:id="@+id/diynewEditExtra"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
+				android:id="@+id/diynewEditExtra"
 				app:drawableLeft="@drawable/links_line"
 				app:hint="域名"
 				app:singleLine="true"
 				app:textColor="@color/accent"
 				app:textSize="14sp" />
-			
 			<RelativeLayout
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content">
-				
 				<TextView
-					android:id="@+id/diyNewSe"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="正则表达式匹配"
+					android:textSize="12sp"
+					android:gravity="center"
+					android:textColor="@color/light"
+					android:layout_marginLeft="8dp"
+					android:layout_centerVertical="true"
+					android:id="@+id/diyNewSe"/>
+				<Switch
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_centerVertical="true"
-					android:layout_marginLeft="8dp"
-					android:gravity="center"
-					android:text="正则表达式匹配"
-					android:textColor="@color/light"
-					android:textSize="12sp" />
-				
-				<Switch
-					android:id="@+id/diyNewSwitchSe"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
 					android:layout_alignParentRight="true"
-					android:layout_centerVertical="true" />
-				
+					android:id="@+id/diyNewSwitchSe"/>
 				<ImageView
-					android:id="@+id/diyNewQuestion"
+					android:src="@drawable/question"
 					android:layout_width="24dp"
 					android:layout_height="24dp"
-					android:layout_centerVertical="true"
 					android:layout_toRightOf="@id/diyNewSe"
+					android:layout_centerVertical="true"
 					android:padding="5dp"
-					android:src="@drawable/question" />
+					android:id="@+id/diyNewQuestion"/>
 			</RelativeLayout>
 		</LinearLayout>
 		
 		<com.zmide.lit.view.Editor
-			android:id="@+id/diynewEditDescription"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_marginLeft="16dp"
 			android:layout_marginTop="16dp"
-			android:layout_marginRight="16dp"
 			android:textColorHint="@color/light"
+			android:layout_marginLeft="16dp"
+			android:layout_marginRight="16dp"
+			android:id="@+id/diynewEditDescription"
 			app:drawableLeft="@drawable/message_line"
 			app:drawableLeftAfter="@drawable/message_fill"
 			app:hint="描述"
 			app:textColor="@color/accent"
 			app:textSize="14sp" />
-		
 		<RelativeLayout
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_margin="16dp">
 			
 			<com.zmide.lit.view.Editor
-				android:id="@+id/diynewEditValue"
 				android:layout_width="match_parent"
 				android:layout_height="match_parent"
-				android:paddingTop="8dp"
-				android:paddingBottom="8dp"
+				android:id="@+id/diynewEditValue"
 				app:drawableLeft="@drawable/code"
 				app:hint="代码"
 				app:textColor="@color/accent"
-				app:textSize="14sp" />
+				app:textSize="14sp"
+				android:paddingBottom="8dp"
+				android:paddingTop="8dp"/>
 		</RelativeLayout>
 	</LinearLayout>
 </RelativeLayout>

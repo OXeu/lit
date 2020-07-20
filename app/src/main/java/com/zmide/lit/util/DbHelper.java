@@ -19,7 +19,7 @@ public class DbHelper extends SQLiteOpenHelper {
 	/**
 	 * Database version. If you change the database schema, you must increment the database version.
 	 */
-	private static final int DATABASE_VERSION = 6;
+	private static final int DATABASE_VERSION = 11;
 	
 	/**
 	 * Constructs a new instance of {@link DbHelper}.
@@ -42,12 +42,18 @@ public class DbHelper extends SQLiteOpenHelper {
 				+ Contract.MarkEntry._URL + " TEXT NOT NULL, "
 				+ Contract.MarkEntry._TIME + " INTEGER NOT NULL DEFAULT 0, "
 				+ Contract.MarkEntry._ICON + " TEXT, "
+				+ Contract.ParentEntry._DID + " INTEGER NOT NULL DEFAULT 0, "
+				+ Contract.ParentEntry._LEVEL + " INTEGER NOT NULL DEFAULT 0, "
 				+ Contract.MarkEntry._PARENT + " INTEGER NOT NULL DEFAULT 0);";
 		
 		// Create a String that contains the SQL statement to create the parents table
 		String SQL_CREATE_PARENTS_TABLE = "CREATE TABLE " + Contract.ParentEntry.TABLE_NAME + " ("
 				+ Contract.ParentEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
 				+ Contract.ParentEntry._NAME + " TEXT NOT NULL, "
+				+ Contract.ParentEntry._ICON + " TEXT, "
+				+ Contract.ParentEntry._DID + " INTEGER, "
+				+ Contract.ParentEntry._LEVEL + " INTEGER, "
+				+ Contract.ParentEntry._TIME + " INTEGER NOT NULL, "
 				+ Contract.ParentEntry._PARENT + " INTEGER NOT NULL DEFAULT 0);";
 		
 		// Create a String that contains the SQL statement to create the historys table
@@ -75,12 +81,25 @@ public class DbHelper extends SQLiteOpenHelper {
 				+ Contract.StateEntry._SID + " INTEGER NOT NULL);";
 		
 		
+		String SQL_CREATE_WEBSITES_TABLE = "CREATE TABLE " + Contract.WebsiteEntry.TABLE_NAME + " ("
+				+ Contract.WebsiteEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+				+ Contract.WebsiteEntry._SITE + " TEXT NOT NULL, "
+				+ Contract.WebsiteEntry._AD_HOST + " TEXT, "
+				+ Contract.WebsiteEntry._APP + " BOOLEAN, "
+				+ Contract.WebsiteEntry._JS + " BOOLEAN, "
+				+ Contract.WebsiteEntry._NO_HISTORY + " BOOLEAN, "
+				+ Contract.WebsiteEntry._NO_PIC + " BOOLEAN, "
+				+ Contract.WebsiteEntry._UA + " INTEGER, "
+				+ Contract.WebsiteEntry._STATE + " BOOLEAN );";
+		
+		
 		// Execute the SQL statement
 		db.execSQL(SQL_CREATE_MARKS_TABLE);
 		db.execSQL(SQL_CREATE_PARENTS_TABLE);
 		db.execSQL(SQL_CREATE_HISTORYS_TABLE);
 		db.execSQL(SQL_CREATE_DIYS_TABLE);
 		db.execSQL(SQL_CREATE_STATES_TABLE);
+		db.execSQL(SQL_CREATE_WEBSITES_TABLE);
 	}
 	
 	
@@ -114,7 +133,7 @@ public class DbHelper extends SQLiteOpenHelper {
 				db.execSQL("alter table " + Contract.DiyEntry.TABLE_NAME + " add column " + Contract.DiyEntry._SID + " TEXT");
 				break;
 		}
-		switch (oldVersion) {
+		switch (oldVersion){
 			case 1:
 			case 2:
 			case 3:
@@ -127,7 +146,32 @@ public class DbHelper extends SQLiteOpenHelper {
 				db.execSQL(SQL_CREATE_STATES_TABLE);
 				break;
 		}
-		
-		
+		if (oldVersion <= 6) {
+			db.execSQL("alter table " + Contract.MarkEntry.TABLE_NAME + " add column " + Contract.MarkEntry._DID + " integer");
+			db.execSQL("alter table " + Contract.MarkEntry.TABLE_NAME + " add column " + Contract.MarkEntry._LEVEL + " integer");
+			db.execSQL("alter table " + Contract.ParentEntry.TABLE_NAME + " add column " + Contract.ParentEntry._DID + " integer");
+			db.execSQL("alter table " + Contract.ParentEntry.TABLE_NAME + " add column " + Contract.ParentEntry._LEVEL + " integer");
+			db.execSQL("alter table " + Contract.ParentEntry.TABLE_NAME + " add column " + Contract.ParentEntry._TIME + " integer");
+		}
+		if (oldVersion <= 7) {
+			db.execSQL("alter table " + Contract.ParentEntry.TABLE_NAME + " add column " + Contract.ParentEntry._ICON + " text");
+		}
+		if (oldVersion < 10) {
+			db.execSQL("update " + Contract.MarkEntry.TABLE_NAME + " set " + Contract.MarkEntry._TIME + " = " + 10000);
+			db.execSQL("update " + Contract.ParentEntry.TABLE_NAME + " set " + Contract.ParentEntry._TIME + " = " + 10000);
+		}
+		if (oldVersion < 11) {
+			String SQL_CREATE_WEBSITES_TABLE = "CREATE TABLE " + Contract.WebsiteEntry.TABLE_NAME + " ("
+					+ Contract.WebsiteEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+					+ Contract.WebsiteEntry._SITE + " TEXT NOT NULL, "
+					+ Contract.WebsiteEntry._AD_HOST + " TEXT, "
+					+ Contract.WebsiteEntry._APP + " INTEGER, "
+					+ Contract.WebsiteEntry._JS + " INTEGER, "
+					+ Contract.WebsiteEntry._NO_HISTORY + " INTEGER, "
+					+ Contract.WebsiteEntry._NO_PIC + " INTEGER, "
+					+ Contract.WebsiteEntry._UA + " INTEGER, "
+					+ Contract.WebsiteEntry._STATE + " INTEGER );";
+			db.execSQL(SQL_CREATE_WEBSITES_TABLE);
+		}
 	}
 }

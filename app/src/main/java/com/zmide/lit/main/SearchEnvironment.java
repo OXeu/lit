@@ -1,27 +1,36 @@
 package com.zmide.lit.main;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.graphics.Rect;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.RelativeLayout;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.blankj.utilcode.util.BarUtils;
 import com.blankj.utilcode.util.KeyboardUtils;
 import com.zmide.lit.adapter.EngineAdapter;
 import com.zmide.lit.object.Diy;
+import com.zmide.lit.object.GMap;
 import com.zmide.lit.ui.MainActivity;
 import com.zmide.lit.util.DBC;
 import com.zmide.lit.util.MDataBaseSettingUtils;
 import com.zmide.lit.util.MExceptionUtils;
 import com.zmide.lit.util.MKeyboardUtils;
+import com.zmide.lit.util.MSharedPreferenceUtils;
 import com.zmide.lit.util.MWindowsUtils;
 import com.zmide.lit.util.ViewO;
 
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Field;
 import java.net.URLDecoder;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.regex.Pattern;
 
 import static com.zmide.lit.main.MainViewBindUtils.getIndexSearchBar;

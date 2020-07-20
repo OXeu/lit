@@ -21,15 +21,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.blankj.utilcode.util.AdaptScreenUtils;
 import com.blankj.utilcode.util.GsonUtils;
-import com.blankj.utilcode.util.PathUtils;
 import com.squareup.okhttp.Request;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 import com.zmide.lit.R;
 import com.zmide.lit.adapter.SugAdapter;
-import com.zmide.lit.object.BaiduSug;
 import com.zmide.lit.object.BallData;
 import com.zmide.lit.object.Diy;
+import com.zmide.lit.object.json.BaiduSug;
 import com.zmide.lit.ui.MainActivity;
 import com.zmide.lit.util.MDataBaseSettingUtils;
 import com.zmide.lit.util.MRegexUtils;
@@ -39,7 +38,7 @@ import com.zmide.lit.util.MWindowsUtils;
 import com.zmide.lit.util.ViewO;
 import com.zmide.lit.view.LitWebView;
 
-import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -67,6 +66,9 @@ public class BallEnvironment {
 	private static BallData ballData = new BallData();
 	private static View.OnTouchListener touchMove;
 	private static View.OnTouchListener touchWindow;
+	private static SharedPreferences.OnSharedPreferenceChangeListener sharedPreferenceChangeListener = (sharedPreferences, key) -> {
+		loadBallStyle();
+	};
 	/*
 	private int statusBarHeight;
 	private int distance_to_move;
@@ -99,9 +101,9 @@ public class BallEnvironment {
 		CardView mCardview = getBallCardView();
 		int targetWidth = MWindowsUtils.getWidth() - mCardview.getPaddingRight();
 		int zero = 0;
-		int initialWidth = MSharedPreferenceUtils.getSharedPreference().getString("is_double_ball", "true").equals("true")
+		int initialWidth = MSharedPreferenceUtils.getSharedPreference().getString("is_double_ball","true").equals("true")
 				?
-				AdaptScreenUtils.pt2Px(48) : MWindowsUtils.dp2px(48);
+				AdaptScreenUtils.pt2Px(48):MWindowsUtils.dp2px(48);
 		final int width = mCardview.getWidth();
 		if (mCardview.getAnimation() != null)
 			if (!mCardview.getAnimation().hasEnded()) {
@@ -164,9 +166,9 @@ public class BallEnvironment {
 		CardView mCardview = getBallCardView();
 		int targetWidth = MWindowsUtils.getWidth() - mCardview.getPaddingRight();
 		int zero = 0;
-		int initialWidth = MSharedPreferenceUtils.getSharedPreference().getString("is_double_ball", "true").equals("true")
+		int initialWidth = MSharedPreferenceUtils.getSharedPreference().getString("is_double_ball","true").equals("true")
 				?
-				AdaptScreenUtils.pt2Px(48) : MWindowsUtils.dp2px(48);
+				AdaptScreenUtils.pt2Px(48):MWindowsUtils.dp2px(48);
 		final int width = mCardview.getWidth();
 		if (mCardview.getAnimation() != null)
 			if (!mCardview.getAnimation().hasEnded()) {
@@ -199,7 +201,7 @@ public class BallEnvironment {
 		}
 		int targetWidthT = 0;
 		if (width == initialWidth)//未展开，仅存在小球，收缩消失
-			if (!((targetWidthT == zero && mSharedPreferences.getString("canHide", "true").equals("false")))) {
+			if (!((targetWidthT == zero && mSharedPreferences.getString("canHide", "false").equals("false")))) {
 				ViewO.makeViewTranslucent(mCardview, 0.2f);
 							/*Animation animation = new Animation() {
 								@Override
@@ -224,9 +226,9 @@ public class BallEnvironment {
 	
 	public static void shrinkBall() {//收缩小球
 		int targetWidth = MWindowsUtils.getWidth() - getBallCardView().getPaddingRight();
-		int initialWidth = MSharedPreferenceUtils.getSharedPreference().getString("is_double_ball", "true").equals("true")
+		int initialWidth = MSharedPreferenceUtils.getSharedPreference().getString("is_double_ball","true").equals("true")
 				?
-				AdaptScreenUtils.pt2Px(48) : MWindowsUtils.dp2px(48);
+				AdaptScreenUtils.pt2Px(48):MWindowsUtils.dp2px(48);
 		final int width = getBallCardView().getWidth();
 		if (width != initialWidth) {//已展开，收缩
 			Animation animation = new Animation() {
@@ -349,9 +351,9 @@ public class BallEnvironment {
 									final float targetX;
 									targetX = mSharedPreferences.getFloat("balloffsetx", 0f);
 									final int targetWidth = width - paddingRight;
-									int initialWidth = MSharedPreferenceUtils.getSharedPreference().getString("is_double_ball", "true").equals("true")
+									int initialWidth = MSharedPreferenceUtils.getSharedPreference().getString("is_double_ball","true").equals("true")
 											?
-											AdaptScreenUtils.pt2Px(48) : MWindowsUtils.dp2px(48);
+											AdaptScreenUtils.pt2Px(48):MWindowsUtils.dp2px(48);
 									final int width = getBallCardView().getWidth();
 									Animation animation = new Animation() {
 										@Override
@@ -715,9 +717,9 @@ public class BallEnvironment {
 								case 'l':
 								case 'c'://左
 									if (!isChangeGesture)
-										WebContainer.changeWindow(-1);
+									WebContainer.changeWindow(-1);
 									else
-										WebContainer.changeWindow(1);
+									WebContainer.changeWindow(1);
 									break;
 								case 't':
 								case 'm'://上
@@ -737,17 +739,17 @@ public class BallEnvironment {
 		};
 		getBallWindowButton().setOnTouchListener(touchWindow);
 		getBallWindowButton().setClickable(true);
-		getBallWindowButton().setOnLongClickListener((view) -> {
-			WebContainer.createWindow(null, true);
+		getBallWindowButton().setOnLongClickListener((view)->{
+			WebContainer.createWindow(null,true);
 			return true;
 		});
 	}
 	
 	
 	private static boolean isBallShrink() {//是否已收缩小球
-		int initialWidth = MSharedPreferenceUtils.getSharedPreference().getString("is_double_ball", "true").equals("true")
+		int initialWidth = MSharedPreferenceUtils.getSharedPreference().getString("is_double_ball","true").equals("true")
 				?
-				AdaptScreenUtils.pt2Px(48) : MWindowsUtils.dp2px(48);
+				AdaptScreenUtils.pt2Px(48):MWindowsUtils.dp2px(48);
 		final int width = getBallCardView().getWidth();
 		return width == initialWidth;//不等于即表示已展开
 	}
@@ -818,14 +820,18 @@ public class BallEnvironment {
 			case 2:
 				try {
 					new Thread(() -> activity.runOnUiThread(() -> {
-						String path = new File(PathUtils.getExternalAppPicturesPath(), "ball_icon.png").getAbsolutePath();
-						Bitmap wallpaper = BitmapFactory.decodeFile(path);
-						if (wallpaper != null) {
-							getBallImage().setVisibility(View.VISIBLE);
-							getBallText().setVisibility(View.GONE);
-							getBallImage().setImageBitmap(wallpaper);
-							getBallImage().setPadding(0, 0, 0, 0);
-						} else {
+						Bitmap wallpaper;
+						try {
+							wallpaper = BitmapFactory.decodeStream(activity.openFileInput("ball_icon.png"));
+							if (wallpaper != null) {
+								getBallImage().setVisibility(View.VISIBLE);
+								getBallText().setVisibility(View.GONE);
+								getBallImage().setImageBitmap(wallpaper);
+								getBallImage().setPadding(0, 0, 0, 0);
+							} else {
+								useDefaultLogo();
+							}
+						} catch (FileNotFoundException e) {
 							useDefaultLogo();
 						}
 					})).start();
@@ -861,5 +867,6 @@ public class BallEnvironment {
 		//启动函数
 		initBall();
 		loadBallStyle();
+		mSharedPreferences.registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);
 	}
 }
