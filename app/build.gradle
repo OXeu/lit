@@ -4,6 +4,7 @@ ext {
 }
 apply plugin: 'com.android.application'
 android {
+/*
 	signingConfigs {
 		debug {
 			storeFile file('E:\\Project\\lit\\zmide.jks')
@@ -12,7 +13,7 @@ android {
 			keyPassword '***REMOVED***'
 		}
 	}
-	/*
+	
 	android.applicationVariants.all {
 		variant ->
 			variant.outputs.all {
