@@ -20,7 +20,7 @@ android {
 							output.outputFileName = "V" + VersionName + ".apk"
 							("issue/apk")
 			}
-	}*/
+	}
 	
 	applicationVariants.all { variant ->
 		variant.outputs.all {
@@ -52,6 +52,7 @@ android {
 				}
 			}
 	}
+	*/
 	compileSdkVersion 29
 	buildToolsVersion "29.0.3"
 	compileOptions {
@@ -115,7 +116,7 @@ static def releaseTime() {
 	return new Date().format("HHmm", TimeZone.getTimeZone("GMT+08:00"))
 }
 
-
+/*
 def copyMapping() {
 	copy {
 		
@@ -152,3 +153,4 @@ def copyMapping() {
 		}*/
 	}
 }
+*/
