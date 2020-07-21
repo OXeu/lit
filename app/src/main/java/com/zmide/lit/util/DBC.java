@@ -1229,5 +1229,18 @@ public class DBC {
 		cursor.close();
 		return websiteSettings;
 	}
+	
+	public void deleteAllWebsiteSettings() {
+		db = dbHelper.getReadableDatabase();
+		// Filter results WHERE "title" = 'My Title'
+		//String selection = Contract.HistoryEntry._ID + " = ?";
+		//String[] selectionArgs = {id + ""};
+		
+		// How you want the results sorted in the resulting Cursor
+		db.delete(Contract.WebsiteEntry.TABLE_NAME,
+				null,
+				null);
+	}
+	
 }
 
