@@ -1273,5 +1273,18 @@ public class DBC {
 		db.update(Contract.WebsiteEntry.TABLE_NAME, values, Contract.WebsiteEntry._ID + "=?", new String[]{setting.id + ""});
 		db.close();
 	}
+	
+	public void deleteWebsiteSetting(int id) {
+		//创建游标对象
+		db = dbHelper.getReadableDatabase();
+		// Filter results WHERE "title" = 'My Title'
+		String selection = Contract.WebsiteEntry._ID + " = ?";
+		String[] selectionArgs = {id + ""};
+		
+		// How you want the results sorted in the resulting Cursor
+		db.delete(Contract.WebsiteEntry.TABLE_NAME,
+				selection,
+				selectionArgs);
+	}
 }
 
