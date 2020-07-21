@@ -1242,21 +1242,36 @@ public class DBC {
 				null);
 	}
 	
-	public void addWebsiteSeting(WebsiteSetting seting) {
+	public void addWebsiteSetting(WebsiteSetting setting) {
 		// Gets the data repository in write mode
 		// Create a new map of values, where column names are the keys
 		db = dbHelper.getWritableDatabase();
 		ContentValues values = new ContentValues();
-		values.put(Contract.WebsiteEntry._AD_HOST, seting.ad_host);
-		values.put(Contract.WebsiteEntry._APP, seting.app);
-		values.put(Contract.WebsiteEntry._UA, seting.ua);
-		values.put(Contract.WebsiteEntry._JS, seting.js);
-		values.put(Contract.WebsiteEntry._NO_PIC, seting.no_picture);
-		values.put(Contract.WebsiteEntry._NO_HISTORY, seting.no_history);
-		values.put(Contract.WebsiteEntry._SITE, seting.site);
-		values.put(Contract.WebsiteEntry._STATE, seting.state);
+		values.put(Contract.WebsiteEntry._AD_HOST, setting.ad_host);
+		values.put(Contract.WebsiteEntry._APP, setting.app);
+		values.put(Contract.WebsiteEntry._UA, setting.ua);
+		values.put(Contract.WebsiteEntry._JS, setting.js);
+		values.put(Contract.WebsiteEntry._NO_PIC, setting.no_picture);
+		values.put(Contract.WebsiteEntry._NO_HISTORY, setting.no_history);
+		values.put(Contract.WebsiteEntry._SITE, setting.site);
+		values.put(Contract.WebsiteEntry._STATE, setting.state);
 		// Insert the new row, returning the primary key value of the new row
 		db.insert(Contract.WebsiteEntry.TABLE_NAME, null, values);
+	}
+	
+	private void modWebSetting(WebsiteSetting setting) {
+		SQLiteDatabase db = dbHelper.getWritableDatabase();
+		ContentValues values = new ContentValues();
+		values.put(Contract.WebsiteEntry._AD_HOST, setting.ad_host);
+		values.put(Contract.WebsiteEntry._APP, setting.app);
+		values.put(Contract.WebsiteEntry._UA, setting.ua);
+		values.put(Contract.WebsiteEntry._JS, setting.js);
+		values.put(Contract.WebsiteEntry._NO_PIC, setting.no_picture);
+		values.put(Contract.WebsiteEntry._NO_HISTORY, setting.no_history);
+		values.put(Contract.WebsiteEntry._SITE, setting.site);
+		values.put(Contract.WebsiteEntry._STATE, setting.state);
+		db.update(Contract.WebsiteEntry.TABLE_NAME, values, Contract.WebsiteEntry._ID + "=?", new String[]{setting.id + ""});
+		db.close();
 	}
 }
 
