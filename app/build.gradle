@@ -17,7 +17,7 @@ android {
 		variant ->
 			variant.outputs.all {
 				output ->
-							output.outputFileName = "V" + VersionName + ".apk"
+							output.outputFileName = "release.apk"
 							("issue/apk")
 			}
 	}
@@ -25,13 +25,13 @@ android {
 	applicationVariants.all { variant ->
 		variant.outputs.all {
 			output ->
-				outputFileName = outputFile.name.replace(".apk", "-${VersionName}-${releaseTime()}.apk")
+				outputFileName = outputFile.name.replace(".apk",".apk")
 			println "========" + outputFile.name
 			if (outputFileName != null && outputFile.name.endsWith('.apk')) {
 				if (!outputFile.name.contains("debug")) {
 					variant.getPackageApplication().outputDirectory = new File("issue/apk")
 					println "========" + variant.getPackageApplication().outputDirectory
-					outputFileName = "V" + VersionName + "-" + releaseTime() + ".apk"
+					outputFileName = "release.apk"
 					variant.getPackageApplication().outputScope.apkDatas.forEach {
 						apkData -> apkData.outputFileName = outputFileName
 					}
