@@ -1,6 +1,6 @@
 ext {
-	VersionName = '3.0.1'
-	VersionCode = 200523
+	VersionName = '3.1.0'
+	VersionCode = 200721
 }
 apply plugin: 'com.android.application'
 android {
@@ -12,7 +12,47 @@ android {
 			keyPassword '***REMOVED***'
 		}
 	}
-
+	
+	android.applicationVariants.all {
+		variant ->
+			variant.outputs.all {
+				output ->
+							output.outputFileName = "V" + VersionName + ".apk"
+							("issue/apk")
+			}
+	}
+	
+	applicationVariants.all { variant ->
+		variant.outputs.all {
+			output ->
+				outputFileName = outputFile.name.replace(".apk", "-${VersionName}-${releaseTime()}.apk")
+			println "========" + outputFile.name
+			if (outputFileName != null && outputFile.name.endsWith('.apk')) {
+				if (!outputFile.name.contains("debug")) {
+					variant.getPackageApplication().outputDirectory = new File("issue/apk")
+					println "========" + variant.getPackageApplication().outputDirectory
+					outputFileName = "V" + VersionName + "-" + releaseTime() + ".apk"
+					variant.getPackageApplication().outputScope.apkDatas.forEach {
+						apkData -> apkData.outputFileName = outputFileName
+					}
+				}
+			}
+		}
+	}
+	tasks.whenTaskAdded {
+		task ->
+			//我只需要assembleFlavorBProductRelease这个task（正式环境打包发布的情况下）才保存mapping.txt
+			//规则可以自己定义，我这边定义的比较宽泛
+			if (task.name.startsWith("assemble")
+			) {
+				task.doLast {
+					println "\n\n=====mapping.txt======"
+					println task.name
+					copyMapping()
+					
+				}
+			}
+	}
 	compileSdkVersion 29
 	buildToolsVersion "29.0.3"
 	compileOptions {
@@ -70,4 +110,46 @@ dependencies {
 	
 	implementation 'com.shuyu:gsyVideoPlayer-java:7.1.3'
 	//implementation 'com.shuyu:gsyVideoPlayer-arm64:7.1.3'
+}
+
+static def releaseTime() {
+	return new Date().format("HHmm", TimeZone.getTimeZone("GMT+08:00"))
+}
+
+
+def copyMapping() {
+	copy {
+		
+		//此处是个人喜好，把assembleFlavorBProductRelease先去掉assemble和Release，否则感觉文件名太长
+		//然后把FlavorBProduct然后的F改成小写
+		/*
+		String firstChar = "";
+		try {
+			firstChar = name.getAt(0);
+		} catch (Exception e) {
+			e.printStackTrace()
+			return
+		}*/
+		//name = name.replace(firstChar, firstChar.toLowerCase())
+		//======================================================
+		
+		
+		String renameName = "mapping_" + VersionName+ ".txt"
+		println "\n=====FileName:" + renameName + "======\n"
+		from "$buildDir" + '/outputs/mapping/' + 'release/'
+		include "mapping.txt"
+		into "issue/mapping/"
+		rename {
+			renameName
+		}
+		/*
+		String appName = "lit_" + VersionName+ ".apk"
+		println "\n=====apkName:" + appName + "======\n"
+		from "$buildDir" + '/release/'
+		include "app-release.apk"
+		into "issue/apk/"
+		rename {
+			appName
+		}*/
+	}[
 }
