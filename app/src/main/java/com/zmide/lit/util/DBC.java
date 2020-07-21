@@ -1242,5 +1242,21 @@ public class DBC {
 				null);
 	}
 	
+	public void addWebsiteSeting(WebsiteSetting seting) {
+		// Gets the data repository in write mode
+		// Create a new map of values, where column names are the keys
+		db = dbHelper.getWritableDatabase();
+		ContentValues values = new ContentValues();
+		values.put(Contract.WebsiteEntry._AD_HOST, seting.ad_host);
+		values.put(Contract.WebsiteEntry._APP, seting.app);
+		values.put(Contract.WebsiteEntry._UA, seting.ua);
+		values.put(Contract.WebsiteEntry._JS, seting.js);
+		values.put(Contract.WebsiteEntry._NO_PIC, seting.no_picture);
+		values.put(Contract.WebsiteEntry._NO_HISTORY, seting.no_history);
+		values.put(Contract.WebsiteEntry._SITE, seting.site);
+		values.put(Contract.WebsiteEntry._STATE, seting.state);
+		// Insert the new row, returning the primary key value of the new row
+		db.insert(Contract.WebsiteEntry.TABLE_NAME, null, values);
+	}
 }
 
