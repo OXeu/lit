@@ -151,5 +151,5 @@ def copyMapping() {
 		rename {
 			appName
 		}*/
-	}[
+	}
 }
