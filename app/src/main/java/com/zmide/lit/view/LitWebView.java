@@ -26,10 +26,11 @@ import com.zmide.lit.util.MDownloadManager;
 import com.zmide.lit.util.MFileUtils;
 import com.zmide.lit.util.MSharedPreferenceUtils;
 import com.zmide.lit.util.MToastUtils;
+import org.adblockplus.libadblockplus.android.webview.AdblockWebView;
 
 import java.util.Objects;
 
-public class LitWebView extends WebView {
+public class LitWebView extends AdblockWebView {
 	
 	private Activity activity = ActivityUtils.getActivityByView(this);
 	private OnScrollChangeListener mOnScrollChangeListener;
