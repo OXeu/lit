@@ -1,0 +1,155 @@
+ext {
+	VersionName = '3.1.0'
+	VersionCode = 200721
+}
+apply plugin: 'com.android.application'
+android {
+	signingConfigs {
+		debug {
+			storeFile file('.\\zmide.jks')
+			storePassword '***REMOVED***'
+			keyAlias = 'zmide'
+			keyPassword '***REMOVED***'
+		}
+	}
+	
+	android.applicationVariants.all {
+		variant ->
+			variant.outputs.all {
+				output ->
+							output.outputFileName = "release.apk"
+							("issue/apk")
+			}
+	}
+	
+	applicationVariants.all { variant ->
+		variant.outputs.all {
+			output ->
+				outputFileName = outputFile.name.replace(".apk",".apk")
+			println "========" + outputFile.name
+			if (outputFileName != null && outputFile.name.endsWith('.apk')) {
+				if (!outputFile.name.contains("debug")) {
+					variant.getPackageApplication().outputDirectory = new File("issue/apk")
+					println "========" + variant.getPackageApplication().outputDirectory
+					outputFileName = "release.apk"
+					variant.getPackageApplication().outputScope.apkDatas.forEach {
+						apkData -> apkData.outputFileName = outputFileName
+					}
+				}
+			}
+		}
+	}
+	tasks.whenTaskAdded {
+		task ->
+			//我只需要assembleFlavorBProductRelease这个task（正式环境打包发布的情况下）才保存mapping.txt
+			//规则可以自己定义，我这边定义的比较宽泛
+			if (task.name.startsWith("assemble")
+			) {
+				task.doLast {
+					println "\n\n=====mapping.txt======"
+					println task.name
+					copyMapping()
+					
+				}
+			}
+	}
+	compileSdkVersion 29
+	buildToolsVersion "29.0.3"
+	compileOptions {
+		sourceCompatibility JavaVersion.VERSION_1_8
+		targetCompatibility JavaVersion.VERSION_1_8
+	}
+	
+	defaultConfig {
+		applicationId "com.zmide.lit"
+		minSdkVersion 21
+		targetSdkVersion 29
+		versionCode VersionCode
+		versionName VersionName
+		testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+		flavorDimensions "channel"
+	}
+	buildTypes {
+		release {
+			//对齐
+			zipAlignEnabled true
+			//移除无用的resource文件
+			shrinkResources true
+			minifyEnabled true
+			proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+		}
+		debug {
+			versionNameSuffix = '(Dev)'
+			debuggable = true
+			signingConfig signingConfigs.debug
+		}
+	}
+	dataBinding {
+		enabled true
+	}
+	
+}
+
+dependencies {
+	implementation fileTree(dir: 'libs', include: ['*.jar'])
+	implementation 'org.jsoup:jsoup:1.12.2'
+	implementation 'com.oasisfeng.condom:library:2.5.0'
+	//implementation 'com.ifreedomer:com.ifreedomer.permissionhelper:1.0.7'
+	implementation 'com.zhy:okhttputils:2.0.0'
+	implementation 'androidx.recyclerview:recyclerview:1.1.0'
+	implementation 'androidx.cardview:cardview:1.0.0'
+	//noinspection GradleDependency
+	implementation 'com.umeng.umsdk:analytics:8.1.6'
+	implementation 'com.umeng.umsdk:common:2.2.5'
+	implementation 'com.blankj:utilcodex:1.26.0'
+	implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0'
+	implementation 'androidx.viewpager:viewpager:1.0.0'
+	testImplementation 'junit:junit:4.12'
+	androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+	androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    implementation 'org.adblockplus:adblock-android-settings:3.0'
+	implementation 'com.shuyu:gsyVideoPlayer-java:7.1.3'
+	//implementation 'com.shuyu:gsyVideoPlayer-arm64:7.1.3'
+}
+
+static def releaseTime() {
+	return new Date().format("HHmm", TimeZone.getTimeZone("GMT+08:00"))
+}
+
+
+def copyMapping() {
+	copy {
+		
+		//此处是个人喜好，把assembleFlavorBProductRelease先去掉assemble和Release，否则感觉文件名太长
+		//然后把FlavorBProduct然后的F改成小写
+		/*
+		String firstChar = "";
+		try {
+			firstChar = name.getAt(0);
+		} catch (Exception e) {
+			e.printStackTrace()
+			return
+		}*/
+		//name = name.replace(firstChar, firstChar.toLowerCase())
+		//======================================================
+		
+		
+		String renameName = "mapping_" + VersionName+ ".txt"
+		println "\n=====FileName:" + renameName + "======\n"
+		from "$buildDir" + '/outputs/mapping/' + 'release/'
+		include "mapping.txt"
+		into "issue/mapping/"
+		rename {
+			renameName
+		}
+		/*
+		String appName = "lit_" + VersionName+ ".apk"
+		println "\n=====apkName:" + appName + "======\n"
+		from "$buildDir" + '/release/'
+		include "app-release.apk"
+		into "issue/apk/"
+		rename {
+			appName
+		}*/
+	}
+}
