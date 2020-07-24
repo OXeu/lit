@@ -82,7 +82,12 @@ public class WebsiteSettingAdapter extends RecyclerView.Adapter<WebsiteSettingAd
 		viewHolder.mMod.setOnClickListener(view -> {
 			//todo 修改按钮
 		});
+		if (setting.isSwitch){
 		viewHolder.mMod.setVisibility(View.GONE);
+		viewHolder.mMod.setVisibility(View.GONE);
+		}else{
+		  
+		}
 		viewHolder.mSwitch.setOnCheckedChangeListener((cb, ischecked) -> {
 			if (cb.isPressed()) {
 				viewHolder.mParent.performClick();
