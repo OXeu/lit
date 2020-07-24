@@ -1,8 +1,6 @@
 name: Android CI
 
-on: 
-  release:
-   [published]
+on: release
 
 jobs:
   build:
