@@ -70,7 +70,7 @@ public class WebsiteSettingAdapter extends RecyclerView.Adapter<WebsiteSettingAd
 		viewHolder.mParent.setBackground(SkinManager.getInstance().getDrawable(R.drawable.ripple_normal));
 		viewHolder.mMod.setBackground(SkinManager.getInstance().getDrawable(R.drawable.ripple_circle));
 		viewHolder.mTip.setText(tip.name);
-		viewHolder.mSwitch.setChecked(websiteSetting.isChecked);
+		viewHolder.mSwitch.setChecked(setting.state);
 		viewHolder.mParent.setOnClickListener(view -> {
 			viewHolder.mSwitch.setChecked(!viewHolder.mSwitch.isChecked());
 			if (tip.state &&tip.isSwitch) {
