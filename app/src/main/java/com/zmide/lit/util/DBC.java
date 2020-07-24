@@ -1172,15 +1172,62 @@ public class DBC {
 		WebsiteSetting websiteSetting = new WebsiteSetting();
 		if (cursor.moveToFirst()) {
 			websiteSetting.id = cursor.getInt(cursor.getColumnIndex(Contract.WebsiteEntry._ID));
-			websiteSetting.ad_host = cursor.getString(cursor.getColumnIndex(Contract.WebsiteEntry._AD_HOST));
-			websiteSetting.app = cursor.getInt(cursor.getColumnIndex(Contract.WebsiteEntry._APP)) == 0;
-			websiteSetting.js = cursor.getInt(cursor.getColumnIndex(Contract.WebsiteEntry._JS)) == 0;
-			websiteSetting.no_history = cursor.getInt(cursor.getColumnIndex(Contract.WebsiteEntry._NO_HISTORY)) == 0;
-			websiteSetting.no_picture = cursor.getInt(cursor.getColumnIndex(Contract.WebsiteEntry._NO_PIC)) == 0;
+			websiteSetting.ad_host = cursor.getInt(cursor.getColumnIndex(Contract.WebsiteEntry._AD_HOST)) == 1;
+			websiteSetting.app = cursor.getInt(cursor.getColumnIndex(Contract.WebsiteEntry._APP)) == 1;
+			websiteSetting.js = cursor.getInt(cursor.getColumnIndex(Contract.WebsiteEntry._JS)) == 1;
+			websiteSetting.no_history = cursor.getInt(cursor.getColumnIndex(Contract.WebsiteEntry._NO_HISTORY)) == 1;
+			websiteSetting.no_picture = cursor.getInt(cursor.getColumnIndex(Contract.WebsiteEntry._NO_PIC)) == 1;
 			websiteSetting.site = cursor.getString(cursor.getColumnIndex(Contract.WebsiteEntry._SITE));
-			websiteSetting.state = cursor.getInt(cursor.getColumnIndex(Contract.WebsiteEntry._STATE)) == 0;
+			websiteSetting.state = cursor.getInt(cursor.getColumnIndex(Contract.WebsiteEntry._STATE)) == 1;
 			websiteSetting.ua = cursor.getInt(cursor.getColumnIndex(Contract.WebsiteEntry._UA));
-		}
+		}else
+			websiteSetting = null;
+		// 关闭游标，释放资源
+		cursor.close();
+		return websiteSetting;
+	}
+	
+	public WebsiteSetting getWebsiteSetting(int id) {
+		//创建游标对象
+		db = dbHelper.getReadableDatabase();
+		String[] projection = new String[]{
+				Contract.WebsiteEntry._ID,
+				Contract.WebsiteEntry._SITE,
+				Contract.WebsiteEntry._STATE,
+				Contract.WebsiteEntry._UA,
+				Contract.WebsiteEntry._NO_PIC,
+				Contract.WebsiteEntry._NO_HISTORY,
+				Contract.WebsiteEntry._JS,
+				Contract.WebsiteEntry._APP,
+				Contract.WebsiteEntry._AD_HOST,
+		};
+		//Filter results WHERE "title" = 'My Title'
+		String selection =
+				Contract.WebsiteEntry._ID + " = ? ";
+		String[] selectionArgs = {id + ""};
+		
+		// How you want the results sorted in the resulting Cursor
+		Cursor cursor = db.query(Contract.WebsiteEntry.TABLE_NAME,
+				projection,
+				selection,
+				selectionArgs,
+				null,
+				null,
+				null
+		);
+		WebsiteSetting websiteSetting = new WebsiteSetting();
+		if (cursor.moveToFirst()) {
+			websiteSetting.id = cursor.getInt(cursor.getColumnIndex(Contract.WebsiteEntry._ID));
+			websiteSetting.ad_host = cursor.getInt(cursor.getColumnIndex(Contract.WebsiteEntry._AD_HOST)) == 1;
+			websiteSetting.app = cursor.getInt(cursor.getColumnIndex(Contract.WebsiteEntry._APP)) == 1;
+			websiteSetting.js = cursor.getInt(cursor.getColumnIndex(Contract.WebsiteEntry._JS)) == 1;
+			websiteSetting.no_history = cursor.getInt(cursor.getColumnIndex(Contract.WebsiteEntry._NO_HISTORY)) == 1;
+			websiteSetting.no_picture = cursor.getInt(cursor.getColumnIndex(Contract.WebsiteEntry._NO_PIC)) == 1;
+			websiteSetting.site = cursor.getString(cursor.getColumnIndex(Contract.WebsiteEntry._SITE));
+			websiteSetting.state = cursor.getInt(cursor.getColumnIndex(Contract.WebsiteEntry._STATE)) == 1;
+			websiteSetting.ua = cursor.getInt(cursor.getColumnIndex(Contract.WebsiteEntry._UA));
+		}else
+			websiteSetting = null;
 		// 关闭游标，释放资源
 		cursor.close();
 		return websiteSetting;
@@ -1215,13 +1262,13 @@ public class DBC {
 		while (cursor.moveToNext()) {
 			WebsiteSetting websiteSetting = new WebsiteSetting();
 			websiteSetting.id = cursor.getInt(cursor.getColumnIndex(Contract.WebsiteEntry._ID));
-			websiteSetting.ad_host = cursor.getString(cursor.getColumnIndex(Contract.WebsiteEntry._AD_HOST));
-			websiteSetting.app = cursor.getInt(cursor.getColumnIndex(Contract.WebsiteEntry._APP)) == 0;
-			websiteSetting.js = cursor.getInt(cursor.getColumnIndex(Contract.WebsiteEntry._JS)) == 0;
-			websiteSetting.no_history = cursor.getInt(cursor.getColumnIndex(Contract.WebsiteEntry._NO_HISTORY)) == 0;
-			websiteSetting.no_picture = cursor.getInt(cursor.getColumnIndex(Contract.WebsiteEntry._NO_PIC)) == 0;
+			websiteSetting.ad_host = cursor.getInt(cursor.getColumnIndex(Contract.WebsiteEntry._AD_HOST)) == 1;
+			websiteSetting.app = cursor.getInt(cursor.getColumnIndex(Contract.WebsiteEntry._APP)) == 1;
+			websiteSetting.js = cursor.getInt(cursor.getColumnIndex(Contract.WebsiteEntry._JS)) == 1;
+			websiteSetting.no_history = cursor.getInt(cursor.getColumnIndex(Contract.WebsiteEntry._NO_HISTORY)) == 1;
+			websiteSetting.no_picture = cursor.getInt(cursor.getColumnIndex(Contract.WebsiteEntry._NO_PIC)) == 1;
 			websiteSetting.site = cursor.getString(cursor.getColumnIndex(Contract.WebsiteEntry._SITE));
-			websiteSetting.state = cursor.getInt(cursor.getColumnIndex(Contract.WebsiteEntry._STATE)) == 0;
+			websiteSetting.state = cursor.getInt(cursor.getColumnIndex(Contract.WebsiteEntry._STATE)) == 1;
 			websiteSetting.ua = cursor.getInt(cursor.getColumnIndex(Contract.WebsiteEntry._UA));
 			websiteSettings.add(websiteSetting);
 		}
@@ -1259,7 +1306,7 @@ public class DBC {
 		db.insert(Contract.WebsiteEntry.TABLE_NAME, null, values);
 	}
 	
-	private void modWebSetting(WebsiteSetting setting) {
+	public void modWebSetting(WebsiteSetting setting) {
 		SQLiteDatabase db = dbHelper.getWritableDatabase();
 		ContentValues values = new ContentValues();
 		values.put(Contract.WebsiteEntry._AD_HOST, setting.ad_host);

@@ -12,6 +12,7 @@ import android.webkit.URLUtil;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 import com.blankj.utilcode.util.ActivityUtils;
 import com.zmide.lit.javascript.EasySearch;

@@ -84,14 +84,13 @@ public class DbHelper extends SQLiteOpenHelper {
 		String SQL_CREATE_WEBSITES_TABLE = "CREATE TABLE " + Contract.WebsiteEntry.TABLE_NAME + " ("
 				+ Contract.WebsiteEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
 				+ Contract.WebsiteEntry._SITE + " TEXT NOT NULL, "
-				+ Contract.WebsiteEntry._AD_HOST + " TEXT, "
-				+ Contract.WebsiteEntry._APP + " BOOLEAN, "
-				+ Contract.WebsiteEntry._JS + " BOOLEAN, "
-				+ Contract.WebsiteEntry._NO_HISTORY + " BOOLEAN, "
-				+ Contract.WebsiteEntry._NO_PIC + " BOOLEAN, "
+				+ Contract.WebsiteEntry._AD_HOST + " INTEGER, "
+				+ Contract.WebsiteEntry._APP + " INTEGER, "
+				+ Contract.WebsiteEntry._JS + " INTEGER, "
+				+ Contract.WebsiteEntry._NO_HISTORY + " INTEGER, "
+				+ Contract.WebsiteEntry._NO_PIC + " INTEGER, "
 				+ Contract.WebsiteEntry._UA + " INTEGER, "
-				+ Contract.WebsiteEntry._STATE + " BOOLEAN );";
-		
+				+ Contract.WebsiteEntry._STATE + " INTEGER );";
 		
 		// Execute the SQL statement
 		db.execSQL(SQL_CREATE_MARKS_TABLE);
@@ -164,7 +163,7 @@ public class DbHelper extends SQLiteOpenHelper {
 			String SQL_CREATE_WEBSITES_TABLE = "CREATE TABLE " + Contract.WebsiteEntry.TABLE_NAME + " ("
 					+ Contract.WebsiteEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
 					+ Contract.WebsiteEntry._SITE + " TEXT NOT NULL, "
-					+ Contract.WebsiteEntry._AD_HOST + " TEXT, "
+					+ Contract.WebsiteEntry._AD_HOST + " INTEGER, "
 					+ Contract.WebsiteEntry._APP + " INTEGER, "
 					+ Contract.WebsiteEntry._JS + " INTEGER, "
 					+ Contract.WebsiteEntry._NO_HISTORY + " INTEGER, "

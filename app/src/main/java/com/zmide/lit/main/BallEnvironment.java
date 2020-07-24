@@ -28,14 +28,17 @@ import com.zmide.lit.R;
 import com.zmide.lit.adapter.SugAdapter;
 import com.zmide.lit.object.BallData;
 import com.zmide.lit.object.Diy;
+import com.zmide.lit.object.WebsiteSetting;
 import com.zmide.lit.object.json.BaiduSug;
 import com.zmide.lit.ui.MainActivity;
 import com.zmide.lit.util.MDataBaseSettingUtils;
 import com.zmide.lit.util.MRegexUtils;
 import com.zmide.lit.util.MSharedPreferenceUtils;
 import com.zmide.lit.util.MToastUtils;
+import com.zmide.lit.util.MWebsiteSettingDialog;
 import com.zmide.lit.util.MWindowsUtils;
 import com.zmide.lit.util.ViewO;
+import com.zmide.lit.util.WebsiteUtils;
 import com.zmide.lit.view.LitWebView;
 
 import java.io.FileNotFoundException;
@@ -727,7 +730,14 @@ public class BallEnvironment {
 									break;
 								case 'b':
 								case 'q'://下
-									MToastUtils.makeText("网站独立设置暂未开发").show();
+									String domain = WebsiteUtils.getDomain(WebContainer.getUrl());
+									WebsiteSetting websiteSetting = WebsiteUtils.getWebsiteSetting(activity,domain);
+									if (websiteSetting==null) {
+										websiteSetting = new WebsiteSetting();
+										websiteSetting.site = domain;
+										websiteSetting.state = false;
+									}
+									new MWebsiteSettingDialog.Builder(activity).setItems(websiteSetting).create().show();
 									break;
 							}
 						}

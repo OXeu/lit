@@ -14,7 +14,9 @@ import androidx.annotation.Nullable;
 
 import com.blankj.utilcode.util.BarUtils;
 import com.zmide.lit.object.Diy;
+import com.zmide.lit.object.WebsiteSetting;
 import com.zmide.lit.util.DBC;
+import com.zmide.lit.util.WebsiteUtils;
 import com.zmide.lit.util.MDialogUtils;
 import com.zmide.lit.util.MFileUtils;
 import com.zmide.lit.util.MSharedPreferenceUtils;
@@ -38,6 +40,7 @@ public class MWebViewClient extends WebViewClient {
 	
 	public MWebViewClient(Activity mainActivity) {
 		this.a = mainActivity;
+		WebsiteUtils.loadWebsiteSettings(a);
 	}
 	
 	@Override
