@@ -46,6 +46,14 @@ public class WebsiteSetting {
 		}
 		return this;
 	}
+	
+	public WebsiteSetting set(int p,int t){
+		switch (p){
+			case 1:
+				ua = t;
+		}
+		return this;
+	}
 	public class setting{
 		public String name;
 		public boolean isSwitch;
