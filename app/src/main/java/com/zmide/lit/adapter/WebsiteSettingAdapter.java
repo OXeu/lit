@@ -84,9 +84,10 @@ public class WebsiteSettingAdapter extends RecyclerView.Adapter<WebsiteSettingAd
 		});
 		if (setting.isSwitch){
 		viewHolder.mMod.setVisibility(View.GONE);
-		viewHolder.mMod.setVisibility(View.GONE);
+		viewHolder.mSwitch.setVisibility(View.VISIBLE);
 		}else{
-		  
+		viewHolder.mSwitch.setVisibility(View.GONE);
+		viewHolder.mMod.setVisibility(View.VISIBLE);
 		}
 		viewHolder.mSwitch.setOnCheckedChangeListener((cb, ischecked) -> {
 			if (cb.isPressed()) {
