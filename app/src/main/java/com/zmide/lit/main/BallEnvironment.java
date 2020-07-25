@@ -734,7 +734,7 @@ public class BallEnvironment {
 									String domain = WebsiteUtils.getDomain(WebContainer.getUrl());
 									WebsiteSetting websiteSetting = WebsiteUtils.getWebsiteSetting(activity,domain);
 									if(websiteSetting != null){
-									Chiper.copy(websiteSetting.toString());
+									Chiper.copy(websiteSetting.text());
 									  
 									}
 									if (websiteSetting==null) {
