@@ -75,7 +75,7 @@ android {
 			//对齐
 			zipAlignEnabled true
 			//移除无用的resource文件
-			shrinkResources true
+			shrinkResources false
 			minifyEnabled false
 			signingConfig signingConfigs.app
 			proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
