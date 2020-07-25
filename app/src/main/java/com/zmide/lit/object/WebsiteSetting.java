@@ -106,7 +106,7 @@ public class WebsiteSetting {
 
 	public String text(){
 
-	  return "id:"+websiteSetting.id+"\n"+
+	  return "id:"+id+"\n"+
 
 					 "site:"+site+"\n"+
 
