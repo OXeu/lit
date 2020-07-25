@@ -46,13 +46,13 @@ public class WebsiteSetting {
 	}
 
 public String text(){
-	  return "id:"+websiteSetting.id+"\n"+
-		 "site:"+websiteSetting.site+"\n"+
-		 "js:"+websiteSetting.js+"\n"+
-		 "ua:"+websiteSetting.ua+"\n"+
-		 "app:"+websiteSetting.app+"\n"+
-		 "state:"+websiteSetting.state+"\n"+								  "no_history:"+websiteSetting.no_history+"\n"+
-                 "no_picture:"+websiteSetting.no_picture;
+	  return "id:"+id+"\n"+
+		 "site:"+site+"\n"+
+		 "js:"+js+"\n"+
+		 "ua:"+ua+"\n"+
+		 "app:"+app+"\n"+
+		 "state:"+state+"\n"+								  "no_history:"+websiteSetting.no_history+"\n"+
+                 "no_picture:"+no_picture;
 	}
 	public class setting{
 		public String name;
