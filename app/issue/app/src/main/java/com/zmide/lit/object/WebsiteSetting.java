@@ -47,7 +47,7 @@ public class WebsiteSetting {
 		return this;
 	}
 	
-	public String toString(){
+	public String text(){
 	  return "id:"+websiteSetting.id+"\n"+
 									  "site:"+websiteSetting.site+"\n"+
 									  "js:"+websiteSetting.js+"\n"+
