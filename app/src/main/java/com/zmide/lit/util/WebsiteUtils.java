@@ -34,7 +34,9 @@ public class WebsiteUtils {
 			if (Pattern.compile(websiteSetting1.site).matcher(domain).find())
 				return websiteSetting1;
 		}
-		return null;
+		WebsiteSetting websiteSetting2 = new WebsiteSetting();
+		websiteSetting2.site = domain;
+		return DBC.getInstance(context).addWebsiteSetting(websiteSetting2);
 	}
 	
 	public static void putWebsiteSetting(Context context , WebsiteSetting websiteSetting) {
