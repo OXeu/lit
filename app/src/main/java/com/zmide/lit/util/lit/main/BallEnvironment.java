@@ -733,14 +733,14 @@ public class BallEnvironment {
 									String domain = WebsiteUtils.getDomain(WebContainer.getUrl());
 									WebsiteSetting websiteSetting = WebsiteUtils.getWebsiteSetting(activity,domain);
 									Chiper.copy(
-									  "id:"+websiteSetting.id+";\n"
-									  "site:"+websiteSetting.site+";\n"
-									  "js:"+websiteSetting.js+";\n"
-									  "ua:"+websiteSetting.ua+";\n"
-									  "app:"+websiteSetting.app+";\n"
-									  "state:"+websiteSetting.state+";\n"
-									  "no_history:"+websiteSetting.no_history+";\n"
-									  "no_picture:"+websiteSetting.no_picture+";\n"
+									  "id:"+websiteSetting.id+"\n"
+									  "site:"+websiteSetting.site+"\n"
+									  "js:"+websiteSetting.js+"\n"
+									  "ua:"+websiteSetting.ua+"\n"
+									  "app:"+websiteSetting.app+"\n"
+									  "state:"+websiteSetting.state+"\n"
+									  "no_history:"+websiteSetting.no_history+"\n"
+									  "no_picture:"+websiteSetting.no_picture+"\n"
 									);
 									if (websiteSetting==null) {
 									  MToastUtils.makeText("Create New Website Setting").show();
