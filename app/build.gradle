@@ -11,6 +11,12 @@ android {
 			keyAlias = 'zmide'
 			keyPassword '***REMOVED***'
 		}
+		release {
+			storeFile file('.\\zmide.jks')
+			storePassword '***REMOVED***'
+			keyAlias = 'zmide'
+			keyPassword '***REMOVED***'
+		}
 	}
 	
 	android.applicationVariants.all {
@@ -77,7 +83,8 @@ android {
 			//移除无用的resource文件
 			shrinkResources true
 			minifyEnabled true
-			proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro1'
+			signingConfig signingConfigs.debug
+			//proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 		}
 		debug {
 			versionNameSuffix = '(Dev)'
