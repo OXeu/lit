@@ -33,16 +33,22 @@ public class WebsiteSetting {
 		switch (p){
 			case 0:
 				state = t;
+				break;
 			case 2:
 				ad_host = t;
+				break;
 			case 3:
 				app = t;
+				break;
 			case 4:
 				js = t;
+				break;
 			case 5:
 				no_history = t;
+				break;
 			case 6:
 				no_picture = t;
+				break;
 		}
 		return this;
 	}
