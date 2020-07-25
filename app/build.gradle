@@ -12,7 +12,7 @@ android {
 			keyPassword '***REMOVED***'
 		}
 	}
-	/*
+	
 	android.applicationVariants.all {
 		variant ->
 			variant.outputs.all {
@@ -53,7 +53,7 @@ android {
 				}
 			}
 	}
-	 */
+	 
 	compileSdkVersion 29
 	buildToolsVersion "29.0.3"
 	compileOptions {
