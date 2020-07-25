@@ -1,5 +1,6 @@
 package com.zmide.lit.main;
 
+import com.zmide.lit.util.Chiper;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
