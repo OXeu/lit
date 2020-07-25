@@ -67,6 +67,7 @@ public class WebsiteSetting {
 		switch (p){
 			case 1:
 				ua = t;
+				break;
 		}
 		return this;
 	}
