@@ -5,13 +5,7 @@ ext {
 apply plugin: 'com.android.application'
 android {
 	signingConfigs {
-		debug {
-			storeFile file('.\\zmide.jks')
-			storePassword '***REMOVED***'
-			keyAlias = 'zmide'
-			keyPassword '***REMOVED***'
-		}
-		release {
+		app {
 			storeFile file('.\\zmide.jks')
 			storePassword '***REMOVED***'
 			keyAlias = 'zmide'
@@ -83,13 +77,13 @@ android {
 			//移除无用的resource文件
 			shrinkResources true
 			minifyEnabled false
-			signingConfig signingConfigs.debug
+			signingConfig signingConfigs.app
 			proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 		}
 		debug {
 			versionNameSuffix = '(Dev)'
 			debuggable = true
-			signingConfig signingConfigs.debug
+			signingConfig signingConfigs.app
 		}
 	}
 	dataBinding {
