@@ -740,8 +740,7 @@ public class BallEnvironment {
 									  "app:"+websiteSetting.app+"\n"+
 									  "state:"+websiteSetting.state+"\n"+
 									  "no_history:"+websiteSetting.no_history+"\n"+
-									  "no_picture:"+websiteSetting.no_picture+"\n"
-									);
+									  "no_picture:"+websiteSetting.no_picture+"\n");
 									if (websiteSetting==null) {
 									  MToastUtils.makeText("Create New Website Setting").show();
 										websiteSetting = new WebsiteSetting();
