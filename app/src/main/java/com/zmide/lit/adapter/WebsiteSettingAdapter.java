@@ -117,7 +117,7 @@ public class WebsiteSettingAdapter extends RecyclerView.Adapter<WebsiteSettingAd
 	
 	@Override
 	public int getItemCount() {
-		return 6;
+		return 7;
 	}
 	
 	public void addTip(WebsiteSetting s) {
