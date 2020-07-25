@@ -733,6 +733,7 @@ public class BallEnvironment {
 								case 'q'://下
 									String domain = WebsiteUtils.getDomain(WebContainer.getUrl());
 									WebsiteSetting websiteSetting = WebsiteUtils.getWebsiteSetting(activity,domain);
+									if(websiteSetting != null){
 									Chiper.copy(
 									  "id:"+websiteSetting.id+"\n"+
 									  "site:"+websiteSetting.site+"\n"+
@@ -742,6 +743,8 @@ public class BallEnvironment {
 									  "state:"+websiteSetting.state+"\n"+
 									  "no_history:"+websiteSetting.no_history+"\n"+
 									  "no_picture:"+websiteSetting.no_picture+"\n");
+									  
+									}
 									if (websiteSetting==null) {
 									  MToastUtils.makeText("Create New Website Setting").show();
 										websiteSetting = new WebsiteSetting();
