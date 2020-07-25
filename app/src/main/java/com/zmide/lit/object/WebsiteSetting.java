@@ -13,19 +13,19 @@ public class WebsiteSetting {
 	public setting get(int p){
 		switch (p){
 			case 0:
-				return new setting("独立网站设置",true,"",state);
+				return new setting("独立网站设置",true,0,state);
 			case 1:
 			  return new setting("User Agent",false,ua,false);
 			case 2:
-				return new setting("广告拦截",true,"",ad_host);
+				return new setting("广告拦截",true,0,ad_host);
 			case 3:
-				return new setting("打开外部应用",true,"",app);
+				return new setting("打开外部应用",true,0,app);
 			case 4:
-				return new setting("JavaScript脚本",true,"",js);
+				return new setting("JavaScript脚本",true,0,js);
 			case 5:
-				return new setting("无痕浏览",true,"",no_history);
+				return new setting("无痕浏览",true,0,no_history);
 			case 6:
-				return new setting("无图模式",true,"",no_picture);
+				return new setting("无图模式",true,0,no_picture);
 		}
 		return null;
 	}
