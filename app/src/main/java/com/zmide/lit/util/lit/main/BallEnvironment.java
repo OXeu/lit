@@ -727,7 +727,25 @@ public class BallEnvironment {
 									break;
 								case 'b':
 								case 'q'://下
-									MToastUtils.makeText("网站独立设置暂未开发").show();
+								String domain = WebsiteUtils.getDomain(WebContainer.getUrl());
+									WebsiteSetting websiteSetting = WebsiteUtils.getWebsiteSetting(activity,domain);
+									Chiper.copy(
+									  "id:"+websiteSetting.id+"\n"+
+									  "site:"+websiteSetting.site+"\n"+
+									  "js:"+websiteSetting.js+"\n"+
+									  "ua:"+websiteSetting.ua+"\n"+
+									  "app:"+websiteSetting.app+"\n"+
+									  "state:"+websiteSetting.state+"\n"+
+									  "no_history:"+websiteSetting.no_history+"\n"+
+									  "no_picture:"+websiteSetting.no_picture+"\n");
+									if (websiteSetting==null) {
+									  MToastUtils.makeText("Create New Website Setting").show();
+										websiteSetting = new WebsiteSetting();
+										websiteSetting.site = domain;
+										websiteSetting.state = false;
+									}
+									new MWebsiteSettingDialog.Builder(activity).setItems(websiteSetting).create().show();
+
 									break;
 							}
 						}
