@@ -51,7 +51,8 @@ public String text(){
 		 "js:"+js+"\n"+
 		 "ua:"+ua+"\n"+
 		 "app:"+app+"\n"+
-		 "state:"+state+"\n"+								  "no_history:"+websiteSetting.no_history+"\n"+
+		 "state:"+state+"\n"+		
+		 "no_history:"+no_history+"\n"+
                  "no_picture:"+no_picture;
 	}
 	public class setting{
