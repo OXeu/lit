@@ -36,7 +36,9 @@ public class WebsiteUtils {
 		}
 		WebsiteSetting websiteSetting2 = new WebsiteSetting();
 		websiteSetting2.site = domain;
-		return DBC.getInstance(context).addWebsiteSetting(websiteSetting2);
+		DBC.getInstance(context).addWebsiteSetting(websiteSetting2);
+		WebsiteSetting websiteSetting3 = DBC.getInstance(context).getWebsiteSetting(domain);
+		return websiteSetting3;
 	}
 	
 	public static void putWebsiteSetting(Context context , WebsiteSetting websiteSetting) {
