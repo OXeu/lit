@@ -47,7 +47,6 @@ public class WebsiteSetting {
 		return this;
 	}
 	
-	@Override
 	public String toString(){
 	  return "id:"+websiteSetting.id+"\n"+
 									  "site:"+websiteSetting.site+"\n"+
