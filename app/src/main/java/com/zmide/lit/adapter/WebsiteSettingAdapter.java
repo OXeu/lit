@@ -73,7 +73,7 @@ public class WebsiteSettingAdapter extends RecyclerView.Adapter<WebsiteSettingAd
 		viewHolder.mSwitch.setChecked(tip.state);
 		viewHolder.mParent.setOnClickListener(view -> {
 			viewHolder.mSwitch.setChecked(!viewHolder.mSwitch.isChecked());
-			if (tip.state &&tip.isSwitch) {
+			if (tip.isSwitch) {
 				//viewHolder.mDiyItemSwitch.setChecked(true);
 				websiteSetting = websiteSetting.set(position,viewHolder.mSwitch.isChecked());
 				WebsiteUtils.putWebsiteSetting(mActivity,websiteSetting);
@@ -91,6 +91,7 @@ public class WebsiteSettingAdapter extends RecyclerView.Adapter<WebsiteSettingAd
 		}
 		viewHolder.mSwitch.setOnCheckedChangeListener((cb, ischecked) -> {
 			if (cb.isPressed()) {
+			  viewHolder.mSwitch.setChecked(ischecked);
 				viewHolder.mParent.performClick();
 //					if(Diy.isLimit(type)){
 //						DBC.getInstance(mContext).modAllRun(false,type);
