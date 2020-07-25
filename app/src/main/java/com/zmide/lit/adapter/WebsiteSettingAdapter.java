@@ -70,7 +70,7 @@ public class WebsiteSettingAdapter extends RecyclerView.Adapter<WebsiteSettingAd
 		viewHolder.mParent.setBackground(SkinManager.getInstance().getDrawable(R.drawable.ripple_normal));
 		viewHolder.mMod.setBackground(SkinManager.getInstance().getDrawable(R.drawable.ripple_circle));
 		viewHolder.mTip.setText(tip.name);
-		viewHolder.mSwitch.setChecked(setting.state);
+		viewHolder.mSwitch.setChecked(tip.state);
 		viewHolder.mParent.setOnClickListener(view -> {
 			viewHolder.mSwitch.setChecked(!viewHolder.mSwitch.isChecked());
 			if (tip.state &&tip.isSwitch) {
@@ -82,7 +82,7 @@ public class WebsiteSettingAdapter extends RecyclerView.Adapter<WebsiteSettingAd
 		viewHolder.mMod.setOnClickListener(view -> {
 			//todo 修改按钮
 		});
-		if (setting.isSwitch){
+		if (tip.isSwitch){
 		viewHolder.mMod.setVisibility(View.GONE);
 		viewHolder.mSwitch.setVisibility(View.VISIBLE);
 		}else{
