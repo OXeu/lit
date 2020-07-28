@@ -42,7 +42,6 @@ public class WebsiteUtils {
 	}
 	
 	public static void putWebsiteSetting(Context context , WebsiteSetting websiteSetting) {
-	  Chiper.copy(websiteSetting.text());
 		if (websiteSetting.id != 0) {
 			WebsiteSetting websiteSetting1 = DBC.getInstance(context).getWebsiteSetting(websiteSetting.id);
 			if (websiteSetting1 != null) {//已存在，修改
