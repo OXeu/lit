@@ -4,9 +4,9 @@
 -dontusemixedcaseclassnames
 -dontskipnonpubliclibraryclasses
 -verbose
--obfuscationdictionary o0O.txt #外部字典
--classobfuscationdictionary o0O.txt #类字典
--packageobfuscationdictionary o0O.txt #包字典
+-obfuscationdictionary special.txt #外部字典
+-classobfuscationdictionary special.txt #类字典
+-packageobfuscationdictionary special.txt #包字典
 # 将.class信息中的类名重新定义为"Proguard"字符串
 #-renamesourcefileattribute Lit
 # 并保留源文件名为"Proguard"字符串，而非原始的类名 并保留行号 
