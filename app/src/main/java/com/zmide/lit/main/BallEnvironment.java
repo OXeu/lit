@@ -731,7 +731,8 @@ public class BallEnvironment {
 									break;
 								case 'b':
 								case 'q'://下
-									String domain = WebsiteUtils.getDomain(WebContainer.getUrl());
+								MToastUtils.makeText("网站独立设置暂未开放").show();
+									/*String domain = WebsiteUtils.getDomain(WebContainer.getUrl());
 									WebsiteSetting websiteSetting = WebsiteUtils.getWebsiteSetting(activity,domain);
 									if (websiteSetting==null) {
 									  MToastUtils.makeText("Create New Website Setting").show();
@@ -740,6 +741,7 @@ public class BallEnvironment {
 										websiteSetting.state = false;
 									}
 									new MWebsiteSettingDialog.Builder(activity).setItems(websiteSetting).create().show();
+									*/
 				break;
 							}
 						}
