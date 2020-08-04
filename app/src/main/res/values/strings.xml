@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="app_name">Lit</string>
+	<string name="app_name">Lit浏览器</string>
 	<string name="night">夜间模式</string>
 	<string name="seachbar">关键词/表达式/网址</string>
 	<string name="search">搜索</string>
