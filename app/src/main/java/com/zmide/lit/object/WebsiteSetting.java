@@ -11,42 +11,36 @@ public class WebsiteSetting {
 	public boolean state;
 	public int ua;
 	public setting get(int p){
-		switch (p){
-			case 0:
-				return new setting("独立网站设置",true,0,state);
-			case 1:
-			  return new setting("User Agent",false,ua,false);
-			case 2:
-				return new setting("广告拦截",true,0,ad_host);
-			case 3:
-				return new setting("打开外部应用",true,0,app);
-			case 4:
-				return new setting("JavaScript脚本",true,0,js);
-			case 5:
-				return new setting("无痕浏览",true,0,no_history);
-			case 6:
-				return new setting("无图模式",true,0,no_picture);
-		}
-		return null;
+		setting[] settings = {new setting("独立网站设置", true, 0, state),
+				new setting("User Agent", false, ua, false),
+				//new setting("广告拦截",true,0,ad_host),
+				new setting("打开外部应用", true, 0, app),
+				new setting("JavaScript脚本", true, 0, js),
+				new setting("无痕浏览", true, 0, no_history),
+				new setting("无图模式", true, 0, no_picture)};
+		return settings[p];
+	}
+	public int count(){
+		return 6;
 	}
 	public WebsiteSetting set(int p,boolean t){
 		switch (p){
 			case 0:
 				state = t;
 				break;
-			case 2:
+			/*case 2:
 				ad_host = t;
-				break;
-			case 3:
+				break;*/
+			case 2:
 				app = t;
 				break;
-			case 4:
+			case 3:
 				js = t;
 				break;
-			case 5:
+			case 4:
 				no_history = t;
 				break;
-			case 6:
+			case 5:
 				no_picture = t;
 				break;
 		}
@@ -71,7 +65,7 @@ public class WebsiteSetting {
 		}
 		return this;
 	}
-	public class setting{
+	public static class setting{
 		public String name;
 		public boolean isSwitch;
 		public int text;

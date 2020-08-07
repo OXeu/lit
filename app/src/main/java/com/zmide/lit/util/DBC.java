@@ -601,6 +601,55 @@ public class DBC {
 		return marks;
 	}
 	
+	public Diy getDiy(int type,String ids) {
+		//创建游标对象
+		db = dbHelper.getReadableDatabase();
+		String[] projection = new String[]{
+				Contract.DiyEntry._TYPE,
+				Contract.DiyEntry._ID,
+				Contract.DiyEntry._NAME,
+				Contract.DiyEntry._TIME,
+				Contract.DiyEntry._VALUE,
+				Contract.DiyEntry._EXTRA,
+				Contract.DiyEntry._DESCRIPTION,
+				Contract.DiyEntry._ISRUN};
+		//Filter results WHERE "title" = 'My Title'
+		String selection = Contract.DiyEntry._TYPE + " = ? AND " +
+				Contract.DiyEntry._ID + " = ?";
+		String[] selectionArgs = {type + "", ids};
+		
+		// How you want the results sorted in the resulting Cursor
+		Cursor cursor = db.query(Contract.DiyEntry.TABLE_NAME,
+				projection,
+				selection,
+				selectionArgs,
+				null,
+				null,
+				null
+		);
+		//利用游标遍历所有数据对象
+		Diy mark = new Diy();
+		while (cursor.moveToNext()) {
+			String name = cursor.getString(cursor.getColumnIndex(Contract.DiyEntry._NAME));
+			String time = cursor.getString(cursor.getColumnIndex(Contract.DiyEntry._TIME));
+			String extra = cursor.getString(cursor.getColumnIndex(Contract.DiyEntry._EXTRA));
+			int id = cursor.getInt(cursor.getColumnIndex(Contract.DiyEntry._ID));
+			boolean isrun = (cursor.getString(cursor.getColumnIndex(Contract.DiyEntry._ISRUN)) + "").equals("1");
+			String value = cursor.getString(cursor.getColumnIndex(Contract.DiyEntry._VALUE));
+			String description = cursor.getString(cursor.getColumnIndex(Contract.DiyEntry._DESCRIPTION));
+			mark.id = id;
+			mark.value = value;
+			mark.title = name;
+			mark.extra = extra;
+			mark.time = time;
+			mark.isrun = isrun;
+			mark.description = description;
+		}
+		// 关闭游标，释放资源
+		cursor.close();
+		return mark;
+	}
+	
 	public Diy getDiy(int type) {
 		//创建游标对象
 		db = dbHelper.getReadableDatabase();

@@ -53,7 +53,7 @@ public class HttpRequest {
 										.setMessage(update.get("update_log") + "")
 										.setNegativeButton("忽略", (di, p2) -> di.cancel())
 										.setPositiveButton("更新", (di, p2) -> {
-											MDownloadManager.downloadFile(activity, update.get("url") + "", "LitBrowser_" + update.get("version") + ".apk");
+											MDownloadManager.downloadFile(activity, update.get("url") + "", "LitBrowser_" + update.get("version") + ".apk",0);
 											di.cancel();
 										})
 										.create().show();

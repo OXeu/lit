@@ -8,6 +8,8 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.webkit.URLUtil;
 
+import com.blankj.utilcode.util.ConvertUtils;
+
 import java.util.Objects;
 
 public class MDownloadManager {
@@ -37,12 +39,15 @@ public class MDownloadManager {
 	}
 	
 	
-	public static void downloadFile(Activity activity, final String url, final String fileName) {
+	public static void downloadFile(Activity activity, final String url, final String fileName,long length) {
 		SharedPreferences mSharedPreferences = activity.getSharedPreferences("setting", Context.MODE_PRIVATE);
 		MDialogUtils.Builder dialog = new MDialogUtils.Builder(activity);
+		String size = "未知大小";
+		if (length>0)
+			size = ConvertUtils.byte2FitMemorySize(length);
 		dialog.setDownloadLink(url);
 		dialog.setTitle("下载")
-				.setMessage("是否下载" + fileName)
+				.setMessage("是否下载" + fileName + "("+size+")")
 				.setNegativeButton("不允许", (di, p2) -> di.cancel())
 				.setPositiveButton("允许", (di, p2) -> {
 					String packageName = mSharedPreferences.getString("downloader", "");
@@ -75,6 +80,6 @@ public class MDownloadManager {
 	}
 	
 	public static void downloadFile(Activity activity, String url, String userAgent, String contentDisposition, String mimetype, long contentLength) {
-		downloadFile(activity, url, URLUtil.guessFileName(url, contentDisposition, mimetype));
+		downloadFile(activity, url, URLUtil.guessFileName(url, contentDisposition, mimetype),contentLength);
 	}
 }

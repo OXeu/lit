@@ -57,14 +57,14 @@ public class DiyActivity extends BaseActivity implements DiyAdapter.DiyViewOpera
 				
 				break;
 			case Diy.SEARCH_ENGINE:
-				DBC.getInstance(this).addDiy("百度", "", "https://m.baidu.com/from=1022560v/s?word=%s", "", Diy.SEARCH_ENGINE, false);
-				DBC.getInstance(this).addDiy("必应", "", "https://cn.bing.com/search?q=%s", "", Diy.SEARCH_ENGINE, false);
-				DBC.getInstance(this).addDiy("秘迹", "", "https://m.mijisou.com/?q=%s", "", Diy.SEARCH_ENGINE, false);
-				DBC.getInstance(this).addDiy("Google", "", "https://www.google.com/search?q=%s", "", Diy.SEARCH_ENGINE, false);
-				DBC.getInstance(this).addDiy("Magi", "", "https://magi.com/search?q=%s", "", Diy.SEARCH_ENGINE, false);
+				DBC.getInstance(this).addDiy("百度", "水一百度会开，人一百度会...", "https://m.baidu.com/from=1022560v/s?word=%s", "", Diy.SEARCH_ENGINE, true);
+				DBC.getInstance(this).addDiy("必应", "微软旗下的搜索引擎", "https://cn.bing.com/search?q=%s", "", Diy.SEARCH_ENGINE, false);
+				DBC.getInstance(this).addDiy("秘迹", "一个不追踪你的搜索引擎", "https://m.mijisou.com/?q=%s", "", Diy.SEARCH_ENGINE, false);
+				DBC.getInstance(this).addDiy("Google", "全球最大的搜索引擎", "https://www.google.com/search?q=%s", "", Diy.SEARCH_ENGINE, false);
+				DBC.getInstance(this).addDiy("Magi", "基于机器学习的信息抽取和检索系统", "https://magi.com/search?q=%s", "", Diy.SEARCH_ENGINE, false);
 				break;
 			case Diy.UA:
-				DBC.getInstance(this).addDiy("默认", "默认UA", "", "", Diy.UA, false);
+				DBC.getInstance(this).addDiy("默认", "默认UA", "", "", Diy.UA, true);
 				DBC.getInstance(this).addDiy("简单搜索", "去除百度广告", "Mozilla/5.0 (Linux; Android 10; Mobile) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.23.184.0 Mobile Safari/537.36 Edge/18.18362 SearchCraft/2.8.2 Baidu;P1 10.0", "http(s|)://(\\w*\\.|)baidu.com(^\\s*)", Diy.UA, false);
 				DBC.getInstance(this).addDiy("微信", "可以访问部分仅限微信打开的网站", "Mozilla/5.0 (Linux; Android 5.0; SM-N9100 Build/LRX21V) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/37.0.0.0 Mobile Safari/537.36 MicroMessenger/6.0.2.56_r958800.520 NetType/WIFI", "http(s|)://mp.qq.com(^\\s*)", Diy.UA, false);
 				DBC.getInstance(this).addDiy("电脑(Chrome)", "Chrome Windows UA", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.87 Safari/537.36", "http(s|)://(\\w*\\.|)baidu.com(^\\s*)", Diy.UA, false);

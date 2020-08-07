@@ -19,6 +19,7 @@ import com.zmide.lit.R;
 import com.zmide.lit.object.Diy;
 import com.zmide.lit.skin.SkinManager;
 import com.zmide.lit.util.DBC;
+import com.zmide.lit.util.MSharedPreferenceUtils;
 
 import java.util.ArrayList;
 
@@ -120,6 +121,7 @@ public class DiyAdapter extends RecyclerView.Adapter<DiyAdapter.MyViewHolder> {
 			} else
 				DBC.getInstance(mContext).modRun(!Diy.isrun, Diy.id);
 			Diys = DBC.getInstance(mContext).getDiys(type, false);
+			MSharedPreferenceUtils.getWebViewSharedPreference().edit().putBoolean("setting_change",!MSharedPreferenceUtils.getWebViewSharedPreference().getBoolean("setting_change",false)).apply();
 			((DiyViewOperate) view.getContext()).onDataChanged(Diys);
 		});
 		

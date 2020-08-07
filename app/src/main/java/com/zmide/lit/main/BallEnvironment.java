@@ -1,6 +1,5 @@
 package com.zmide.lit.main;
 
-import com.zmide.lit.util.Chiper;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -731,17 +730,16 @@ public class BallEnvironment {
 									break;
 								case 'b':
 								case 'q'://下
-								MToastUtils.makeText("网站独立设置暂未开放").show();
-									/*String domain = WebsiteUtils.getDomain(WebContainer.getUrl());
+								//MToastUtils.makeText("网站独立设置暂未开放").show();
+									String domain = WebsiteUtils.getDomain(WebContainer.getUrl());
 									WebsiteSetting websiteSetting = WebsiteUtils.getWebsiteSetting(activity,domain);
 									if (websiteSetting==null) {
-									  MToastUtils.makeText("Create New Website Setting").show();
 										websiteSetting = new WebsiteSetting();
 										websiteSetting.site = domain;
 										websiteSetting.state = false;
 									}
 									new MWebsiteSettingDialog.Builder(activity).setItems(websiteSetting).create().show();
-									*/
+									
 				break;
 							}
 						}

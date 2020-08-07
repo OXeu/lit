@@ -1,6 +1,7 @@
 package com.zmide.lit.util;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 
 import com.zmide.lit.object.WebsiteSetting;
 import com.zmide.lit.util.Chiper;
@@ -27,18 +28,30 @@ public class WebsiteUtils {
 	}
 	
 	public static WebsiteSetting getWebsiteSetting(Context context , String domain) {
-		WebsiteSetting websiteSetting = DBC.getInstance(context).getWebsiteSetting(domain);
-		if (websiteSetting != null)
-			return websiteSetting;
-		for (WebsiteSetting websiteSetting1 : websiteSettings){
-			if (Pattern.compile(websiteSetting1.site).matcher(domain).find())
-				return websiteSetting1;
+		SharedPreferences sharedPreferences = MSharedPreferenceUtils.getWebViewSharedPreference();
+		if (domain != null) {
+			WebsiteSetting websiteSetting = DBC.getInstance(context).getWebsiteSetting(domain);
+			if (websiteSetting != null)
+				return websiteSetting;
+			for (WebsiteSetting websiteSetting1 : websiteSettings) {
+				try {
+					if (Pattern.compile(websiteSetting1.site).matcher(domain).find())
+						return websiteSetting1;
+				} catch (Exception ignored) {
+				}
+			}
 		}
 		WebsiteSetting websiteSetting2 = new WebsiteSetting();
 		websiteSetting2.site = domain;
-		DBC.getInstance(context).addWebsiteSetting(websiteSetting2);
-		WebsiteSetting websiteSetting3 = DBC.getInstance(context).getWebsiteSetting(domain);
-		return websiteSetting3;
+		websiteSetting2.state = false;
+		websiteSetting2.ua = 0;
+		websiteSetting2.ad_host = sharedPreferences.getBoolean("ad_host",true);
+		websiteSetting2.no_picture = sharedPreferences.getBoolean("no_picture",false);
+		websiteSetting2.no_history = sharedPreferences.getBoolean("no_history",false);
+		websiteSetting2.app = sharedPreferences.getBoolean("oapp",false);
+		websiteSetting2.js = sharedPreferences.getBoolean("javascript",true);
+		websiteSetting2.id = 0 ;
+		return websiteSetting2;
 	}
 	
 	public static void putWebsiteSetting(Context context , WebsiteSetting websiteSetting) {

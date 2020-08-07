@@ -14,10 +14,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.zmide.lit.R;
 import com.zmide.lit.main.SearchEnvironment;
+import com.zmide.lit.object.Diy;
 import com.zmide.lit.object.WebsiteSetting;
 import com.zmide.lit.skin.SkinManager;
 import com.zmide.lit.ui.MainActivity;
+import com.zmide.lit.util.Chiper;
 import com.zmide.lit.util.DBC;
+import com.zmide.lit.util.MToastUtils;
 import com.zmide.lit.util.WebsiteUtils;
 
 import java.util.ArrayList;
@@ -66,6 +69,7 @@ public class WebsiteSettingAdapter extends RecyclerView.Adapter<WebsiteSettingAd
 	@Override
 	public void onBindViewHolder(final MyViewHolder viewHolder, int position) {
 		final WebsiteSetting.setting tip = websiteSetting.get(position);
+		MToastUtils.makeText(tip.name+tip.state).show();
 		viewHolder.mTip.setTextColor(0xff333333);
 		viewHolder.mParent.setBackground(SkinManager.getInstance().getDrawable(R.drawable.ripple_normal));
 		viewHolder.mMod.setBackground(SkinManager.getInstance().getDrawable(R.drawable.ripple_circle));
@@ -88,11 +92,24 @@ public class WebsiteSettingAdapter extends RecyclerView.Adapter<WebsiteSettingAd
 		}else{
 		viewHolder.mSwitch.setVisibility(View.GONE);
 		viewHolder.mMod.setVisibility(View.VISIBLE);
+		if ("User Agent".equals(tip.name)){
+			String ua = "";
+			if (websiteSetting.state&&websiteSetting.ua!=0)//自定义UA
+				try {
+					if (DBC.getInstance(mActivity).isDiyExist(websiteSetting.ua + ""))
+						ua = DBC.getInstance(mActivity).getDiy(Diy.UA, websiteSetting.ua + "").title;
+					else
+						ua = DBC.getInstance(mActivity).getDiy(Diy.UA).title;
+				}catch (Exception ignored){}
+				if (ua==null||"".equals(ua))
+					ua = "默认UA";
+			viewHolder.mMod.setText(ua);
+		}
 		}
 		viewHolder.mSwitch.setOnCheckedChangeListener((cb, ischecked) -> {
 			if (cb.isPressed()) {
-			  viewHolder.mSwitch.setChecked(ischecked);
 				viewHolder.mParent.performClick();
+				viewHolder.mSwitch.setChecked(ischecked);
 //					if(Diy.isLimit(type)){
 //						DBC.getInstance(mContext).modAllRun(false,type);
 //					}
@@ -117,7 +134,7 @@ public class WebsiteSettingAdapter extends RecyclerView.Adapter<WebsiteSettingAd
 	
 	@Override
 	public int getItemCount() {
-		return 7;
+		return websiteSetting.count();
 	}
 	
 	public void addTip(WebsiteSetting s) {

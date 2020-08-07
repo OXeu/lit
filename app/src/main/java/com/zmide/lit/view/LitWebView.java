@@ -12,7 +12,6 @@ import android.webkit.URLUtil;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 
 import com.blankj.utilcode.util.ActivityUtils;
 import com.zmide.lit.javascript.EasySearch;
@@ -27,9 +26,10 @@ import com.zmide.lit.util.MDownloadManager;
 import com.zmide.lit.util.MFileUtils;
 import com.zmide.lit.util.MSharedPreferenceUtils;
 import com.zmide.lit.util.MToastUtils;
-//import org.adblockplus.libadblockplus.android.webview.AdblockWebView;
 
 import java.util.Objects;
+
+//import org.adblockplus.libadblockplus.android.webview.AdblockWebView;
 
 public class LitWebView extends WebView {
 	
@@ -135,11 +135,11 @@ public class LitWebView extends WebView {
 							.setNegativeButton("关闭", (dialog1, which) -> dialog1.cancel())
 							.setPositiveButton("保存", (dialog12, which) -> {
 								if (URLUtil.isValidUrl(url12))
-									MDownloadManager.downloadFile(activity, url12, (url12 + "emptyFileName").substring(0, 10) + ".png");
+									MDownloadManager.downloadFile(activity, url12, (url12 + "emptyFileName").substring(0, 10) + ".png",0);
 								else if (url12 != null && url12.contains("base64")) {
 									MFileUtils.saveBase64Picture(activity, url12);
 								} else {
-									MToastUtils.makeText("保存失败，该图片暂不支持保存", MToastUtils.LENGTH_SHORT).show();
+									MToastUtils.makeText("保存失败，该类型图片暂不支持保存", MToastUtils.LENGTH_SHORT).show();
 								}
 								dialog12.cancel();
 							})

@@ -1,5 +1,6 @@
 package com.zmide.lit.main;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ResolveInfo;
@@ -7,6 +8,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -46,7 +48,13 @@ public class MWebViewClient extends WebViewClient {
 	@Override
 	public boolean shouldOverrideUrlLoading(WebView view, final String url) {
 		// 处理自定义scheme
-		if (!url.startsWith("http") && !url.startsWith("file") && MSharedPreferenceUtils.getWebViewSharedPreference().getString("oapp", "true").equals("true")) {
+		String domain = WebsiteUtils.getDomain(WebContainer.getUrl());
+		WebsiteSetting websiteSetting = WebsiteUtils.getWebsiteSetting(a,domain);
+		if (!url.startsWith("http")
+				&& !url.startsWith("file")
+				&& ((MSharedPreferenceUtils.getWebViewSharedPreference().getString("oapp", "true").equals("true")
+					&&!websiteSetting.state)||(websiteSetting.state&&websiteSetting.app))
+			) {
 			try {
 				// 以下固定写法
 				MToastUtils.makeText(a,"是否允许打开外部应用", "允许", v -> {
@@ -107,6 +115,7 @@ public class MWebViewClient extends WebViewClient {
 		return false;
 	}
 	
+	@SuppressLint("SetJavaScriptEnabled")
 	@Override
 	public void onPageStarted(WebView view, String url, Bitmap icon) {
 		//view.loadUrl(jss);
@@ -122,6 +131,49 @@ public class MWebViewClient extends WebViewClient {
 			MWebStateSaveUtils.saveState(((LitWebView) view).getCodeId(), url);
 		} else
 			showIndex();
+		WebSettings settings = view.getSettings();
+		String domain = WebsiteUtils.getDomain(WebContainer.getUrl());
+		WebsiteSetting websiteSetting = WebsiteUtils.getWebsiteSetting(a,domain);
+		
+		//无图模式
+		if ((websiteSetting.state&&websiteSetting.no_picture) ||
+				(!websiteSetting.state
+						&& MSharedPreferenceUtils.getWebViewSharedPreference().getString("no_picture", "false").equals("true")
+				)) {
+			settings.setLoadsImagesAutomatically(false);
+		}else {
+			settings.setLoadsImagesAutomatically(true);
+		}
+		
+		/*//广告拦截
+		if ((websiteSetting.state&&websiteSetting.ad_host) ||
+				(!websiteSetting.state
+						&& MSharedPreferenceUtils.getWebViewSharedPreference().getString("ad_host", "true").equals("true")
+				))
+			settings.setBlockNetworkImage(true);//Todo
+		else
+			settings.setBlockNetworkImage(false);//Todo ad host
+		*/
+		//允许js
+		if ((websiteSetting.state&&websiteSetting.js) ||
+				(!websiteSetting.state
+						&& MSharedPreferenceUtils.getWebViewSharedPreference().getString("javascript", "true").equals("true")
+				))
+			settings.setJavaScriptEnabled(true);
+		else
+			settings.setJavaScriptEnabled(false);
+		
+		String ua = "";
+		if (websiteSetting.state&&websiteSetting.ua!=0) {//自定义UA
+			if (DBC.getInstance(a).isDiyExist(websiteSetting.ua + "")) {
+				ua = (DBC.getInstance(a).getDiy(Diy.UA, websiteSetting.ua + "").value);
+			} else {
+				ua = (DBC.getInstance(a).getDiy(Diy.UA).value);
+			}
+		}else{
+			ua = (DBC.getInstance(a).getDiy(Diy.UA).value);
+		}
+			settings.setUserAgentString(ua);
 		
 		ResourceCatcher.clearResources();
 	}
@@ -144,7 +196,21 @@ public class MWebViewClient extends WebViewClient {
 		}
 		if (view.getUrl() == null)
 			return;
-		if ((!view.getUrl().startsWith("file://")) && Objects.equals(MSharedPreferenceUtils.getSharedPreference().getString("no_history", "false"), "false")) {
+		String domain = WebsiteUtils.getDomain(WebContainer.getUrl());
+		WebsiteSetting websiteSetting = WebsiteUtils.getWebsiteSetting(a,domain);
+		//不是本地页面 并且 网站独立设置关闭&无痕已关闭 或者 网站独立设置打开&独立设置无痕已关闭
+		if (
+				(!view.getUrl().startsWith("file://"))
+				&&
+				(
+						( !websiteSetting.state
+								&&
+								Objects.equals(MSharedPreferenceUtils.getSharedPreference().getString("no_history", "false"), "false")
+						)
+						||
+						( websiteSetting.state && !websiteSetting.no_history )
+				)
+			) {
 			DBC.getInstance(a).addHistory(view.getTitle(), MFileUtils.saveFile(view.getFavicon(), null, false), view.getUrl());
 		}
 		for (Diy diy : DBC.getInstance(view.getContext()).getDiys(Diy.PLUGIN, false)) {
@@ -177,6 +243,7 @@ public class MWebViewClient extends WebViewClient {
 	@Nullable
 	@Override
 	public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
+		
 		ResourceCatcher.sendResource(request.getUrl());
 		return null;
 	}
