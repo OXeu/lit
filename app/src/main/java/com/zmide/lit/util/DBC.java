@@ -16,7 +16,6 @@ import com.zmide.lit.bookmark.Bookmark;
 import com.zmide.lit.object.Contract;
 import com.zmide.lit.object.Diy;
 import com.zmide.lit.object.History;
-import com.zmide.lit.object.Mark;
 import com.zmide.lit.object.MarkBean;
 import com.zmide.lit.object.Parent;
 import com.zmide.lit.object.ParentBean;
@@ -273,7 +272,7 @@ public class DBC {
 		return marks;
 	}
 
-	public ArrayList<Mark> getMarks(String parent) {
+	public ArrayList<MarkBean> getMarks(String parent) {
 		//创建游标对象
 		db = dbHelper.getReadableDatabase();
 		String[] projection = new String[]{
@@ -299,19 +298,19 @@ public class DBC {
 				sortOrder,
 				"100");
 		//利用游标遍历所有数据对象
-		ArrayList<Mark> marks = new ArrayList<>();
+		ArrayList<MarkBean> marks = new ArrayList<>();
 		while (cursor.moveToNext()) {
 			String name = cursor.getString(cursor.getColumnIndex(Contract.MarkEntry._NAME));
-			String time = cursor.getString(cursor.getColumnIndex(Contract.MarkEntry._TIME));
+			long time = cursor.getLong(cursor.getColumnIndex(Contract.MarkEntry._TIME));
 			String url = cursor.getString(cursor.getColumnIndex(Contract.MarkEntry._URL));
 			String id = cursor.getString(cursor.getColumnIndex(Contract.MarkEntry._ID));
 			String icon = cursor.getString(cursor.getColumnIndex(Contract.MarkEntry._ICON));
-			Mark mark = new Mark();
+			MarkBean mark = new MarkBean();
 			mark.id = id;
 			mark.icon = icon;
-			mark.name = name;
+			mark.title = name;
 			mark.url = url;
-			mark.time = time;
+			mark.mod_time = time;
 			marks.add(mark);
 		}
 

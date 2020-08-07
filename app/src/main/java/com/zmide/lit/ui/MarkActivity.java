@@ -24,7 +24,7 @@ import com.zmide.lit.adapter.TagAdapter;
 import com.zmide.lit.base.BaseActivity;
 import com.zmide.lit.http.HttpRequest;
 import com.zmide.lit.interfaces.TagViewOperate;
-import com.zmide.lit.object.Mark;
+import com.zmide.lit.object.MarkBean;
 import com.zmide.lit.object.Parent;
 import com.zmide.lit.object.Tag;
 import com.zmide.lit.util.DBC;
@@ -128,10 +128,10 @@ public class MarkActivity extends BaseActivity implements TagViewOperate {
 			tag.id = parent.id;
 			marks.add(tag);
 		}
-		for (Mark mark : DBC.getInstance(this).getMarks(id)) {
+		for (MarkBean mark : DBC.getInstance(this).getMarks(id)) {
 			Tag tag = new Tag();
 			tag.canForward = false;
-			tag.title = mark.name;
+			tag.title = mark.title;
 			tag.remark = mark.url;
 			tag.id = mark.id;
 			tag.icon = mark.icon;

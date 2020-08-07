@@ -1,7 +1,7 @@
 package com.zmide.lit.object;
 
 public class MarkBean {
-	public int id;
+	public String id;
 	public int oid;
 	public int did;
 	public int uid;
