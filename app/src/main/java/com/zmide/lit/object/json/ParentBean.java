@@ -1,4 +1,4 @@
-package com.zmide.lit.object;
+package com.zmide.lit.object.json;
 
 public class ParentBean {
 	public int id;

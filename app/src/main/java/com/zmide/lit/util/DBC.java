@@ -16,9 +16,9 @@ import com.zmide.lit.bookmark.Bookmark;
 import com.zmide.lit.object.Contract;
 import com.zmide.lit.object.Diy;
 import com.zmide.lit.object.History;
-import com.zmide.lit.object.MarkBean;
+import com.zmide.lit.object.json.MarkBean;
 import com.zmide.lit.object.Parent;
-import com.zmide.lit.object.ParentBean;
+import com.zmide.lit.object.json.ParentBean;
 import com.zmide.lit.object.WebState;
 import com.zmide.lit.object.WebsiteSetting;
 

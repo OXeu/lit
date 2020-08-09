@@ -193,10 +193,9 @@ public class SearchEnvironment {
 		if (mIndexSearchBar.getAnimation() != null)
 			if (!mIndexSearchBar.getAnimation().hasEnded()) {
 				RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) mIndexSearchBar.getLayoutParams();
-				lp.width = x + ((tx - x));
+				lp.width = tx;//x + ((tx - x));
 				lp.height = h + ((th - h));
-				int offY = (ty);
-				lp.setMargins(defaultMargin, offY, defaultMargin, 0);
+				lp.setMargins(defaultMargin, (ty), defaultMargin, 0);
 				mIndexSearchBar.setLayoutParams(lp);
 				mIndexSearchBar.requestLayout();
 				
@@ -218,7 +217,7 @@ public class SearchEnvironment {
 			@Override
 			protected void applyTransformation(float interpolatedTime, Transformation t) {
 				RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) mIndexSearchBar.getLayoutParams();
-				lp.width = x + (int) ((finalTx - x) * interpolatedTime);
+				lp.width = finalTx;//x + (int) ((finalTx - x) * interpolatedTime);
 				lp.height = h + (int) ((finalTh - h) * interpolatedTime);
 				int offY = (int) (y + (finalTy - y) * interpolatedTime);
 				lp.setMargins(defaultMargin, offY, defaultMargin, 0);

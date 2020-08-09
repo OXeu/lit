@@ -13,8 +13,8 @@ import com.zmide.lit.R;
 import com.zmide.lit.databinding.LoginDB;
 import com.zmide.lit.interfaces.UpdateInterface;
 import com.zmide.lit.main.WebContainer;
-import com.zmide.lit.object.MarkBean;
-import com.zmide.lit.object.ParentBean;
+import com.zmide.lit.object.json.MarkBean;
+import com.zmide.lit.object.json.ParentBean;
 import com.zmide.lit.object.json.DataStd;
 import com.zmide.lit.object.json.MarksData;
 import com.zmide.lit.object.json.NewsData;
@@ -32,8 +32,10 @@ import java.util.Objects;
 
 public class HttpRequest {
 	public static void getUpdate(Activity activity, UpdateInterface listener) {
+		String key = MSharedPreferenceUtils.getSharedPreference().getString("key", "");
 		OkHttpUtils.get().url(HttpHelper.UPDATE)
 				.addParams("version", AppUtils.getAppVersionCode() + "")
+				.addParams("key", key)
 				.build()
 				.execute(new StringCallback() {
 					@Override
@@ -69,8 +71,10 @@ public class HttpRequest {
 	}
 	
 	public static void getNews(Activity activity) {
+		String key = MSharedPreferenceUtils.getSharedPreference().getString("key", "");
 		OkHttpUtils.get().url(HttpHelper.NEWS)
 				.addParams("version", AppUtils.getAppVersionCode() + "")
+				.addParams("key", key)
 				.addParams("time", MSharedPreferenceUtils.getSharedPreference().getString("news_time", "0"))
 				.build()
 				.execute(new StringCallback() {
@@ -110,6 +114,7 @@ public class HttpRequest {
 	
 	public static void MarkSync(Activity activity) {
 		String token = MSharedPreferenceUtils.getSharedPreference().getString("token", "");
+		String key = MSharedPreferenceUtils.getSharedPreference().getString("key", "");
 		if ("".equals(token)) {
 			MToastUtils.makeText("请先登录").show();
 			activity.startActivity(new Intent(activity, LoginActivity.class));
@@ -122,6 +127,7 @@ public class HttpRequest {
 					.addParams("marks", marks)
 					.addParams("parents", parents)
 					.addParams("token", token)
+					.addParams("key", key)
 					.build()
 					.execute(new StringCallback() {
 						@Override
@@ -161,11 +167,13 @@ public class HttpRequest {
 	
 	
 	public static void Login(Activity activity, String emailEditor, String pwEditor) {
+		String key = MSharedPreferenceUtils.getSharedPreference().getString("key", "");
 		OkHttpUtils.post().url(HttpHelper.LOGIN)
 				.addParams("version", AppUtils.getAppVersionCode() + "")
 				.addParams("did", MSharedPreferenceUtils.getSharedPreference().getString("last_time", "0"))
 				.addParams("user", emailEditor)
 				.addParams("pw", pwEditor)
+				.addParams("key",key)
 				.build()
 				.execute(new StringCallback() {
 					@Override
@@ -198,12 +206,14 @@ public class HttpRequest {
 	}
 	
 	public static void Register(LoginDB db, String nickname, String email, String verify, String pw) {
+		String key = MSharedPreferenceUtils.getSharedPreference().getString("key", "");
 		OkHttpUtils.post().url(HttpHelper.REG)
 				.addParams("version", AppUtils.getAppVersionCode() + "")
 				.addParams("nickname", nickname)
 				.addParams("email", email)
 				.addParams("ecode", verify)
 				.addParams("pw", pw)
+				.addParams("key", key)
 				.build()
 				.execute(new StringCallback() {
 					@Override
@@ -234,11 +244,13 @@ public class HttpRequest {
 	}
 	
 	public static void Forget(LoginDB db, String email, String verify, String pw) {
+		String key = MSharedPreferenceUtils.getSharedPreference().getString("key", "");
 		OkHttpUtils.post().url(HttpHelper.FORGET)
 				.addParams("version", AppUtils.getAppVersionCode() + "")
 				.addParams("email", email)
 				.addParams("ecode", verify)
 				.addParams("pw", pw)
+				.addParams("key", key)
 				.build()
 				.execute(new StringCallback() {
 					@Override
@@ -269,10 +281,12 @@ public class HttpRequest {
 	}
 	
 	public static void sendCode(LoginDB db, String email, boolean forget) {
+		String key = MSharedPreferenceUtils.getSharedPreference().getString("key", "");
 		OkHttpUtils.post().url(HttpHelper.SEND_MAIL)
 				.addParams("version", AppUtils.getAppVersionCode() + "")
 				.addParams("email", email)
 				.addParams("forget", forget + "")
+				.addParams("key", key)
 				.build()
 				.execute(new StringCallback() {
 					@Override

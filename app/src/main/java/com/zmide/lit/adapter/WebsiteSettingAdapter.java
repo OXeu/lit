@@ -69,11 +69,10 @@ public class WebsiteSettingAdapter extends RecyclerView.Adapter<WebsiteSettingAd
 	@Override
 	public void onBindViewHolder(final MyViewHolder viewHolder, int position) {
 		final WebsiteSetting.setting tip = websiteSetting.get(position);
-		MToastUtils.makeText(tip.name+tip.state).show();
-		viewHolder.mTip.setTextColor(0xff333333);
 		viewHolder.mParent.setBackground(SkinManager.getInstance().getDrawable(R.drawable.ripple_normal));
 		viewHolder.mMod.setBackground(SkinManager.getInstance().getDrawable(R.drawable.ripple_circle));
 		viewHolder.mTip.setText(tip.name);
+		viewHolder.mTip.setTextColor(SkinManager.getInstance().getColor(R.color.accent));
 		viewHolder.mSwitch.setChecked(tip.state);
 		viewHolder.mParent.setOnClickListener(view -> {
 			viewHolder.mSwitch.setChecked(!viewHolder.mSwitch.isChecked());

@@ -732,13 +732,12 @@ public class BallEnvironment {
 								case 'q'://下
 								//MToastUtils.makeText("网站独立设置暂未开放").show();
 									String domain = WebsiteUtils.getDomain(WebContainer.getUrl());
-									WebsiteSetting websiteSetting = WebsiteUtils.getWebsiteSetting(activity,domain);
-									if (websiteSetting==null) {
-										websiteSetting = new WebsiteSetting();
-										websiteSetting.site = domain;
-										websiteSetting.state = false;
+									if(domain!=null) {
+										WebsiteSetting websiteSetting = WebsiteUtils.getWebsiteSetting(activity, domain);
+										new MWebsiteSettingDialog.Builder(activity).setItems(websiteSetting).create().show();
+									}else{
+										MToastUtils.makeText("该页面不支持网站独立设置");
 									}
-									new MWebsiteSettingDialog.Builder(activity).setItems(websiteSetting).create().show();
 									
 				break;
 							}

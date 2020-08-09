@@ -24,7 +24,7 @@ import com.zmide.lit.adapter.TagAdapter;
 import com.zmide.lit.base.BaseActivity;
 import com.zmide.lit.http.HttpRequest;
 import com.zmide.lit.interfaces.TagViewOperate;
-import com.zmide.lit.object.MarkBean;
+import com.zmide.lit.object.json.MarkBean;
 import com.zmide.lit.object.Parent;
 import com.zmide.lit.object.Tag;
 import com.zmide.lit.util.DBC;

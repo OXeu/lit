@@ -141,9 +141,9 @@ public class IndexEnvironment {
 				return false;
 			}
 		};
+		mIndexParent.setOnTouchListener(listener);
 		mIndexSearchBar.setOnTouchListener(listener);
 		mIndexSearchBar.setOnClickListener(v -> SearchEnvironment.openSearchBar(""));
-		mIndexParent.setOnTouchListener(listener);
 		int title_mode = Integer.parseInt(Objects.requireNonNull(mSharedPreferences.getString("title_mode", "0")));
 		boolean isDark = ((Dark) activity).isNight();
 		if (title_mode == 1 || (title_mode == 0 && isDark))//白色

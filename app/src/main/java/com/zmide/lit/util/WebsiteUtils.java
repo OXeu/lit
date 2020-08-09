@@ -45,11 +45,11 @@ public class WebsiteUtils {
 		websiteSetting2.site = domain;
 		websiteSetting2.state = false;
 		websiteSetting2.ua = 0;
-		websiteSetting2.ad_host = sharedPreferences.getBoolean("ad_host",true);
-		websiteSetting2.no_picture = sharedPreferences.getBoolean("no_picture",false);
-		websiteSetting2.no_history = sharedPreferences.getBoolean("no_history",false);
-		websiteSetting2.app = sharedPreferences.getBoolean("oapp",false);
-		websiteSetting2.js = sharedPreferences.getBoolean("javascript",true);
+		websiteSetting2.ad_host = sharedPreferences.getString("ad_host","true").equals("true");
+		websiteSetting2.no_picture = sharedPreferences.getString("no_picture","false").equals("true");
+		websiteSetting2.no_history = sharedPreferences.getString("no_history","false").equals("true");
+		websiteSetting2.app = sharedPreferences.getString("oapp","false").equals("true");
+		websiteSetting2.js = sharedPreferences.getString("javascript","true").equals("true");
 		websiteSetting2.id = 0 ;
 		return websiteSetting2;
 	}

@@ -116,7 +116,7 @@ private *;
 -keep class com.zmide.lit.object.json.BaiduSug { *; }
 -keep class com.zmide.lit.object.json.NewsData { *; }
 -keep class com.zmide.lit.object.json.MarksData { *; }
--keep class com.zmide.lit.object.MarkBean { *; }
+-keep class com.zmide.lit.object.json.MarkBean { *; }
 -keepnames class com.zmide.lit.object.json.MarksData$* {
     public <fields>;
     public <methods>;

@@ -22,6 +22,7 @@ import com.zmide.lit.adapter.WebsiteSettingAdapter;
 import com.zmide.lit.animation.Slide;
 import com.zmide.lit.object.WebsiteSetting;
 import com.zmide.lit.skin.SkinFactory;
+import com.zmide.lit.skin.SkinManager;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -63,7 +64,10 @@ public class MWebsiteSettingDialog extends Dialog {
 				dialog.addContentView(layout, new LinearLayout.LayoutParams(
 						LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
 				// set the dialog title
+				
 				((TextView) layout.findViewById(R.id.dialogTextTitle)).setText(items.site);
+				((TextView) layout.findViewById(R.id.dialogTextTitle)).setTextColor(SkinManager.getInstance().getColor(R.color.accent));
+				layout.findViewById(R.id.dialogTextParent).setBackground(SkinManager.getInstance().getDrawable(R.drawable.dialog_bg));
 				RecyclerView recyclerView = layout.findViewById(R.id.dialogRv);
 				// set the content message
 				if (items != null) {

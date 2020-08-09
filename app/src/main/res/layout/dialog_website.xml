@@ -18,6 +18,7 @@
         android:text="修改"
         android:textColor="@color/accentColor"
         android:textSize="12sp"
+        android:visibility="invisible"
         android:textStyle="normal" />
 
     <TextView

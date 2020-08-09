@@ -4,9 +4,12 @@
 -dontusemixedcaseclassnames
 -dontskipnonpubliclibraryclasses
 -verbose
--obfuscationdictionary o0O.txt #外部字典
--classobfuscationdictionary o0O.txt #类字典
--packageobfuscationdictionary o0O.txt #包字典
+-obfuscationdictionary dict.txt #外部字典
+-classobfuscationdictionary dict.txt #类字典
+-packageobfuscationdictionary dict.txt
+
+
+#包字典
 # 将.class信息中的类名重新定义为"Proguard"字符串
 #-renamesourcefileattribute Lit
 # 并保留源文件名为"Proguard"字符串，而非原始的类名 并保留行号 
@@ -116,7 +119,8 @@ private *;
 -keep class com.zmide.lit.object.json.BaiduSug { *; }
 -keep class com.zmide.lit.object.json.NewsData { *; }
 -keep class com.zmide.lit.object.json.MarksData { *; }
--keep class com.zmide.lit.object.MarkBean { *; }
+-keep class com.zmide.lit.object.json.MarkBean { *; }
+-keep class com.zmide.lit.object.json.ParentBean { *; }
 -keepnames class com.zmide.lit.object.json.MarksData$* {
     public <fields>;
     public <methods>;

@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 
 import com.umeng.commonsdk.UMConfigure;
+import com.umeng.commonsdk.utils.Common;
 import com.zmide.lit.skin.SkinManager;
 import com.zmide.lit.util.Chiper;
 import com.zmide.lit.util.MDataBaseSettingUtils;
@@ -33,6 +34,7 @@ public class MApplication extends Application {
 		Chiper.init(this);
 		MExceptionUtils.init(this);
 		MToastUtils.init(this);
+		Common.init(this);
 		UMConfigure.setLogEnabled(false);
 		UMConfigure.init(getApplicationContext(),
 				UMConfigure.DEVICE_TYPE_PHONE, null);

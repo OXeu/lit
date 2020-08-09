@@ -1,8 +1,5 @@
 package com.zmide.lit.object.json;
 
-import com.zmide.lit.object.MarkBean;
-import com.zmide.lit.object.ParentBean;
-
 import java.util.ArrayList;
 
 public class MarksData {
