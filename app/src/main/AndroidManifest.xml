@@ -7,6 +7,8 @@
 	<uses-permission android:name="android.permission.INTERNET" />
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+	<uses-permission android:name="android.permission.CHANGE_OVERLAY_PACKAGES" />
+
 	<!-- <uses-permission android:name="android.permission.READ_LOGS"/> -->
 	
 	<application
@@ -110,7 +112,9 @@
 			android:value="5e65c6710cafb234d9000091" />
 		<meta-data
 			android:name="UMENG_CHANNEL"
-			android:value="Xiaomi" />
+			android:value="Coolapk" />
+
+		<uses-library android:name="org.apache.http.legacy" android:required="false" />
 		<!--
 		<meta-data
 			android:name="UMENG_CHANNEL"

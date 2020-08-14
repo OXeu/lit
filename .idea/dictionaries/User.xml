@@ -2,6 +2,8 @@
   <dictionary name="User">
     <words>
       <w>ecode</w>
+      <w>thiz</w>
+      <w>xposed</w>
     </words>
   </dictionary>
 </component>

@@ -752,6 +752,32 @@ public class DBC {
 		cursor.close();
 		return isExist;
 	}
+	public boolean isDiyExist(String id,int type) {
+		//创建游标对象
+		db = dbHelper.getReadableDatabase();
+		String[] projection = new String[]{
+				Contract.DiyEntry._ID,
+		};
+		//Filter results WHERE "title" = 'My Title'
+		String selection =
+				Contract.DiyEntry._ID + " = ? AND " +
+						Contract.DiyEntry._TYPE + " = ?";
+		String[] selectionArgs = {id + "", type + ""};
+		
+		// How you want the results sorted in the resulting Cursor
+		Cursor cursor = db.query(Contract.DiyEntry.TABLE_NAME,
+				projection,
+				selection,
+				selectionArgs,
+				null,
+				null,
+				null
+		);
+		isExist = cursor.getCount() > 0;
+		// 关闭游标，释放资源
+		cursor.close();
+		return isExist;
+	}
 	
 	public String getInstalled() {
 		//创建游标对象
@@ -1202,6 +1228,7 @@ public class DBC {
 				Contract.WebsiteEntry._JS,
 				Contract.WebsiteEntry._APP,
 				Contract.WebsiteEntry._AD_HOST,
+				Contract.WebsiteEntry._CLIP,
 		};
 		//Filter results WHERE "title" = 'My Title'
 		String selection =
@@ -1228,6 +1255,7 @@ public class DBC {
 			websiteSetting.site = cursor.getString(cursor.getColumnIndex(Contract.WebsiteEntry._SITE));
 			websiteSetting.state = cursor.getInt(cursor.getColumnIndex(Contract.WebsiteEntry._STATE)) == 1;
 			websiteSetting.ua = cursor.getInt(cursor.getColumnIndex(Contract.WebsiteEntry._UA));
+			websiteSetting.clip_enable = cursor.getInt(cursor.getColumnIndex(Contract.WebsiteEntry._CLIP));
 		}else
 			websiteSetting = null;
 		// 关闭游标，释放资源
@@ -1248,6 +1276,7 @@ public class DBC {
 				Contract.WebsiteEntry._JS,
 				Contract.WebsiteEntry._APP,
 				Contract.WebsiteEntry._AD_HOST,
+				Contract.WebsiteEntry._CLIP,
 		};
 		//Filter results WHERE "title" = 'My Title'
 		String selection =
@@ -1274,6 +1303,7 @@ public class DBC {
 			websiteSetting.site = cursor.getString(cursor.getColumnIndex(Contract.WebsiteEntry._SITE));
 			websiteSetting.state = cursor.getInt(cursor.getColumnIndex(Contract.WebsiteEntry._STATE)) == 1;
 			websiteSetting.ua = cursor.getInt(cursor.getColumnIndex(Contract.WebsiteEntry._UA));
+			websiteSetting.clip_enable = cursor.getInt(cursor.getColumnIndex(Contract.WebsiteEntry._CLIP));
 		}else
 			websiteSetting = null;
 		// 关闭游标，释放资源
@@ -1294,6 +1324,8 @@ public class DBC {
 				Contract.WebsiteEntry._JS,
 				Contract.WebsiteEntry._APP,
 				Contract.WebsiteEntry._AD_HOST,
+				Contract.WebsiteEntry._CLIP,
+				
 		};
 		//Filter results WHERE "title" = 'My Title'
 		
@@ -1318,6 +1350,7 @@ public class DBC {
 			websiteSetting.site = cursor.getString(cursor.getColumnIndex(Contract.WebsiteEntry._SITE));
 			websiteSetting.state = cursor.getInt(cursor.getColumnIndex(Contract.WebsiteEntry._STATE)) == 1;
 			websiteSetting.ua = cursor.getInt(cursor.getColumnIndex(Contract.WebsiteEntry._UA));
+			websiteSetting.clip_enable = cursor.getInt(cursor.getColumnIndex(Contract.WebsiteEntry._CLIP));
 			websiteSettings.add(websiteSetting);
 		}
 		// 关闭游标，释放资源
@@ -1350,6 +1383,7 @@ public class DBC {
 		values.put(Contract.WebsiteEntry._NO_HISTORY, setting.no_history);
 		values.put(Contract.WebsiteEntry._SITE, setting.site);
 		values.put(Contract.WebsiteEntry._STATE, setting.state);
+		values.put(Contract.WebsiteEntry._CLIP, setting.clip_enable);
 		// Insert the new row, returning the primary key value of the new row
 		db.insert(Contract.WebsiteEntry.TABLE_NAME, null, values);
 	}
@@ -1365,6 +1399,7 @@ public class DBC {
 		values.put(Contract.WebsiteEntry._NO_HISTORY, setting.no_history);
 		values.put(Contract.WebsiteEntry._SITE, setting.site);
 		values.put(Contract.WebsiteEntry._STATE, setting.state);
+		values.put(Contract.WebsiteEntry._CLIP, setting.clip_enable);
 		db.update(Contract.WebsiteEntry.TABLE_NAME, values, Contract.WebsiteEntry._ID + "=?", new String[]{setting.id + ""});
 		db.close();
 	}

@@ -46,8 +46,8 @@ public class MDownloadManager {
 		if (length>0)
 			size = ConvertUtils.byte2FitMemorySize(length);
 		dialog.setDownloadLink(url);
-		dialog.setTitle("下载")
-				.setMessage("是否下载" + fileName + "("+size+")")
+		dialog.setTitle("下载"+ "("+size+")")
+				.setMessage("是否下载" + fileName)
 				.setNegativeButton("不允许", (di, p2) -> di.cancel())
 				.setPositiveButton("允许", (di, p2) -> {
 					String packageName = mSharedPreferences.getString("downloader", "");

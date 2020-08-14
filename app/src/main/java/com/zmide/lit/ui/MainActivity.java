@@ -1,21 +1,34 @@
 package com.zmide.lit.ui;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Paint;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
+import android.view.Surface;
+import android.view.SurfaceView;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import com.swift.sandhook.SandHook;
+import com.swift.sandhook.SandHookConfig;
+import com.swift.sandhook.wrapper.HookErrorException;
+import com.swift.sandhook.xposedcompat.XposedCompat;
+import com.zmide.lit.BuildConfig;
 import com.zmide.lit.R;
 import com.zmide.lit.base.BaseActivity;
+import com.zmide.lit.base.VideoReplacer;
+import com.zmide.lit.base.hooker.ActivityHooker;
 import com.zmide.lit.http.HttpRequest;
 import com.zmide.lit.interfaces.UpdateInterface;
 import com.zmide.lit.interfaces.WindowsInterface;
@@ -33,12 +46,18 @@ import com.zmide.lit.main.WindowsManager;
 import com.zmide.lit.main.firstGuide;
 import com.zmide.lit.object.Diy;
 import com.zmide.lit.skin.SkinManager;
+import com.zmide.lit.util.Chiper;
 import com.zmide.lit.util.DBC;
 import com.zmide.lit.util.MSharedPreferenceUtils;
 import com.zmide.lit.util.MToastUtils;
 import com.zmide.lit.util.MWebStateSaveUtils;
 import com.zmide.lit.util.MWindowsUtils;
 import com.zmide.lit.view.LitWebView;
+
+import java.util.ArrayList;
+
+import de.robv.android.xposed.XC_MethodHook;
+import de.robv.android.xposed.XposedHelpers;
 
 import static com.zmide.lit.main.MainViewBindUtils.getBallCardView;
 import static com.zmide.lit.main.MainViewBindUtils.getBallText;
@@ -48,7 +67,7 @@ public class MainActivity extends BaseActivity implements WindowsInterface {
 	private static final long TIME_EXIT = 2000;
 	private long mBackPressed;
 	private boolean isResume = false;
-	
+	public static ArrayList<SurfaceView> surfaceViews = new ArrayList<>();
 	@SuppressLint("SetTextI18n")
 	@Override
 	public void onWindowsCountChanged(int count) {
@@ -99,6 +118,7 @@ public class MainActivity extends BaseActivity implements WindowsInterface {
 			}
 		}
 		
+		Chiper.init(this);
 		StatusEnvironment.init(MainActivity.this);
 		MWindowsUtils.init(MainActivity.this);
 		MainViewBindUtils.init(MainActivity.this);
@@ -131,13 +151,79 @@ public class MainActivity extends BaseActivity implements WindowsInterface {
 				}
 			});
 		HttpRequest.getNews(this);
+		//VideoReplacer.binder();
+		XposedCompat.cacheDir = getCacheDir();
+		XposedCompat.context = this;
+		XposedCompat.classLoader = getClassLoader();
+		XposedCompat.isFirstApplication= true;
+//do hook
+		
+		Context mmsCtx = null;
+		try {
+			mmsCtx = createPackageContext("com.google.android.webview",
+					Context.CONTEXT_INCLUDE_CODE | Context.CONTEXT_IGNORE_SECURITY);
+		} catch (PackageManager.NameNotFoundException e) {
+			e.printStackTrace();
 		}
+		
+		@SuppressLint("PrivateApi") Class<?> mStubClass = null;
+		try {
+			mStubClass = Class.forName("org.chromium.media.MediaPlayerBridge",true,mmsCtx.getClassLoader());
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		//2.拿到本地对象类
+		XposedHelpers.findAndHookMethod(mStubClass,"setDataSource",String.class,String.class,String.class,boolean.class, new XC_MethodHook() {
+			@Override
+			protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+				super.beforeHookedMethod(param);
+				Log.e("XposedCompat", "beforeHookedMethod: " + param.method.getName());
+			}
+			
+			@Override
+			protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+				super.afterHookedMethod(param);
+				Log.e("XposedCompat", "afterHookedMethod: " + param.method.getName());
+				//Surface surface = ((Surface)param.getResult())
+			}
+		});
+		
+		XposedHelpers.findAndHookConstructor(Surface.class, long.class, new XC_MethodHook() {
+			@Override
+			protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+				super.beforeHookedMethod(param);
+				Log.e("XposedCompat", "beforeHookedMethod: " + param.method.getName());
+			}
+			
+			@Override
+			protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+				super.afterHookedMethod(param);
+				Log.e("XposedCompat", "afterHookedMethod: " + param.method.getName());
+				//Surface surface = ((Surface)param.getResult())
+				SurfaceView surfaceView = new SurfaceView(MainActivity.this);
+				surfaceViews.add(surfaceView);
+				param.setResult(surfaceView.getHolder().getSurface());
+				
+			}
+		});
+	}
+	
+	public static ArrayList<SurfaceView> getSurfaceView(){
+		return surfaceViews;
+	}
 	
 	private SharedPreferences.OnSharedPreferenceChangeListener sharedPreferenceChangeListener = (sharedPreferences, key) -> {
 		MThemeConfig();
 		initRendering();
 	};
 	
+	
+	public static int methodBeHooked(int a, int b) {
+		a = a + 1 + 2;
+		b = b + a + 3;
+		Log.e("MainActivity", "call methodBeHooked origin");
+		return a + b;
+	}
 	private void MThemeConfig(){
 		getBallCardView().post(() -> {
 			getBallCardView().setCardBackgroundColor(SkinManager.getInstance().getColor(R.color.bgcolor));

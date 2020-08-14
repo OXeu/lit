@@ -52,6 +52,8 @@ public class SettingChildActivity extends BaseActivity {
 						
 						new SettingChild("网页设置"),
 						new SettingChild(true,"允许JavaScript", "关闭将导致部分网页异常", new String[]{""}, "javascript", "true", null, SettingChild.SWITCH),
+						new SettingChild(false,"剪贴板权限", "修改网页写入剪贴板权限", new String[]{"询问","允许","拒绝"}, "clip_enable", "0", null, SettingChild.CHOOSE),
+						new SettingChild(false,"剪贴板权限拒绝提示", "拒绝网页写入剪贴板权限后提示", new String[]{""}, "clip_refuse_toast", "true", null, SettingChild.SWITCH),
 						new SettingChild(true,"字体大小", "调整网页字体大小", new String[]{"小", "中", "大"}, "webfont", "1", null, SettingChild.CHOOSE),
 						new SettingChild(true,"缓存策略", "更改网页缓存策略", new String[]{"本地优先（默认）", "本地优先（无论是否过期）", "仅从本地", "仅从网络"}, "cache_mode", "0", null, SettingChild.CHOOSE2),
 						new SettingChild(true,"支持缩放", "支持缩放", new String[]{""}, "zoom", "true", null, SettingChild.SWITCH),

@@ -69,6 +69,7 @@ public final class Contract {
 		public final static String _JS = "js";
 		public final static String _NO_PIC = "no_picture";
 		public final static String _UA = "ua";
+		public final static String _CLIP = "clip";
 		public final static String _APP = "app";
 		public final static String _AD_HOST = "ad_host";
 	}

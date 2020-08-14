@@ -1,5 +1,6 @@
 package com.zmide.lit.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,9 +11,12 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.zmide.lit.R;
+import com.zmide.lit.animation.Slide;
 import com.zmide.lit.main.SearchEnvironment;
 import com.zmide.lit.object.Diy;
 import com.zmide.lit.object.WebsiteSetting;
@@ -20,10 +24,13 @@ import com.zmide.lit.skin.SkinManager;
 import com.zmide.lit.ui.MainActivity;
 import com.zmide.lit.util.Chiper;
 import com.zmide.lit.util.DBC;
+import com.zmide.lit.util.MDialogUtils;
+import com.zmide.lit.util.MSharedPreferenceUtils;
 import com.zmide.lit.util.MToastUtils;
 import com.zmide.lit.util.WebsiteUtils;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * Created by xeu on 2020/1/1 23:20.
@@ -32,6 +39,10 @@ import java.util.ArrayList;
 
 public class WebsiteSettingAdapter extends RecyclerView.Adapter<WebsiteSettingAdapter.MyViewHolder> {
 	
+	private TextView tt;
+	private LinearLayoutManager mLayoutManager;
+	private RecyclerView rv;
+	private MDialogUtils d;
 	private Context mActivity;
 	
 	private LayoutInflater mInflater;
@@ -42,6 +53,14 @@ public class WebsiteSettingAdapter extends RecyclerView.Adapter<WebsiteSettingAd
 	public WebsiteSettingAdapter(Context ac) {
 		this.mActivity = ac;
 		mInflater = LayoutInflater.from(mActivity);
+		@SuppressLint("InflateParams") View dv = LayoutInflater.from(ac).inflate(R.layout.rv, null);
+		rv = dv.findViewById(R.id.recyclerView);
+		mLayoutManager = new LinearLayoutManager(ac);//这里我们使用默认的线性布局管理器,将其设为垂直显示
+		mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+		rv.setLayoutManager(mLayoutManager);//设置布局管理器
+		tt = dv.findViewById(R.id.rvTitle);
+		MDialogUtils.Builder dialog = new MDialogUtils.Builder(ac);
+		d = dialog.setContentView(dv).create();
 	}
 	
 	/**
@@ -80,10 +99,16 @@ public class WebsiteSettingAdapter extends RecyclerView.Adapter<WebsiteSettingAd
 				//viewHolder.mDiyItemSwitch.setChecked(true);
 				websiteSetting = websiteSetting.set(position,viewHolder.mSwitch.isChecked());
 				WebsiteUtils.putWebsiteSetting(mActivity,websiteSetting);
+			}else {
+				viewHolder.mMod.performLongClick();
 			}
 		});
 		viewHolder.mMod.setOnClickListener(view -> {
-			//todo 修改按钮
+			d.show();
+			Slide.slideToUp(Objects.requireNonNull(d.getWindow()).getDecorView());
+			tt.setText(tip.name);
+			rv.setLayoutManager(mLayoutManager);
+			rv.setAdapter(new WebsiteChooseAdapter(mActivity, websiteSetting,position, viewHolder.mMod, d));
 		});
 		if (tip.isSwitch){
 		viewHolder.mMod.setVisibility(View.GONE);
@@ -93,16 +118,25 @@ public class WebsiteSettingAdapter extends RecyclerView.Adapter<WebsiteSettingAd
 		viewHolder.mMod.setVisibility(View.VISIBLE);
 		if ("User Agent".equals(tip.name)){
 			String ua = "";
-			if (websiteSetting.state&&websiteSetting.ua!=0)//自定义UA
+			if (websiteSetting.ua!=0)//自定义UA
 				try {
-					if (DBC.getInstance(mActivity).isDiyExist(websiteSetting.ua + ""))
+					if (DBC.getInstance(mActivity).isDiyExist(websiteSetting.ua + "",Diy.UA))
 						ua = DBC.getInstance(mActivity).getDiy(Diy.UA, websiteSetting.ua + "").title;
 					else
 						ua = DBC.getInstance(mActivity).getDiy(Diy.UA).title;
 				}catch (Exception ignored){}
-				if (ua==null||"".equals(ua))
-					ua = "默认UA";
+			if (ua==null||"".equals(ua))
+				ua = "跟随默认";
 			viewHolder.mMod.setText(ua);
+		}
+		if (tip.name.contains("剪")){
+			String clip = "";
+			int type = 4;
+			if (websiteSetting.clip_enable!=4) {//自定义规则
+				type = websiteSetting.clip_enable;
+			}
+			clip = type == 0 ? "询问" : type ==1 ? "允许" :type==2 ? "拒绝" : "跟随默认";
+			viewHolder.mMod.setText(clip);
 		}
 		}
 		viewHolder.mSwitch.setOnCheckedChangeListener((cb, ischecked) -> {

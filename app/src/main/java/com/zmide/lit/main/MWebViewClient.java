@@ -5,7 +5,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.media.MediaPlayer;
 import android.net.Uri;
+import android.view.Surface;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
@@ -162,10 +165,9 @@ public class MWebViewClient extends WebViewClient {
 			settings.setJavaScriptEnabled(true);
 		else
 			settings.setJavaScriptEnabled(false);
-		
 		String ua = "";
 		if (websiteSetting.state&&websiteSetting.ua!=0) {//自定义UA
-			if (DBC.getInstance(a).isDiyExist(websiteSetting.ua + "")) {
+			if (DBC.getInstance(a).isDiyExist(websiteSetting.ua + "",Diy.UA)) {
 				ua = (DBC.getInstance(a).getDiy(Diy.UA, websiteSetting.ua + "").value);
 			} else {
 				ua = (DBC.getInstance(a).getDiy(Diy.UA).value);

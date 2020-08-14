@@ -15,6 +15,7 @@ public class EasySearch {
 	public static void init(Activity context, WebEnvironment we) {
 		ma = context;
 		mWebE = we;
+		
 	}
 	
 	public static EasySearch getInstance() {

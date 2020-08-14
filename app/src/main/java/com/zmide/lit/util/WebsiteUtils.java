@@ -46,6 +46,7 @@ public class WebsiteUtils {
 		websiteSetting2.state = false;
 		websiteSetting2.ua = 0;
 		websiteSetting2.ad_host = sharedPreferences.getString("ad_host","true").equals("true");
+		websiteSetting2.clip_enable = Integer.parseInt(sharedPreferences.getString("clip_enable","0"));//0询问，1允许，2禁止
 		websiteSetting2.no_picture = sharedPreferences.getString("no_picture","false").equals("true");
 		websiteSetting2.no_history = sharedPreferences.getString("no_history","false").equals("true");
 		websiteSetting2.app = sharedPreferences.getString("oapp","false").equals("true");

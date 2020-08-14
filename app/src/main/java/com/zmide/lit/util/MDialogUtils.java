@@ -9,6 +9,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
+import android.webkit.WebView;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -167,8 +168,11 @@ public class MDialogUtils extends Dialog {
 						.setText(positiveButtonText);
 				if (positiveButtonClickListener != null) {
 					layout.findViewById(R.id.dialogTextOk)
-							.setOnClickListener(v -> positiveButtonClickListener.onClick(dialog,
-									DialogInterface.BUTTON_POSITIVE));
+							.setOnClickListener(v -> {
+								dialog.cancel();
+								positiveButtonClickListener.onClick(dialog,
+										DialogInterface.BUTTON_POSITIVE);
+							});
 				}
 			} else {
 				// if no confirm button just set the visibility to GONE
@@ -197,9 +201,11 @@ public class MDialogUtils extends Dialog {
 				((TextView) layout.findViewById(R.id.dialogTextMore))
 						.setText(moreButtonText);
 				if (moreButtonClickListener != null) {
-					layout.findViewById(R.id.dialogTextMore)
-							.setOnClickListener(v -> moreButtonClickListener.onClick(dialog,
-									DialogInterface.BUTTON_NEUTRAL));
+					layout.findViewById(R.id.dialogTextMore);
+					layout.setOnClickListener(v -> {
+						dialog.cancel();
+						moreButtonClickListener.onClick(dialog, DialogInterface.BUTTON_NEUTRAL);
+					});
 				}
 			} else {
 				// if no confirm button just set the visibility to GONE
@@ -213,7 +219,6 @@ public class MDialogUtils extends Dialog {
 				if (downloadLink != null) {
 					down.setOnClickListener(view -> {
 						Chiper.copy(downloadLink);
-						
 						dialog.dismiss();
 					});
 					down.setVisibility(View.VISIBLE);

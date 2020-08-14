@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentActivity;
 
 import com.blankj.utilcode.util.BarUtils;
 import com.blankj.utilcode.util.KeyboardUtils;
@@ -30,7 +31,7 @@ import com.zmide.lit.util.MToastUtils;
 import com.zmide.lit.util.MWindowsUtils;
 import com.zmide.lit.view.SwipeBackLayout;
 
-public abstract class BaseActivity extends Activity implements Dark {
+public abstract class BaseActivity extends FragmentActivity implements Dark {
 	
 	
 	/***封装toast对象**/

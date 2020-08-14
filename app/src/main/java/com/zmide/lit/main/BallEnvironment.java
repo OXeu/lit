@@ -736,7 +736,7 @@ public class BallEnvironment {
 										WebsiteSetting websiteSetting = WebsiteUtils.getWebsiteSetting(activity, domain);
 										new MWebsiteSettingDialog.Builder(activity).setItems(websiteSetting).create().show();
 									}else{
-										MToastUtils.makeText("该页面不支持网站独立设置");
+										MToastUtils.makeText("该页面不支持网站独立设置").show();
 									}
 									
 				break;

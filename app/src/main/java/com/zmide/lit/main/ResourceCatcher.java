@@ -62,9 +62,9 @@ public class ResourceCatcher {
 		final static int VIDEO = 0 ;
 		final static int AUDIO = 1 ;
 		final static int PICTURE = 2 ;
-		final static String VIDEO_MATCHER = ".(mp4|m3u8|avi|mpg|mpeg|m4p|3gp|3gpp)[^a-z0-9]";
-		final static String AUDIO_MATCHER = ".(wav|mp3|m4a|ogg|mid|wmv)[^a-z0-9]";
-		final static String PICTURE_MATCHER = ".(png|jpg|jpeg|gif|webp|bmp)[^a-z0-9]";
+		final static String VIDEO_MATCHER = ".(mp4|m3u8|avi|mpg|mpeg|m4p|3gp|3gpp)[^a-z0-9]*";
+		final static String AUDIO_MATCHER = ".(wav|mp3|m4a|ogg|mid|wmv)[^a-z0-9]*";
+		final static String PICTURE_MATCHER = ".(png|jpg|jpeg|gif|webp|bmp)[^a-z0-9]*";
 	}
 	
 }

@@ -19,7 +19,7 @@ public class DbHelper extends SQLiteOpenHelper {
 	/**
 	 * Database version. If you change the database schema, you must increment the database version.
 	 */
-	private static final int DATABASE_VERSION = 11;
+	private static final int DATABASE_VERSION = 12;
 	
 	/**
 	 * Constructs a new instance of {@link DbHelper}.
@@ -90,6 +90,7 @@ public class DbHelper extends SQLiteOpenHelper {
 				+ Contract.WebsiteEntry._NO_HISTORY + " INTEGER, "
 				+ Contract.WebsiteEntry._NO_PIC + " INTEGER, "
 				+ Contract.WebsiteEntry._UA + " INTEGER, "
+				+ Contract.WebsiteEntry._CLIP + " INTEGER, "
 				+ Contract.WebsiteEntry._STATE + " INTEGER );";
 		
 		// Execute the SQL statement
@@ -131,6 +132,9 @@ public class DbHelper extends SQLiteOpenHelper {
 			case 4:
 				db.execSQL("alter table " + Contract.DiyEntry.TABLE_NAME + " add column " + Contract.DiyEntry._SID + " TEXT");
 				break;
+			case 11:
+				db.execSQL("alter table " + Contract.WebsiteEntry.TABLE_NAME + " add column " + Contract.WebsiteEntry._CLIP + " integer");
+			break;
 		}
 		switch (oldVersion){
 			case 1:
@@ -169,6 +173,7 @@ public class DbHelper extends SQLiteOpenHelper {
 					+ Contract.WebsiteEntry._NO_HISTORY + " INTEGER, "
 					+ Contract.WebsiteEntry._NO_PIC + " INTEGER, "
 					+ Contract.WebsiteEntry._UA + " INTEGER, "
+					+ Contract.WebsiteEntry._CLIP+ " INTEGER, "
 					+ Contract.WebsiteEntry._STATE + " INTEGER );";
 			db.execSQL(SQL_CREATE_WEBSITES_TABLE);
 		}

@@ -33,6 +33,7 @@
     <string name="forget_pw">忘记密码</string>
     <string name="copy_link">复制链接</string>
     <string name="mod">修改</string>
+    <string name="empty">空空如也</string>
 
     <!--	<string name="id_dialog_bg">Lit</string>-->
 	<!--	<string name="id_editor">Lit</string>-->

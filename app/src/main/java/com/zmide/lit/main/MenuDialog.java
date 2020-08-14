@@ -20,6 +20,8 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.BarUtils;
 import com.zmide.lit.R;
 import com.zmide.lit.animation.Slide;
+import com.zmide.lit.base.BaseActivity;
+import com.zmide.lit.fragment.ResourceShowerFragment;
 import com.zmide.lit.object.Diy;
 import com.zmide.lit.skin.RippleAnimation;
 import com.zmide.lit.skin.SkinFactory;
@@ -281,6 +283,7 @@ public class MenuDialog {
 						.setData(uris.get(0))
 						.putExtra("title",WebContainer.getTitle())
 				);
+				//new ResourceShowerFragment().show(((BaseActivity)activity).getSupportFragmentManager(), "dialog");
 			}else{
 				MToastUtils.makeText("暂未嗅探到视频资源").show();
 			}
@@ -410,6 +413,7 @@ public class MenuDialog {
 		final ImageView mMenuNoHistoryI = d.findViewById(R.id.menuNoHistoryI);
 		final LinearLayout mMenuMarked = Objects.requireNonNull(d.getWindow()).findViewById(R.id.menuMarked);
 		final LinearLayout mMenuMarkAdd = d.getWindow().findViewById(R.id.menuMarkAdd);
+		final LinearLayout mMenuResource = d.getWindow().findViewById(R.id.menuResource_catcher);
 		FrameLayout mWebFrame = activity.findViewById(R.id.mainWebFrame);
 		final LitWebView mWebView = mWebFrame.findViewById(R.id.mainWebView);
 		activity.runOnUiThread(() -> {
@@ -437,7 +441,10 @@ public class MenuDialog {
 				activity.runOnUiThread(() -> {
 					mMenuMarkAdd.setVisibility(View.GONE);
 					mMenuMarked.setVisibility(View.GONE);
+					mMenuResource.setVisibility(View.GONE);
 				});
+			}else{
+				mMenuResource.setVisibility(View.VISIBLE);
 			}
 		d.show();
 		activity.runOnUiThread(() -> skinFactory.apply());

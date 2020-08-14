@@ -55,13 +55,13 @@ public class SettingChildAdapter extends RecyclerView.Adapter<SettingChildAdapte
 		this.mContext = context;
 		this.settings = settings;
 		mInflater = LayoutInflater.from(context);
-		MDialogUtils.Builder dialog = new MDialogUtils.Builder(context);
 		@SuppressLint("InflateParams") View dv = LayoutInflater.from(context).inflate(R.layout.rv, null);
 		rv = dv.findViewById(R.id.recyclerView);
 		mLayoutManager = new GridLayoutManager(context, 3);//这里我们使用默认的线性布局管理器,将其设为垂直显示
 		//mLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
 		rv.setLayoutManager(mLayoutManager);//设置布局管理器
 		tt = dv.findViewById(R.id.rvTitle);
+		MDialogUtils.Builder dialog = new MDialogUtils.Builder(context);
 		d = dialog.setContentView(dv).create();
 	}
 	

@@ -1,2 +1,2 @@
 rootProject.name='Lit浏览器'
-include ':app'
+include ':app', ':hooklib',':annotation',':xposedcompat'
