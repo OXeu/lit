@@ -51,7 +51,7 @@ public class MToastUtils {
 		for (StackTraceElement stack : e.getStackTrace()) {
 			stacks.append(stack).append("\n");
 		}
-		String se = "Cause:\n" + e.getCause() + "\n\nMessage:\n" + e.getMessage() + "\n\nStackTrace:\n" + stacks;
+		String se = "Message:\n" + e.getMessage() + "\n\nStackTrace:\n" + stacks;
 		return makeText(activity, msg, "错误详情", view -> new MDialogUtils.Builder(activity)
 				.setCopyText("复制")
 				.setCopyContext(se)

@@ -30,7 +30,8 @@ public class Chiper {
 	
 	public static void init(Activity ac) {
 		a = ac;
-		binder();
+		if ("true".equals(MSharedPreferenceUtils.getSharedPreference().getString("clip_manage", "true")))
+			binder();
 	}
 	
 	public static void copy(String copyStr) {

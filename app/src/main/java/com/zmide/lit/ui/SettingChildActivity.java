@@ -48,19 +48,20 @@ public class SettingChildActivity extends BaseActivity {
 						new SettingChild("通用设置"),
 						new SettingChild("主题模式", "设置主题模式", new String[]{"日间模式", "夜间模式", "跟随系统"}, "themeMode", "2", null, SettingChild.CHOOSE),
 						new SettingChild("全屏模式", "隐藏状态栏和导航栏", new String[]{""}, "isfullscreen", "false", null, SettingChild.SWITCH),
-						
-						
+
+
 						new SettingChild("网页设置"),
-						new SettingChild(true,"允许JavaScript", "关闭将导致部分网页异常", new String[]{""}, "javascript", "true", null, SettingChild.SWITCH),
-						new SettingChild(false,"剪贴板权限", "修改网页写入剪贴板权限", new String[]{"询问","允许","拒绝"}, "clip_enable", "0", null, SettingChild.CHOOSE),
-						new SettingChild(false,"剪贴板权限拒绝提示", "拒绝网页写入剪贴板权限后提示", new String[]{""}, "clip_refuse_toast", "true", null, SettingChild.SWITCH),
-						new SettingChild(true,"字体大小", "调整网页字体大小", new String[]{"小", "中", "大"}, "webfont", "1", null, SettingChild.CHOOSE),
-						new SettingChild(true,"缓存策略", "更改网页缓存策略", new String[]{"本地优先（默认）", "本地优先（无论是否过期）", "仅从本地", "仅从网络"}, "cache_mode", "0", null, SettingChild.CHOOSE2),
-						new SettingChild(true,"支持缩放", "支持缩放", new String[]{""}, "zoom", "true", null, SettingChild.SWITCH),
-						new SettingChild(true,"插件执行成功提示", "插件执行成功后弹出提示框", new String[]{""}, "plugin_suc", "false", null, SettingChild.SWITCH),
+						new SettingChild(true, "允许JavaScript", "关闭将导致部分网页异常", new String[]{""}, "javascript", "true", null, SettingChild.SWITCH),
+						new SettingChild(false, "剪贴板权限管理", "如开启后无法复制，请关闭（关闭后下面两项设置项不会生效），重启后生效", new String[]{""}, "clip_manage", "true", null, SettingChild.SWITCH),
+						new SettingChild(false, "剪贴板权限", "修改网页写入剪贴板权限", new String[]{"询问", "允许", "拒绝"}, "clip_enable", "0", null, SettingChild.CHOOSE),
+						new SettingChild(false, "剪贴板权限拒绝提示", "拒绝网页写入剪贴板权限后提示", new String[]{""}, "clip_refuse_toast", "true", null, SettingChild.SWITCH),
+						new SettingChild(true, "字体大小", "调整网页字体大小", new String[]{"小", "中", "大"}, "webfont", "1", null, SettingChild.CHOOSE),
+						new SettingChild(true, "缓存策略", "更改网页缓存策略", new String[]{"本地优先（默认）", "本地优先（无论是否过期）", "仅从本地", "仅从网络"}, "cache_mode", "0", null, SettingChild.CHOOSE2),
+						new SettingChild(true, "支持缩放", "支持缩放", new String[]{""}, "zoom", "true", null, SettingChild.SWITCH),
+						new SettingChild(true, "插件执行成功提示", "插件执行成功后弹出提示框", new String[]{""}, "plugin_suc", "false", null, SettingChild.SWITCH),
 						new SettingChild(true, "下拉刷新", "下拉刷新当前浏览的网页", new String[]{""}, "can_refresh", "false", null, SettingChild.SWITCH),
-						new SettingChild(true,"插件执行失败提示", "插件执行失败后弹出提示框", new String[]{""}, "plugin_fail", "false", null, SettingChild.SWITCH),
-						new SettingChild(true,"允许打开外部应用", "允许打开外部应用", new String[]{""}, "oapp", "true", null, SettingChild.SWITCH),
+						new SettingChild(true, "插件执行失败提示", "插件执行失败后弹出提示框", new String[]{""}, "plugin_fail", "false", null, SettingChild.SWITCH),
+						new SettingChild(true, "允许打开外部应用", "允许打开外部应用", new String[]{""}, "oapp", "true", null, SettingChild.SWITCH),
 						
 						new SettingChild("其他设置"),
 						new SettingChild("启动恢复", "启动时恢复上次未关闭标签页", new String[]{"禁用","询问","总是"}, "state_resume_type", "0", null, SettingChild.CHOOSE),

@@ -45,6 +45,7 @@ import com.zmide.lit.util.MWindowsUtils;
 import com.zmide.lit.view.LitWebView;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import static com.zmide.lit.main.MainViewBindUtils.getBallCardView;
 import static com.zmide.lit.main.MainViewBindUtils.getBallText;
@@ -81,33 +82,9 @@ public class MainActivity extends BaseActivity implements WindowsInterface {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		MExceptionUtils.init(this);
-		if (MWebStateSaveUtils.hasStates()) {
-			switch (MSharedPreferenceUtils.getSharedPreference().getString("state_resume_type", "0")) {
-				case "0"://不处理
-					MWebStateSaveUtils.deleteAllStates();
-					break;
-				case "1"://询问
-					MToastUtils.makeText(this, "是否恢复上次未关闭的标签页", "恢复", new View.OnClickListener() {
-
-
-						@Override
-						public void onClick(View v) {
-							WebContainer.resumeData();
-							isResume = true;
-						}
-					},5000).show();
-					new Handler().postDelayed(()->{
-						if (!isResume)
-							MWebStateSaveUtils.deleteAllStates();
-					},5000);
-					break;
-				case "2"://打开
-					WebContainer.resumeData();
-					break;
-			}
-		}
 
 		Chiper.init(this);
+
 		StatusEnvironment.init(MainActivity.this);
 		MWindowsUtils.init(MainActivity.this);
 		MainViewBindUtils.init(MainActivity.this);
@@ -127,20 +104,45 @@ public class MainActivity extends BaseActivity implements WindowsInterface {
 		WebEnvironment.start();
 		findViewById(R.id.mainMask).setVisibility(View.GONE);
 		MThemeConfig();
-		SearchEnvironment.setAdapter();
 		if (MSharedPreferenceUtils.getSharedPreference().getString("is_check_update", "true").equals("true"))
 			HttpRequest.getUpdate(this, new UpdateInterface() {
 				@Override
 				public void onError(Exception e) {
 				}
-				
+
 				@Override
 				public void onNewest() {
 				}
 			});
 		HttpRequest.getNews(this);
 		//VideoReplacer.binder();
-		
+
+		if (MWebStateSaveUtils.hasStates()) {
+			switch (Objects.requireNonNull(MSharedPreferenceUtils.getSharedPreference().getString("state_resume_type", "0"))) {
+				case "0"://不处理
+					MWebStateSaveUtils.deleteAllStates();
+					break;
+				case "1"://询问
+					MToastUtils.makeText(this, "是否恢复上次未关闭的标签页", "恢复", new View.OnClickListener() {
+
+
+						@Override
+						public void onClick(View v) {
+							WebContainer.resumeData();
+							isResume = true;
+						}
+					}, 5000).show();
+					new Handler().postDelayed(() -> {
+						if (!isResume)
+							MWebStateSaveUtils.deleteAllStates();
+					}, 5000);
+					break;
+				case "2"://打开
+					WebContainer.resumeData();
+					break;
+			}
+		}
+
 	}
 	
 	public static ArrayList<SurfaceView> getSurfaceView(){
@@ -220,6 +222,24 @@ public class MainActivity extends BaseActivity implements WindowsInterface {
 	@Override
 	protected void onStart() {
 		super.onStart();
+		/*if (MSharedPreferenceUtils.getSharedPreference().getBoolean("isfirst", true)) {
+			MDialogUtils.Builder builder = new MDialogUtils.Builder(MainActivity.this);
+			MDialogUtils dialogs = builder.setTitle("权限请求")
+					.setMessage("为保证本应用能够正常运行，需要以下权限\n*读写手机存储（用于下载文件）")
+					.setNegativeButton("忽略", (dialog, which) -> dialog.cancel())
+					.setPositiveButton("同意", (dialog, which) -> {
+						getPermission(true);
+						dialog.cancel();
+					})
+					.create();
+			dialogs.setCancelable(false);
+			dialogs.show();
+			firstInit();
+		} else {
+			getPermission(false);
+		}*/
+
+		//First Boot
 		firstGuide.init(this);
 		if (MSharedPreferenceUtils.getSharedPreference().getBoolean("isfirst", true)) {
 			firstGuide.showGuide();
@@ -237,22 +257,8 @@ public class MainActivity extends BaseActivity implements WindowsInterface {
 			dialog.show();*/
 		}
 		MSharedPreferenceUtils.getSharedPreference().edit().putBoolean("isfirst", false).apply();
-		/*if (MSharedPreferenceUtils.getSharedPreference().getBoolean("isfirst", true)) {
-			MDialogUtils.Builder builder = new MDialogUtils.Builder(MainActivity.this);
-			MDialogUtils dialogs = builder.setTitle("权限请求")
-					.setMessage("为保证本应用能够正常运行，需要以下权限\n*读写手机存储（用于下载文件）")
-					.setNegativeButton("忽略", (dialog, which) -> dialog.cancel())
-					.setPositiveButton("同意", (dialog, which) -> {
-						getPermission(true);
-						dialog.cancel();
-					})
-					.create();
-			dialogs.setCancelable(false);
-			dialogs.show();
-			firstInit();
-		} else {
-			getPermission(false);
-		}*/
+		SearchEnvironment.setAdapter();
+
 	}
 	
 	private static final float[] NEGATIVE_COLOR = {

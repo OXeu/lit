@@ -37,12 +37,13 @@ public class WebContainer {
     private static MainActivity activity;
 
     public static void init(MainActivity activityTemp, Intent intent) {
-        if (activity == null) {
-            activity = activityTemp;
-            mWindowsInterface = activityTemp;
-        }
-        initWebs(intent);
-    }
+		if (activity == null) {
+			activity = activityTemp;
+			mWindowsInterface = activityTemp;
+		}
+		if (intent != null)
+			initWebs(intent);
+	}
 
 
     private static void initWebs(Intent intent) {
@@ -76,11 +77,13 @@ public class WebContainer {
     public static void resumeData() {
         ArrayList<WebState> states = MWebStateSaveUtils.resumeAllStates();
         if (states != null) {
-			for (WebState state : states) {
-				createWindow(state.url, state.sid);
-			}
-			if (states.size() != 0)
+			if (states.size() != 0) {
+				for (WebState state : states) {
+					createWindow(state.url, state.sid);
+				}
 				removeWindow(0);
+				changeWindow(0);
+			}
 		}
 	}
 	
@@ -139,15 +142,15 @@ public class WebContainer {
 			if (wid == getWindowId()) {//移除当前Web
 				mWebs.remove(wid);
 				if (wid == 0)
-					switchWindow(0);
+					changeWindow(0);
 				else if (wid >= mWebs.size())
-					switchWindow(mWebs.size() - 1);
+					changeWindow(mWebs.size() - 1);
 				else
-					switchWindow(wid - 1);
+					changeWindow(wid - 1);
 			} else {//移除其他Web
 				MWeb web = getWindow();
 				mWebs.remove(wid);
-				setWindowId(mWebs.indexOf(web));
+				changeWindow(mWebs.indexOf(web));
 			}
 			mWindowsInterface.onWindowsCountChanged(mWebs.size());
 		}
