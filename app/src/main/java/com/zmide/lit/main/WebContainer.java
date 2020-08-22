@@ -1,5 +1,7 @@
 package com.zmide.lit.main;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebView;
 
@@ -10,6 +12,7 @@ import com.zmide.lit.object.WebState;
 import com.zmide.lit.ui.MainActivity;
 import com.zmide.lit.util.MDataBaseSettingUtils;
 import com.zmide.lit.util.MWebStateSaveUtils;
+import com.zmide.lit.util.ViewO;
 import com.zmide.lit.view.LitWebView;
 
 import java.util.ArrayList;
@@ -28,31 +31,51 @@ public class WebContainer {
 	
 	#WebContainer最大的任务，就是防止Exception发生
 	 */
-	private static ArrayList<MWeb> mWebs = new ArrayList<>();
-	private static WindowsInterface mWindowsInterface ;
-	private static Index webIndex = new Index();
-	private static MainActivity activity;
-	
-	public static void init(MainActivity activityTemp) {
-		if (activity == null) {
-			activity = activityTemp;
-			mWindowsInterface = activityTemp;
-		}
-		initWebs();
-	}
-	
-	
-	private static void initWebs() {
-		if (mWebs.isEmpty()) {
-			createWindow(null,true);
-			WebEnvironment.refreshFrame();
-			WindowsManager.hideWindows();
-		}
-	}
-	
-	public static void resumeData() {
-		ArrayList<WebState> states = MWebStateSaveUtils.resumeAllStates();
-		if (states != null) {
+    private static ArrayList<MWeb> mWebs = new ArrayList<>();
+    private static WindowsInterface mWindowsInterface;
+    private static Index webIndex = new Index();
+    private static MainActivity activity;
+
+    public static void init(MainActivity activityTemp, Intent intent) {
+        if (activity == null) {
+            activity = activityTemp;
+            mWindowsInterface = activityTemp;
+        }
+        initWebs(intent);
+    }
+
+
+    private static void initWebs(Intent intent) {
+        String url = null;
+        Bundle extra = intent.getExtras();
+        if (Intent.ACTION_WEB_SEARCH.equals(intent.getAction())) {
+            if (extra != null) {
+                String query = extra.getString("query");
+                SearchEnvironment.Search(query != null ? query : "");
+            }
+        } else {
+            if (intent.getData() != null) {
+                url = intent.getData().toString();
+            } else if (extra != null) {
+                url = extra.getString("url");
+            }
+        }
+        if (url != null) {
+            if (intent.getBooleanExtra("ifNew", true))
+                createWindow(url, true);
+            else
+                loadUrl(url);
+        }
+        if (mWebs.isEmpty()) {
+            createWindow(null, true);
+            WebEnvironment.refreshFrame();
+            WindowsManager.hideWindows();
+        }
+    }
+
+    public static void resumeData() {
+        ArrayList<WebState> states = MWebStateSaveUtils.resumeAllStates();
+        if (states != null) {
 			for (WebState state : states) {
 				createWindow(state.url, state.sid);
 			}
@@ -184,11 +207,12 @@ public class WebContainer {
 	public static void switchWindow(int wid) {
 		setWindowId(wid);
 		WebEnvironment.refreshFrame();
-		if (getWebView() != null)
-			if (!Objects.equals(MDataBaseSettingUtils.WebIndex, getWebView().getUrl()))
-				IndexEnvironment.hideIndex();
-			else
-				IndexEnvironment.showIndex();
+        if (getWebView() != null)
+            if (!Objects.equals(MDataBaseSettingUtils.WebIndex, getWebView().getUrl())) {
+                IndexEnvironment.hideIndex();
+                ViewO.showView(getWebView());
+            } else
+                IndexEnvironment.showIndex();
 	}
 	
 	

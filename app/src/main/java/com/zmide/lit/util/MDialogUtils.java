@@ -9,12 +9,12 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
-import android.webkit.WebView;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.umeng.commonsdk.utils.Chiper;
 import com.zmide.lit.R;
 import com.zmide.lit.animation.Slide;
 import com.zmide.lit.skin.SkinFactory;
@@ -37,35 +37,46 @@ public class MDialogUtils extends Dialog {
 	public static class Builder {
 		private Context context;
 		private String title;
-		private String message;
-		private String positiveButtonText;
-		private String downloadLink;
-		private String negativeButtonText;
-		private View contentView;
-		private DialogInterface.OnClickListener positiveButtonClickListener;
-		private DialogInterface.OnClickListener negativeButtonClickListener;
-		
-		private String moreButtonText;
-		private OnClickListener moreButtonClickListener;
-		
-		public Builder(Context context) {
-			this.context = context;
-		}
-		
-		public Builder setDownloadLink(String downloadLink) {
-			this.downloadLink = downloadLink;
-			return this;
-		}
+        private String message;
+        private String positiveButtonText;
+        private String downloadLink;
+        private String negativeButtonText;
+        private View contentView;
+        private DialogInterface.OnClickListener positiveButtonClickListener;
+        private DialogInterface.OnClickListener negativeButtonClickListener;
+
+        private String moreButtonText;
+        private OnClickListener moreButtonClickListener;
+        private String copyText;
+
+        public Builder(Context context) {
+            this.context = context;
+        }
+
+        public Builder setDownloadLink(String downloadLink) {
+            this.downloadLink = downloadLink;
+            return this;
+        }
+
+        public Builder setCopyContext(String downloadLink) {
+            this.downloadLink = downloadLink;
+            return this;
+        }
+
+        public Builder setCopyText(String text) {
+            this.copyText = text;
+            return this;
+        }
 
 		/*public String getDownloadLink()
 		{
 			return downloadLink;
 		}
 */
-		
-		public Builder setMessage(String message) {
-			this.message = message;
-			return this;
+
+        public Builder setMessage(String message) {
+            this.message = message;
+            return this;
 		}
 		
 		/*
@@ -204,37 +215,40 @@ public class MDialogUtils extends Dialog {
 					layout.findViewById(R.id.dialogTextMore);
 					layout.setOnClickListener(v -> {
 						dialog.cancel();
-						moreButtonClickListener.onClick(dialog, DialogInterface.BUTTON_NEUTRAL);
-					});
-				}
-			} else {
-				// if no confirm button just set the visibility to GONE
-				layout.findViewById(R.id.dialogTextMore).setVisibility(
-						View.GONE);
-			}
-			
-			//下载链接
-			View down = layout.findViewById(R.id.dialogCopy);
-			if (down != null)
-				if (downloadLink != null) {
-					down.setOnClickListener(view -> {
-						Chiper.copy(downloadLink);
-						dialog.dismiss();
-					});
-					down.setVisibility(View.VISIBLE);
-				} else {
-					down.setVisibility(View.INVISIBLE);
-				}
-			
-			// set the content message
-			if (message != null) {
-				((TextView) layout.findViewById(R.id.dialogTextText)).setText(message);
-				((TextView) layout.findViewById(R.id.dialogTextText)).setMovementMethod(ScrollingMovementMethod.getInstance());
-			} else if (contentView != null) {
-				// if no message set
-				// add the contentView to the dialog body
-				((RelativeLayout) layout.findViewById(R.id.dialogTextParent))
-						.removeAllViews();
+                        moreButtonClickListener.onClick(dialog, DialogInterface.BUTTON_NEUTRAL);
+                    });
+                }
+            } else {
+                // if no confirm button just set the visibility to GONE
+                layout.findViewById(R.id.dialogTextMore).setVisibility(
+                        View.GONE);
+            }
+
+            //下载链接
+            TextView down = layout.findViewById(R.id.dialogCopy);
+            if (down != null)
+                if (downloadLink != null) {
+                    down.setOnClickListener(view -> {
+                        Chiper.copy(downloadLink);
+                        dialog.dismiss();
+                    });
+                    down.setVisibility(View.VISIBLE);
+                } else {
+                    down.setVisibility(View.INVISIBLE);
+                }
+            if (copyText != null && down != null) {
+                down.setText(copyText);
+            }
+
+            // set the content message
+            if (message != null) {
+                ((TextView) layout.findViewById(R.id.dialogTextText)).setText(message);
+                ((TextView) layout.findViewById(R.id.dialogTextText)).setMovementMethod(ScrollingMovementMethod.getInstance());
+            } else if (contentView != null) {
+                // if no message set
+                // add the contentView to the dialog body
+                ((RelativeLayout) layout.findViewById(R.id.dialogTextParent))
+                        .removeAllViews();
 				((RelativeLayout) layout.findViewById(R.id.dialogTextParent))
 						.addView(contentView, new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
 								RelativeLayout.LayoutParams.WRAP_CONTENT));

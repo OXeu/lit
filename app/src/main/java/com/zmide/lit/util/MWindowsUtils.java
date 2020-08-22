@@ -2,8 +2,10 @@ package com.zmide.lit.util;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.view.WindowManager;
 
+import com.blankj.utilcode.util.BarUtils;
 import com.blankj.utilcode.util.ScreenUtils;
 
 /**
@@ -81,7 +83,7 @@ public class MWindowsUtils {
 	 *
 	 * @param isChecked the is checked
 	 */
-	public static void switchFullScreen(Activity a, boolean isChecked) {
+    public static void switchFullScreen(Activity a, boolean isChecked) {
 		/*if (isChecked) {
 			//切换到全屏模式
 			//添加一个全屏的标记
@@ -95,9 +97,22 @@ public class MWindowsUtils {
 			activity.getWindow().setAttributes(attrs);
 			activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
 		}*/
-		if (isChecked)
-			ScreenUtils.setFullScreen(a);
-		else
-			ScreenUtils.setNonFullScreen(a);
-	}
+        if (isChecked) {
+            ScreenUtils.setFullScreen(a);
+            BarUtils.setStatusBarColor(a, 0x00000000);
+        } else {
+            ScreenUtils.setNonFullScreen(a);
+        }
+    }
+
+    public static void back2DefaultScreen(Activity a) {
+        SharedPreferences mSharedPreferences = MSharedPreferenceUtils.getSharedPreference();
+        if (mSharedPreferences.getString("isfullscreen", "false").equals("true")) {
+            MWindowsUtils.switchFullScreen(a, true);
+            BarUtils.setStatusBarColor(a, 0x00000000);
+        } else {
+            MWindowsUtils.switchFullScreen(a, false);
+            BarUtils.transparentStatusBar(a);
+        }
+    }
 }

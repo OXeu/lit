@@ -1,4 +1,4 @@
-package com.zmide.lit.util;
+package com.umeng.commonsdk.utils;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -10,6 +10,11 @@ import android.os.IBinder;
 
 import com.zmide.lit.main.WebContainer;
 import com.zmide.lit.object.WebsiteSetting;
+import com.zmide.lit.util.MDialogUtils;
+import com.zmide.lit.util.MExceptionUtils;
+import com.zmide.lit.util.MSharedPreferenceUtils;
+import com.zmide.lit.util.MToastUtils;
+import com.zmide.lit.util.WebsiteUtils;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
@@ -140,37 +145,39 @@ public class Chiper {
 					builder.setTitle("是否允许"+domain+"复制内容至剪贴板")
 							.setMessage(text)
 							.setPositiveButton("允许", (dialog, which) -> copyByReflect(method,mClipData))
-							.setNegativeButton("拒绝",((dialog, which) -> {}))
-							.create().show();
-				}else if (clip_enable==1){
-					copyByReflect(method,mClipData);
-				} else if (clip_enable==2){
-					if ("true".equals(sharedPreferences.getString("clip_refuse_toast","true")))
-						MToastUtils.makeText("已拒绝"+domain+"复制内容至剪贴板");
-				}
-				return true;
-			}
-			//再拦截是否有复制的方法，放系统认为一直都有
+                            .setNegativeButton("拒绝", ((dialog, which) -> {
+                            }))
+                            .create().show();
+                } else if (clip_enable == 1) {
+                    copyByReflect(method, mClipData);
+                } else if (clip_enable == 2) {
+                    if ("true".equals(sharedPreferences.getString("clip_refuse_toast", "true")))
+                        MToastUtils.makeText("已拒绝" + domain + "复制内容至剪贴板").show();
+                }
+                return true;
+            }
+			/*//再拦截是否有复制的方法，放系统认为一直都有
 			if("hasPrimaryClip".equals(method.getName())){
 				return true;
-			}
-			//其他启动还是返回原有的
-			return method.invoke(mBase,args);
-		}
-		
-		public void copyByReflect(Method method,ClipData mClipData){
-			try {
-				Class IClip = Class.forName("android.content.ClipboardManager");
-				Class context = Class.forName("android.content.Context");
-				Method getOpPackageName = context.getMethod("getOpPackageName");
-				String opPackageName = getOpPackageName.invoke(a) + "";
-				Method clip = IClip.getMethod("setPrimaryClip", ClipData.class);
-				method.invoke(mBase, mClipData,opPackageName,0);
-				MToastUtils.makeText("复制成功");
-			} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				MToastUtils.makeText("复制失败"+e.getCause());
-			}
+			}*/
+            //其他启动还是返回原有的
+            return method.invoke(mBase, args);
+        }
+
+        public void copyByReflect(Method method, ClipData mClipData) {
+            try {
+                Class IClip = Class.forName("android.content.ClipboardManager");
+                Class context = Class.forName("android.content.Context");
+                Method getOpPackageName = context.getMethod("getOpPackageName");
+                String opPackageName = getOpPackageName.invoke(a) + "";
+                Method clip = IClip.getMethod("setPrimaryClip", ClipData.class);
+                method.invoke(mBase, mClipData, opPackageName, 0);
+                MToastUtils.makeText("复制成功").show();
+            } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | ClassNotFoundException e) {
+                // TODO Auto-generated catch block
+                MExceptionUtils.reportException(e);
+                MToastUtils.makeText("复制失败" + e.getMessage()).show();
+            }
 		}
 	}
 	

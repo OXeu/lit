@@ -5,10 +5,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.media.MediaPlayer;
 import android.net.Uri;
-import android.view.Surface;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
@@ -19,14 +16,15 @@ import androidx.annotation.Nullable;
 
 import com.blankj.utilcode.util.BarUtils;
 import com.zmide.lit.object.Diy;
+import com.zmide.lit.object.History;
 import com.zmide.lit.object.WebsiteSetting;
 import com.zmide.lit.util.DBC;
-import com.zmide.lit.util.WebsiteUtils;
 import com.zmide.lit.util.MDialogUtils;
 import com.zmide.lit.util.MFileUtils;
 import com.zmide.lit.util.MSharedPreferenceUtils;
 import com.zmide.lit.util.MToastUtils;
 import com.zmide.lit.util.MWebStateSaveUtils;
+import com.zmide.lit.util.WebsiteUtils;
 import com.zmide.lit.view.LitWebView;
 
 import java.net.URISyntaxException;
@@ -190,29 +188,33 @@ public class MWebViewClient extends WebViewClient {
 					 }*/
 		MProgressManager.setProgress(100);
 		WebContainer.setRefreshing(false);
-		if (!url.equals(WebIndex))
-			updateStatusColor(view);
-		else {
-			BarUtils.transparentStatusBar(a);
-			BarUtils.setStatusBarColor(a, 0x00000000);
-		}
-		if (view.getUrl() == null)
-			return;
-		String domain = WebsiteUtils.getDomain(WebContainer.getUrl());
-		WebsiteSetting websiteSetting = WebsiteUtils.getWebsiteSetting(a,domain);
-		//不是本地页面 并且 网站独立设置关闭&无痕已关闭 或者 网站独立设置打开&独立设置无痕已关闭
-		if (
-				(!view.getUrl().startsWith("file://"))
-				&&
-				(
-						( !websiteSetting.state
-								&&
-								Objects.equals(MSharedPreferenceUtils.getSharedPreference().getString("no_history", "false"), "false")
-						)
-						||
-						( websiteSetting.state && !websiteSetting.no_history )
-				)
-			) {
+        if (!url.equals(WebIndex))
+            updateStatusColor(view);
+        else {
+            BarUtils.transparentStatusBar(a);
+            BarUtils.setStatusBarColor(a, 0x00000000);
+        }
+        if (view.getUrl() == null)
+            return;
+        String domain = WebsiteUtils.getDomain(WebContainer.getUrl());
+        WebsiteSetting websiteSetting = WebsiteUtils.getWebsiteSetting(a, domain);
+        //与最后的历史记录不重复 &不是本地页面 并且 (网站独立设置关闭&无痕已关闭 或者 网站独立设置打开&独立设置无痕已关闭)
+        History history = DBC.getInstance(a).getLatestHistory();
+        if (
+                (!Objects.equals(view.getTitle(), history.name))
+                        && (view.getTitle() != null)
+                        && (!"".equals(view.getTitle()))
+                        && (!view.getUrl().startsWith("file://"))
+                        &&
+                        (
+                                (!websiteSetting.state
+                                        &&
+                                        Objects.equals(MSharedPreferenceUtils.getSharedPreference().getString("no_history", "false"), "false")
+                                )
+                                        ||
+                                        (websiteSetting.state && !websiteSetting.no_history)
+                        )
+        ) {
 			DBC.getInstance(a).addHistory(view.getTitle(), MFileUtils.saveFile(view.getFavicon(), null, false), view.getUrl());
 		}
 		for (Diy diy : DBC.getInstance(view.getContext()).getDiys(Diy.PLUGIN, false)) {

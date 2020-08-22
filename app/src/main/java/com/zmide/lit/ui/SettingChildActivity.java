@@ -85,10 +85,11 @@ public class SettingChildActivity extends BaseActivity {
 				break;
 			case Mode.LAB:
 				st = new SettingChild[]{
-						new SettingChild("负片模式", "夜间模式下对网页色彩进行负片处理", new String[]{""}, "web_isdark", "false", null, SettingChild.SWITCH),
-						new SettingChild("反转手势", "反转小球前进后退手势", new String[]{""}, "isChangeGesture", "false", null, SettingChild.SWITCH),
-						new SettingChild("检测更新", "进入应用进行检测更新", new String[]{""}, "is_check_update", "true", null, SettingChild.SWITCH),
-				};
+                        new SettingChild("负片模式", "夜间模式下对网页色彩进行负片处理", new String[]{""}, "web_isdark", "false", null, SettingChild.SWITCH),
+                        new SettingChild("反转手势", "反转小球前进后退手势", new String[]{""}, "isChangeGesture", "false", null, SettingChild.SWITCH),
+                        new SettingChild("检测更新", "进入应用进行检测更新", new String[]{""}, "is_check_update", "true", null, SettingChild.SWITCH),
+                        new SettingChild("调试模式", "异常时显示完整错误", new String[]{""}, "debug", "false", null, SettingChild.SWITCH),
+                };
 				break;
 			case Mode.BACKUP:
 				st = new SettingChild[]{

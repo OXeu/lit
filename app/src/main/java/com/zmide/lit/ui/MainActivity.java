@@ -1,18 +1,14 @@
 package com.zmide.lit.ui;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Paint;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
-import android.view.Surface;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -20,15 +16,9 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
-import com.swift.sandhook.SandHook;
-import com.swift.sandhook.SandHookConfig;
-import com.swift.sandhook.wrapper.HookErrorException;
-import com.swift.sandhook.xposedcompat.XposedCompat;
-import com.zmide.lit.BuildConfig;
+import com.umeng.commonsdk.utils.Chiper;
 import com.zmide.lit.R;
 import com.zmide.lit.base.BaseActivity;
-import com.zmide.lit.base.VideoReplacer;
-import com.zmide.lit.base.hooker.ActivityHooker;
 import com.zmide.lit.http.HttpRequest;
 import com.zmide.lit.interfaces.UpdateInterface;
 import com.zmide.lit.interfaces.WindowsInterface;
@@ -46,8 +36,8 @@ import com.zmide.lit.main.WindowsManager;
 import com.zmide.lit.main.firstGuide;
 import com.zmide.lit.object.Diy;
 import com.zmide.lit.skin.SkinManager;
-import com.zmide.lit.util.Chiper;
 import com.zmide.lit.util.DBC;
+import com.zmide.lit.util.MExceptionUtils;
 import com.zmide.lit.util.MSharedPreferenceUtils;
 import com.zmide.lit.util.MToastUtils;
 import com.zmide.lit.util.MWebStateSaveUtils;
@@ -55,9 +45,6 @@ import com.zmide.lit.util.MWindowsUtils;
 import com.zmide.lit.view.LitWebView;
 
 import java.util.ArrayList;
-
-import de.robv.android.xposed.XC_MethodHook;
-import de.robv.android.xposed.XposedHelpers;
 
 import static com.zmide.lit.main.MainViewBindUtils.getBallCardView;
 import static com.zmide.lit.main.MainViewBindUtils.getBallText;
@@ -78,7 +65,7 @@ public class MainActivity extends BaseActivity implements WindowsInterface {
 	public void onWindowsStateChanged() {
 	
 	}
-	
+
 	/**
 	 * 功能
 	 * 初始化小球
@@ -86,21 +73,23 @@ public class MainActivity extends BaseActivity implements WindowsInterface {
 	 * 初始化搜索
 	 * 选择性初始化使用引导
 	 */
-	
-	
+
+
+	@SuppressLint("PrivateApi")
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		if(MWebStateSaveUtils.hasStates()){
-			switch (MSharedPreferenceUtils.getSharedPreference().getString("state_resume_type","0")){
+		MExceptionUtils.init(this);
+		if (MWebStateSaveUtils.hasStates()) {
+			switch (MSharedPreferenceUtils.getSharedPreference().getString("state_resume_type", "0")) {
 				case "0"://不处理
 					MWebStateSaveUtils.deleteAllStates();
 					break;
 				case "1"://询问
 					MToastUtils.makeText(this, "是否恢复上次未关闭的标签页", "恢复", new View.OnClickListener() {
 
-						
+
 						@Override
 						public void onClick(View v) {
 							WebContainer.resumeData();
@@ -117,7 +106,7 @@ public class MainActivity extends BaseActivity implements WindowsInterface {
 					break;
 			}
 		}
-		
+
 		Chiper.init(this);
 		StatusEnvironment.init(MainActivity.this);
 		MWindowsUtils.init(MainActivity.this);
@@ -126,7 +115,7 @@ public class MainActivity extends BaseActivity implements WindowsInterface {
 		BallEnvironment.init(MainActivity.this);
 		SearchEnvironment.init(MainActivity.this);
 		WebEnvironment.init(MainActivity.this);
-		WebContainer.init(MainActivity.this);
+		WebContainer.init(MainActivity.this, getIntent());//容器加载时处理外部请求
 		WindowsManager.init(MainActivity.this);
 		LitJavaScript.init(this);
 		MenuDialog.init(MainActivity.this);
@@ -139,7 +128,6 @@ public class MainActivity extends BaseActivity implements WindowsInterface {
 		findViewById(R.id.mainMask).setVisibility(View.GONE);
 		MThemeConfig();
 		SearchEnvironment.setAdapter();
-		handleIntent(getIntent());
 		if (MSharedPreferenceUtils.getSharedPreference().getString("is_check_update", "true").equals("true"))
 			HttpRequest.getUpdate(this, new UpdateInterface() {
 				@Override
@@ -152,60 +140,7 @@ public class MainActivity extends BaseActivity implements WindowsInterface {
 			});
 		HttpRequest.getNews(this);
 		//VideoReplacer.binder();
-		XposedCompat.cacheDir = getCacheDir();
-		XposedCompat.context = this;
-		XposedCompat.classLoader = getClassLoader();
-		XposedCompat.isFirstApplication= true;
-//do hook
 		
-		Context mmsCtx = null;
-		try {
-			mmsCtx = createPackageContext("com.google.android.webview",
-					Context.CONTEXT_INCLUDE_CODE | Context.CONTEXT_IGNORE_SECURITY);
-		} catch (PackageManager.NameNotFoundException e) {
-			e.printStackTrace();
-		}
-		
-		@SuppressLint("PrivateApi") Class<?> mStubClass = null;
-		try {
-			mStubClass = Class.forName("org.chromium.media.MediaPlayerBridge",true,mmsCtx.getClassLoader());
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-		//2.拿到本地对象类
-		XposedHelpers.findAndHookMethod(mStubClass,"setDataSource",String.class,String.class,String.class,boolean.class, new XC_MethodHook() {
-			@Override
-			protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-				super.beforeHookedMethod(param);
-				Log.e("XposedCompat", "beforeHookedMethod: " + param.method.getName());
-			}
-			
-			@Override
-			protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-				super.afterHookedMethod(param);
-				Log.e("XposedCompat", "afterHookedMethod: " + param.method.getName());
-				//Surface surface = ((Surface)param.getResult())
-			}
-		});
-		
-		XposedHelpers.findAndHookConstructor(Surface.class, long.class, new XC_MethodHook() {
-			@Override
-			protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-				super.beforeHookedMethod(param);
-				Log.e("XposedCompat", "beforeHookedMethod: " + param.method.getName());
-			}
-			
-			@Override
-			protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-				super.afterHookedMethod(param);
-				Log.e("XposedCompat", "afterHookedMethod: " + param.method.getName());
-				//Surface surface = ((Surface)param.getResult())
-				SurfaceView surfaceView = new SurfaceView(MainActivity.this);
-				surfaceViews.add(surfaceView);
-				param.setResult(surfaceView.getHolder().getSurface());
-				
-			}
-		});
 	}
 	
 	public static ArrayList<SurfaceView> getSurfaceView(){
@@ -259,16 +194,24 @@ public class MainActivity extends BaseActivity implements WindowsInterface {
 	private void handleIntent(Intent intent) {
 		String url = null;
 		Bundle extra = intent.getExtras();
-		if (intent.getData() != null) {
-			url = intent.getData().toString();
-		} else if (extra != null) {
-			url = extra.getString("url");
-		}
-		if (url != null) {
-			if (intent.getBooleanExtra("ifNew", true))
-				WebContainer.createWindow(url, true);
-			else
-				WebContainer.loadUrl(url);
+		if (Intent.ACTION_WEB_SEARCH.equals(intent.getAction())) {
+			if (extra != null) {
+				String query = extra.getString("query");
+				SearchEnvironment.Search(query);
+			}
+
+		} else {
+			if (intent.getData() != null) {
+				url = intent.getData().toString();
+			} else if (extra != null) {
+				url = extra.getString("url");
+			}
+			if (url != null) {
+				if (intent.getBooleanExtra("ifNew", true))
+					WebContainer.createWindow(url, true);
+				else
+					WebContainer.loadUrl(url);
+			}
 		}
 	}
 	

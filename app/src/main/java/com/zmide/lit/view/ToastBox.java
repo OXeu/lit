@@ -63,7 +63,7 @@ public class ToastBox {
 					@Override
 					public void onAnimationEnd(Animation animation) {
 						mContainer.setVisibility(View.GONE);
-						container.removeView(v);
+						container.removeView(mContainer);
 					}
 					
 					@Override

@@ -13,27 +13,29 @@
 		android:paddingBottom="16dp">
 		
 		<LinearLayout
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_marginStart="24dp"
-			android:orientation="vertical">
-			
-			<TextView
-				android:id="@+id/settingItem2Title"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:text=""
-				android:textColor="@color/accent"
-				android:textSize="14sp" />
-			
-			<TextView
-				android:id="@+id/settingItem2Description"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:gravity="center"
-				android:text=""
-				android:textColor="@color/light"
-				android:textSize="12sp" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_alignParentStart="true"
+            android:layout_toStartOf="@id/settingitem2RelativeLayout1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/settingItem2Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="@color/accent"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/settingItem2Description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text=""
+                android:textColor="@color/light"
+                android:textSize="12sp" />
 		</LinearLayout>
 		
 		<RelativeLayout

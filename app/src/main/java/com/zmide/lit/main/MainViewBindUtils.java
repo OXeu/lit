@@ -63,7 +63,9 @@ public class MainViewBindUtils {
 	private static TextView mjQueryText;
 	@SuppressLint("StaticFieldLeak")
 	private static LinearLayout mAdMark;
-	
+	@SuppressLint("StaticFieldLeak")
+	private static RelativeLayout mBaseParent;
+
 	//获取MainActivity各View实例
 	public static void init(MainActivity mainActivity) {
 		if (activity == null) {
@@ -95,6 +97,7 @@ public class MainViewBindUtils {
 			mMainCode = activity.findViewById(R.id.mainCode);
 			mjQueryText = activity.findViewById(R.id.mainjQuery);
 			mAdMark = activity.findViewById(R.id.mainAdMark);
+			mBaseParent = activity.findViewById(R.id.baseParent);
 		}
 	}
 	
@@ -189,12 +192,16 @@ public class MainViewBindUtils {
 	public static TextView getCodeText() {
 		return mMainCode;
 	}
-	
+
 	public static TextView getjQueryText() {
 		return mjQueryText;
 	}
-	
+
 	public static LinearLayout getAdMark() {
 		return mAdMark;
+	}
+
+	public static RelativeLayout getBaseParent() {
+		return mBaseParent;
 	}
 }

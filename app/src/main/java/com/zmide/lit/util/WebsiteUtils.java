@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.zmide.lit.object.WebsiteSetting;
-import com.zmide.lit.util.Chiper;
+
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 

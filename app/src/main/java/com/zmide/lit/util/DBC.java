@@ -16,11 +16,11 @@ import com.zmide.lit.bookmark.Bookmark;
 import com.zmide.lit.object.Contract;
 import com.zmide.lit.object.Diy;
 import com.zmide.lit.object.History;
-import com.zmide.lit.object.json.MarkBean;
 import com.zmide.lit.object.Parent;
-import com.zmide.lit.object.json.ParentBean;
 import com.zmide.lit.object.WebState;
 import com.zmide.lit.object.WebsiteSetting;
+import com.zmide.lit.object.json.MarkBean;
+import com.zmide.lit.object.json.ParentBean;
 
 import java.util.ArrayList;
 
@@ -534,26 +534,69 @@ public class DBC {
 			History mark = new History();
 			mark.id = id;
 			mark.icon = icon;
-			mark.name = name;
-			mark.url = url;
-			mark.time = time;
-			marks.add(mark);
-		}
-		// 关闭游标，释放资源
-		cursor.close();
-		return marks;
-	}
-	
-	public ArrayList<Diy> getDiys(int type, boolean OnlyRun) {
-		//创建游标对象
-		db = dbHelper.getReadableDatabase();
-		String[] projection = new String[]{
-				Contract.DiyEntry._TYPE,
-				Contract.DiyEntry._ID,
-				Contract.DiyEntry._NAME,
-				Contract.DiyEntry._TIME,
-				Contract.DiyEntry._VALUE,
-				Contract.DiyEntry._EXTRA,
+            mark.name = name;
+            mark.url = url;
+            mark.time = time;
+            marks.add(mark);
+        }
+        // 关闭游标，释放资源
+        cursor.close();
+        return marks;
+    }
+
+    public History getLatestHistory() {
+        //创建游标对象
+        db = dbHelper.getReadableDatabase();
+        String[] projection = new String[]{
+                Contract.HistoryEntry._ICON,
+                Contract.HistoryEntry._ID,
+                Contract.HistoryEntry._NAME,
+                Contract.HistoryEntry._TIME,
+                Contract.HistoryEntry._URL};
+        // Filter results WHERE "title" = 'My Title'
+        //String selection = Contract.MarkEntry._PARENT + " = ?";
+        //String[] selectionArgs = { parent+"" };
+
+        // How you want the results sorted in the resulting Cursor
+        String sortOrder =
+                Contract.MarkEntry._TIME + " DESC";
+        Cursor cursor = db.query(Contract.HistoryEntry.TABLE_NAME,
+                projection,
+                null,
+                null,
+                null,
+                null,
+                sortOrder,
+                "1");
+        //利用游标遍历所有数据对象
+        History history = new History();
+        if (cursor.moveToFirst()) {
+            String name = cursor.getString(cursor.getColumnIndex(Contract.HistoryEntry._NAME));
+            String time = cursor.getString(cursor.getColumnIndex(Contract.HistoryEntry._TIME));
+            String url = cursor.getString(cursor.getColumnIndex(Contract.HistoryEntry._URL));
+            String id = cursor.getString(cursor.getColumnIndex(Contract.HistoryEntry._ID));
+            String icon = cursor.getString(cursor.getColumnIndex(Contract.HistoryEntry._ICON));
+            history.id = id;
+            history.icon = icon;
+            history.name = name;
+            history.url = url;
+            history.time = time;
+        }
+        // 关闭游标，释放资源
+        cursor.close();
+        return history;
+    }
+
+    public ArrayList<Diy> getDiys(int type, boolean OnlyRun) {
+        //创建游标对象
+        db = dbHelper.getReadableDatabase();
+        String[] projection = new String[]{
+                Contract.DiyEntry._TYPE,
+                Contract.DiyEntry._ID,
+                Contract.DiyEntry._NAME,
+                Contract.DiyEntry._TIME,
+                Contract.DiyEntry._VALUE,
+                Contract.DiyEntry._EXTRA,
 				Contract.DiyEntry._DESCRIPTION,
 				Contract.DiyEntry._ISRUN};
 		//Filter results WHERE "title" = 'My Title'

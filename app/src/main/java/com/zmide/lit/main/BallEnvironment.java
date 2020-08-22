@@ -162,20 +162,20 @@ public class BallEnvironment {
 						};
 						animation.setDuration(200);
 						mCardview.startAnimation(animation);*/
-		}
-	}
-	
-	public static void shrinkBallWithSetting() {
-		CardView mCardview = getBallCardView();
-		int targetWidth = MWindowsUtils.getWidth() - mCardview.getPaddingRight();
-		int zero = 0;
-		int initialWidth = MSharedPreferenceUtils.getSharedPreference().getString("is_double_ball","true").equals("true")
-				?
-				AdaptScreenUtils.pt2Px(48):MWindowsUtils.dp2px(48);
-		final int width = mCardview.getWidth();
-		if (mCardview.getAnimation() != null)
-			if (!mCardview.getAnimation().hasEnded()) {
-				return;
+        }
+    }
+
+    public static void shrinkBallWithSetting() {//按照配置收缩小球（可能实际并不会收缩），用于滚动网页时
+        CardView mCardview = getBallCardView();
+        int targetWidth = MWindowsUtils.getWidth() - mCardview.getPaddingRight();
+        int zero = 0;
+        int initialWidth = MSharedPreferenceUtils.getSharedPreference().getString("is_double_ball", "true").equals("true")
+                ?
+                AdaptScreenUtils.pt2Px(48) : MWindowsUtils.dp2px(48);
+        final int width = mCardview.getWidth();
+        if (mCardview.getAnimation() != null)
+            if (!mCardview.getAnimation().hasEnded()) {
+                return;
 			}
 		
 		
@@ -222,22 +222,22 @@ public class BallEnvironment {
 							};
 							animation.setDuration(200);
 							mCardview.startAnimation(animation);*/
-			}
-		
-	}
-	
-	
-	public static void shrinkBall() {//收缩小球
-		int targetWidth = MWindowsUtils.getWidth() - getBallCardView().getPaddingRight();
-		int initialWidth = MSharedPreferenceUtils.getSharedPreference().getString("is_double_ball","true").equals("true")
-				?
-				AdaptScreenUtils.pt2Px(48):MWindowsUtils.dp2px(48);
-		final int width = getBallCardView().getWidth();
-		if (width != initialWidth) {//已展开，收缩
-			Animation animation = new Animation() {
-				@Override
-				protected void applyTransformation(float interpolatedTime, Transformation t) {
-					interpolatedTime = 1 - interpolatedTime;
+            }
+
+    }
+
+
+    public static void shrinkBall() {//无论配置是什么都收缩小球，用于强制收缩时
+        int targetWidth = MWindowsUtils.getWidth() - getBallCardView().getPaddingRight();
+        int initialWidth = MSharedPreferenceUtils.getSharedPreference().getString("is_double_ball", "true").equals("true")
+                ?
+                AdaptScreenUtils.pt2Px(48) : MWindowsUtils.dp2px(48);
+        final int width = getBallCardView().getWidth();
+        if (width != initialWidth) {//已展开，收缩
+            Animation animation = new Animation() {
+                @Override
+                protected void applyTransformation(float interpolatedTime, Transformation t) {
+                    interpolatedTime = 1 - interpolatedTime;
 					ViewGroup.LayoutParams lp = getBallCardView().getLayoutParams();
 					lp.width = initialWidth + (int) ((targetWidth - initialWidth) * interpolatedTime);
 					getBallCardView().setLayoutParams(lp);
@@ -819,16 +819,17 @@ public class BallEnvironment {
 	
 	@SuppressLint("SetTextI18n")
 	private static void loadBallStyle() {
-		int ballType = Integer.parseInt(mSharedPreferences.getString("is_apply_ball", "0"));
-		//Typeface customFont = Typeface.createFromAsset(getAssets(), "font/a.ttf");
-		//mBallText.setTypeface(customFont);
-		switch (ballType) {
-			case 1://多窗口
-				getBallImage().setVisibility(View.GONE);
-				getBallText().setVisibility(View.VISIBLE);
-				getBallText().setText(WebContainer.getWindowCount() + "");
-				break;
-			case 2:
+        shrinkBall();
+        int ballType = Integer.parseInt(mSharedPreferences.getString("is_apply_ball", "0"));
+        //Typeface customFont = Typeface.createFromAsset(getAssets(), "font/a.ttf");
+        //mBallText.setTypeface(customFont);
+        switch (ballType) {
+            case 1://多窗口
+                getBallImage().setVisibility(View.GONE);
+                getBallText().setVisibility(View.VISIBLE);
+                getBallText().setText(WebContainer.getWindowCount() + "");
+                break;
+            case 2:
 				try {
 					new Thread(() -> activity.runOnUiThread(() -> {
 						Bitmap wallpaper;

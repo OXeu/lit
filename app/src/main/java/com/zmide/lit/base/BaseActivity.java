@@ -1,7 +1,6 @@
 package com.zmide.lit.base;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -20,13 +19,12 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
 
 import com.blankj.utilcode.util.BarUtils;
-import com.blankj.utilcode.util.KeyboardUtils;
+import com.blankj.utilcode.util.ScreenUtils;
 import com.umeng.analytics.MobclickAgent;
 import com.zmide.lit.R;
 import com.zmide.lit.interfaces.Dark;
 import com.zmide.lit.skin.SkinFactory;
 import com.zmide.lit.skin.SkinManager;
-import com.zmide.lit.util.MKeyboardUtils;
 import com.zmide.lit.util.MToastUtils;
 import com.zmide.lit.util.MWindowsUtils;
 import com.zmide.lit.view.SwipeBackLayout;
@@ -80,14 +78,17 @@ public abstract class BaseActivity extends FragmentActivity implements Dark {
 	
 	@Override
 	public void changeFullscreen() {
-		if (mSharedPreferences.getString("isfullscreen", "false").equals("true")) {
-			MWindowsUtils.switchFullScreen(this, true);
-			BarUtils.setStatusBarColor(this, 0x00000000);
-		} else {
-			MWindowsUtils.switchFullScreen(this, false);
-			BarUtils.transparentStatusBar(this);
-		}
-	}
+        if (ScreenUtils.isPortrait()) {
+            if (mSharedPreferences.getString("isfullscreen", "false").equals("true")) {
+                MWindowsUtils.switchFullScreen(this, true);
+                BarUtils.setStatusBarColor(this, 0x00000000);
+            } else {
+                MWindowsUtils.switchFullScreen(this, false);
+                BarUtils.transparentStatusBar(this);
+            }
+            BarUtils.setNavBarLightMode(this, true);
+        }
+    }
 	
 	@Override
 	public void changeMode() {
@@ -243,16 +244,16 @@ public abstract class BaseActivity extends FragmentActivity implements Dark {
 	
 	@Override
 	public void finish() {
-		super.finish();
-		//if(!TAG .equals( "MainActivity" ))
-		//overridePendingTransition(0, R.anim.base_slide_right_out);
-		//else
-		/*
-		 * R.anim.slide_in_right:新的Activity进入时的动画，这里是指OtherActivity进入时的动画
-		 * R.anim.slide_out_left：旧的Activity出去时的动画，这里是指this进入时的动画
-		 */
-		//overridePendingTransition(0, R.anim.main_exit);
-	}
+        super.finish();
+        if (!TAG.equals("MainActivity")) {
+            overridePendingTransition(0, R.anim.base_slide_right_out);
+        } else
+            /*
+             * R.anim.slide_in_right:新的Activity进入时的动画，这里是指OtherActivity进入时的动画
+             * R.anim.slide_out_left：旧的Activity出去时的动画，这里是指this进入时的动画
+             */
+            overridePendingTransition(0, R.anim.main_exit);
+    }
 	
 	
 	@Override

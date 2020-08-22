@@ -5,31 +5,23 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.zmide.lit.R;
 import com.zmide.lit.animation.Slide;
-import com.zmide.lit.main.SearchEnvironment;
 import com.zmide.lit.object.Diy;
 import com.zmide.lit.object.WebsiteSetting;
 import com.zmide.lit.skin.SkinManager;
-import com.zmide.lit.ui.MainActivity;
-import com.zmide.lit.util.Chiper;
 import com.zmide.lit.util.DBC;
 import com.zmide.lit.util.MDialogUtils;
-import com.zmide.lit.util.MSharedPreferenceUtils;
-import com.zmide.lit.util.MToastUtils;
 import com.zmide.lit.util.WebsiteUtils;
 
-import java.util.ArrayList;
 import java.util.Objects;
 
 /**

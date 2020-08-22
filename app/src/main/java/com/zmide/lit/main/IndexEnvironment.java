@@ -69,14 +69,14 @@ public class IndexEnvironment {
 	
 	
 	public static void showIndex() {
-		BarUtils.setStatusBarColor(activity,0x00000000);
+		BarUtils.setStatusBarColor(activity, 0x00000000);
 		ImageView mIndexWallpaper = getIndexWallpaper();
 		RelativeLayout mIndexParent = getIndexParent();
 		FrameLayout mWebFrame = getWebFrame();
 		LinearLayout mTitleParent = getTitleParent();
 		mIndexParent.setVisibility(View.VISIBLE);
 		mWebFrame.setVisibility(View.GONE);
-		ViewO.showView(mIndexWallpaper);
+		ViewO.showView(mIndexParent);
 		initIndex();
 		SearchEnvironment.SearchAnimation(false);
 		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP)
@@ -148,7 +148,7 @@ public class IndexEnvironment {
 		boolean isDark = ((Dark) activity).isNight();
 		if (title_mode == 1 || (title_mode == 0 && isDark))//白色
 		{
-			mIndexTitle.setTextColor(0xffc8c8c8);
+			mIndexTitle.setTextColor(0xccffffff);
 			mIndexSearchBar.setBackgroundResource(R.drawable.searchbar_index_white);
 		} else if (title_mode == 2 || title_mode == 0)//暗色
 		{

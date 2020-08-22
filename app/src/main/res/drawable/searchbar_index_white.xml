@@ -9,18 +9,18 @@
 		android:left="15dp"
 		android:right="15dp"
 		android:top="15dp" /-->
-	<!--渐变设置-->
-	<!--gradient
-		android:endColor="#4097e6"
-		android:startColor="#FFFFFF"
-		android:angle="270"
-		android:type="linear" /-->
-	<!-- corners设置圆角，只适用于rectangle
-	数值较大时,就变成了弧边形状例如>=200时
-	-->
-	<corners android:radius="90dp" />
-	<!-- stroke设置描边 -->
-	<stroke
-		android:width="2dp"
-		android:color="#c8c8c8c8" />
+    <!--渐变设置-->
+    <!--gradient
+        android:endColor="#4097e6"
+        android:startColor="#FFFFFF"
+        android:angle="270"
+        android:type="linear" /-->
+    <!-- corners设置圆角，只适用于rectangle
+    数值较大时,就变成了弧边形状例如>=200时
+    -->
+    <corners android:radius="24dp" />
+    <!-- stroke设置描边 -->
+    <stroke
+        android:width="2dp"
+        android:color="#ccffffff" />
 </shape>

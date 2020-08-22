@@ -2,7 +2,6 @@ package com.zmide.lit.main;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.os.Message;
 import android.view.View;
@@ -10,6 +9,8 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.blankj.utilcode.util.BarUtils;
+import com.blankj.utilcode.util.ScreenUtils;
 import com.zmide.lit.util.MBitmapUtils;
 import com.zmide.lit.util.MExceptionUtils;
 import com.zmide.lit.util.MFileUtils;
@@ -75,18 +76,19 @@ public class MWebChromeClient extends WebChromeClient {
 	public void onShowCustomView(View view, CustomViewCallback callback) {
 		super.onShowCustomView(view, callback);
 		try {
-			if (mCustomView != null) {
-				callback.onCustomViewHidden();
-				return;
-			}
-			mCustomView = view;
-			getWebFrame().addView(mCustomView);
-			mCustomViewCallback = callback;
-			//mWebView.setVisibility(View.GONE);
-			ViewO.hideView(getBallCardView());
-			MWindowsUtils.switchFullScreen(a, true);
-			a.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-		} catch (Exception e) {
+            if (mCustomView != null) {
+                callback.onCustomViewHidden();
+                return;
+            }
+            mCustomView = view;
+            getWebFrame().addView(mCustomView);
+            mCustomViewCallback = callback;
+            //mWebView.setVisibility(View.GONE);
+            ViewO.hideView(getBallCardView());
+            MWindowsUtils.switchFullScreen(a, true);
+            ScreenUtils.setLandscape(a);
+            BarUtils.setNavBarVisibility(a, false);
+        } catch (Exception e) {
 			MExceptionUtils.reportException(e);
 		}
 	}
@@ -94,19 +96,20 @@ public class MWebChromeClient extends WebChromeClient {
 	@SuppressLint("SourceLockedOrientationActivity")
 	@Override
 	public void onHideCustomView() {
-		ViewO.showView(getBallCardView());
-		//mWebView.setVisibility(View.VISIBLE);
-		if (mCustomView == null) {
-			return;
-		}
-		MWindowsUtils.switchFullScreen(a, false);
-		mCustomView.setVisibility(View.GONE);
-		getWebFrame().removeView(mCustomView);
-		mCustomViewCallback.onCustomViewHidden();
-		mCustomView = null;
-		a.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-		super.onHideCustomView();
-	}
+        super.onHideCustomView();
+        ViewO.showView(getBallCardView());
+        //mWebView.setVisibility(View.VISIBLE);
+        if (mCustomView == null) {
+            return;
+        }
+        MWindowsUtils.back2DefaultScreen(a);
+        mCustomView.setVisibility(View.GONE);
+        getWebFrame().removeView(mCustomView);
+        mCustomViewCallback.onCustomViewHidden();
+        mCustomView = null;
+        BarUtils.setNavBarVisibility(a, true);
+        ScreenUtils.setPortrait(a);
+    }
 	
 	@Override
 	public boolean onCreateWindow(WebView view, boolean isDialog, boolean isUserGesture, Message resultMsg) {

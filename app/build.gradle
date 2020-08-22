@@ -1,6 +1,6 @@
 ext {
-	VersionName = '3.1.3'
-	VersionCode = 200813
+	VersionName = '3.1.4.0'
+	VersionCode = 200817
 }
 apply plugin: 'com.android.application'
 android {
@@ -86,8 +86,8 @@ android {
 			signingConfig signingConfigs.app
 		}
 	}
-	dataBinding {
-		enabled true
+	buildFeatures {
+		dataBinding true
 	}
 	
 }
@@ -109,14 +109,14 @@ dependencies {
 	testImplementation 'junit:junit:4.13'
 	androidTestImplementation 'androidx.test.ext:junit:1.1.1'
 	androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-//	implementation 'org.adblockplus:adblock-android-settings:3.0'
-//	implementation 'org.adblockplus:adblock-android-webview:3.0'
+	//implementation 'org.adblockplus:adblock-android-settings:3.0'
+	//implementation 'org.adblockplus:adblock-android-webview:3.0'
 	implementation 'com.shuyu:gsyVideoPlayer-java:7.1.3'
 	implementation 'com.google.android.material:material:1.2.0'
 	implementation 'com.github.hackware1993:MagicIndicator:1.5.0'
 	//implementation 'com.shuyu:gsyVideoPlayer-arm64:7.1.3'
-	implementation project(':hooklib')
-	implementation project(':xposedcompat')
+	//implementation project(':hooklib')
+	//implementation project(':xposedcompat')
 
 }
 
