@@ -28,14 +28,14 @@ android {
 				outputFileName = outputFile.name.replace(".apk",".apk")
 			println "========" + outputFile.name
 			if (outputFileName != null && outputFile.name.endsWith('.apk')) {
-				/*if (!outputFile.name.contains("debug")) {
+				if (!outputFile.name.contains("debug")) {
 					variant.getPackageApplication().outputDirectory = new File("issue/apk")
 					println "========" + variant.getPackageApplication().outputDirectory
 					outputFileName = "release.apk"
 					variant.getPackageApplication().outputScope.apkDatas.forEach {
 						apkData -> apkData.outputFileName = outputFileName
 					}
-				}*/
+				}
 			}
 		}
 	}
