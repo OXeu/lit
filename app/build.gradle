@@ -52,7 +52,7 @@ android {
 
         // apk生成文件名
         variant.outputs.all { output ->
-            outputFileName = "${project.name}-${variant.versionName}.apk"
+            outputFileName = "release.apk"
         }
     }
 	tasks.whenTaskAdded {
