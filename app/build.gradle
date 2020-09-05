@@ -21,7 +21,7 @@ android {
 							("issue/apk")
 			}
 	}
-	
+	/*
 	applicationVariants.all { variant ->
 		variant.outputs.all {
 			output ->
@@ -38,7 +38,23 @@ android {
 				}
 			}
 		}
-	}
+	}*/
+    // 修改APK生成路径及名称
+    applicationVariants.all { variant ->
+        // 根据版本号修改apk生成子目录
+        def apkDir = new File("issue/apk")
+        // apk生成根目录
+            // Android Studio 3.0
+            // variant.getPackageApplication().outputDirectory = apkDir
+            // Android Studio 3.3
+            variant.getPackageApplicationProvider().get().outputDirectory = apkDir
+        
+
+        // apk生成文件名
+        variant.outputs.all { output ->
+            outputFileName = "${project.name}-${variant.versionName}.apk"
+        }
+    }
 	tasks.whenTaskAdded {
 		task ->
 			//我只需要assembleFlavorBProductRelease这个task（正式环境打包发布的情况下）才保存mapping.txt
