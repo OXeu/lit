@@ -29,10 +29,10 @@ android {
 			println "========" + outputFile.name
 			if (outputFileName != null && outputFile.name.endsWith('.apk')) {
 				if (!outputFile.name.contains("debug")) {
-					variant.getPackageApplication().outputDirectory = new File("issue/apk")
+					variant.getPackageApplicationProvider().get().outputDirectory = new File("issue/apk")
 					println "========" + variant.getPackageApplication().outputDirectory
 					outputFileName = "release.apk"
-					variant.getPackageApplication().outputScope.apkDatas.forEach {
+					variant.getPackageApplicationProvider().get().outputScope.apkDatas.forEach {
 						apkData -> apkData.outputFileName = outputFileName
 					}
 				}
