@@ -1,6 +1,6 @@
 ext {
-	VersionName = '3.1.4'
-	VersionCode = 200822
+	VersionName = '3.1.5'
+	VersionCode = 200905
 }
 apply plugin: 'com.android.application'
 android {
