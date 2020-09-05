@@ -142,15 +142,15 @@ public class WebContainer {
 			if (wid == getWindowId()) {//移除当前Web
 				mWebs.remove(wid);
 				if (wid == 0)
-					changeWindow(0);
+					switchWindow(0);
 				else if (wid >= mWebs.size())
-					changeWindow(mWebs.size() - 1);
+					switchWindow(mWebs.size() - 1);
 				else
-					changeWindow(wid - 1);
+					switchWindow(wid - 1);
 			} else {//移除其他Web
 				MWeb web = getWindow();
 				mWebs.remove(wid);
-				changeWindow(mWebs.indexOf(web));
+				switchWindow(mWebs.indexOf(web));
 			}
 			mWindowsInterface.onWindowsCountChanged(mWebs.size());
 		}
