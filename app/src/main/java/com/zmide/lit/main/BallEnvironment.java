@@ -106,7 +106,8 @@ public class BallEnvironment {
 		int zero = 0;
 		int initialWidth = MSharedPreferenceUtils.getSharedPreference().getString("is_double_ball","true").equals("true")
 				?
-				AdaptScreenUtils.pt2Px(48):MWindowsUtils.dp2px(48);
+				MWindowsUtils.dp2px(96):MWindowsUtils.dp2px(48);
+        int initialHeight = MWindowsUtils.dp2px(48);
 		final int width = mCardview.getWidth();
 		if (mCardview.getAnimation() != null)
 			if (!mCardview.getAnimation().hasEnded()) {
