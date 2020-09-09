@@ -79,7 +79,7 @@ public class WebsiteSettingAdapter extends RecyclerView.Adapter<WebsiteSettingAd
 	
 	@Override
 	public void onBindViewHolder(final MyViewHolder viewHolder, int position) {
-		final WebsiteSetting.setting tip = websiteSetting.get(position);
+		final WebsiteSetting.setting tip = websiteSetting.get()[position];
 		viewHolder.mParent.setBackground(SkinManager.getInstance().getDrawable(R.drawable.ripple_normal));
 		viewHolder.mMod.setBackground(SkinManager.getInstance().getDrawable(R.drawable.ripple_circle));
 		viewHolder.mTip.setText(tip.name);
@@ -159,7 +159,7 @@ public class WebsiteSettingAdapter extends RecyclerView.Adapter<WebsiteSettingAd
 	
 	@Override
 	public int getItemCount() {
-		return websiteSetting.count();
+		return websiteSetting.get().length;
 	}
 	
 	public void addTip(WebsiteSetting s) {

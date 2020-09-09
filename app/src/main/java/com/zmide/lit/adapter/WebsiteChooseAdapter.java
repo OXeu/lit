@@ -70,19 +70,19 @@ public class WebsiteChooseAdapter extends RecyclerView.Adapter<WebsiteChooseAdap
 	 */
 	@Override
 	public void onBindViewHolder(@NonNull final MViewHolder viewHolder, @SuppressLint("RecyclerView") final int position) {
-		final String msg = websiteSettings.get(p).chooses[position];
+		final String msg = websiteSettings.get()[p].chooses[position];
 		
 		if (msg.contentEquals(tv.getText()))
 			viewHolder.mTitle.setTextColor(0xff2196f3);
 		viewHolder.mTitle.setText(msg);
 		viewHolder.mParent.setOnClickListener(view -> {
 			int id = 0;
-			if (websiteSettings.get(p).ids==null)
+			if (websiteSettings.get()[p].ids==null)
 				id = position;
-			else if (websiteSettings.get(p).ids.length<=position)
+			else if (websiteSettings.get()[p].ids.length<=position)
 				id = position;
 			else
-				id = websiteSettings.get(p).ids[position];
+				id = websiteSettings.get()[p].ids[position];
 			
 			websiteSettings.set(p,id);
 			WebsiteUtils.putWebsiteSetting(mContext,websiteSettings);
@@ -99,7 +99,7 @@ public class WebsiteChooseAdapter extends RecyclerView.Adapter<WebsiteChooseAdap
 	 */
 	@Override
 	public int getItemCount() {
-		return websiteSettings.get(p).chooses.length;
+		return websiteSettings.get()[p].chooses.length;
 	}
 	
 	//自定义的ViewHolder，持有item的所有控件
