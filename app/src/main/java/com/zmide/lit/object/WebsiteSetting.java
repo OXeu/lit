@@ -16,6 +16,13 @@ public class WebsiteSetting {
 	public String site;
 	public boolean state;
 	public int ua;
+    setting[] settings = {new setting("独立网站设置", true, 0, state),
+        new setting("User Agent", false, ua, false, names,ids),
+        new setting("读写剪贴板",false,clip_enable,false,new String[]{"询问","允许","拒绝","跟随默认"}),
+        new setting("打开外部应用", true, 0, app),
+        new setting("JavaScript脚本", true, 0, js),
+        new setting("无痕浏览", true, 0, no_history),
+        new setting("无图模式", true, 0, no_picture)};
 	public setting get(int p){
 		ArrayList<Diy> diys = DBC.getInstance(MApplication.getContext()).getDiys(Diy.UA,false);
 		String[] names = new String[diys.size()+1];
@@ -26,17 +33,10 @@ public class WebsiteSetting {
 			names[i] = diys.get(i-1).title;
 			ids[i] = diys.get(i-1).id;
 		}
-		setting[] settings = {new setting("独立网站设置", true, 0, state),
-				new setting("User Agent", false, ua, false, names,ids),
-				new setting("读写剪贴板",false,clip_enable,false,new String[]{"询问","允许","拒绝","跟随默认"}),
-				new setting("打开外部应用", true, 0, app),
-				new setting("JavaScript脚本", true, 0, js),
-				new setting("无痕浏览", true, 0, no_history),
-				new setting("无图模式", true, 0, no_picture)};
 		return settings[p];
 	}
 	public int count(){
-		return 6;
+		return settings.length;
 	}
 	public WebsiteSetting set(int p,boolean t){
 		switch (p){
