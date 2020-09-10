@@ -46,6 +46,7 @@ public class SettingChildActivity extends BaseActivity {
 	}
 	
 	private SettingChild[] getSetting(int mode) {
+		
 		switch (mode) {
 			case Mode.NORMAL:
 				st = new SettingChild[]{
@@ -69,7 +70,7 @@ public class SettingChildActivity extends BaseActivity {
 						
 						new SettingChild("其他设置"),
 						new SettingChild("启动恢复", "启动时恢复上次未关闭标签页", new String[]{"禁用","询问","总是"}, "state_resume_type", "0", null, SettingChild.CHOOSE),
-						new SettingChild("下载路径", "自定义下载路径", new OnClickListener(){
+					new SettingChild("下载路径", "自定义下载路径","download_uri_path","应用私有文件夹", new OnClickListener(){
 							@Override
 							public void onClick(View v) {
 								openDirectory();
@@ -161,6 +162,7 @@ public class SettingChildActivity extends BaseActivity {
         Uri uri = null;
         if (resultData != null) {
             uri = resultData.getData();
+			MSharedPreferenceUtils.getSharedPreference().edit().putString("download_uri_path",uri.getLastPathSegment()).commit();
 			MSharedPreferenceUtils.getSharedPreference().edit().putString("download_uri",uri.toString()).commit();
 			}
 		}

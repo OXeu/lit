@@ -29,7 +29,15 @@ public class MDownloadManager {
 		// 允许下载的网路类型
 		request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE);
 		// 设置下载文件保存的路径和
+		String uris =MSharedPreferenceUtils.getSharedPreference().getString("download_uri",null);
+		Uri uri = null;
+		if(uris!=null)
+			uri = Uri.parse(uris);
+		if(uri!=null)
+		request.setDestinationUri(uri);
+		else
 		request.setDestinationInExternalFilesDir(context, "", fileName);
+		
 //        另外可选一下方法，自定义下载路径
 //        request.setDestinationUri()
 //        request.setDestinationInExternalFilesDir()

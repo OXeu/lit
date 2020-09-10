@@ -141,9 +141,32 @@ public class SettingChildAdapter extends RecyclerView.Adapter<SettingChildAdapte
 				viewHolder.mSettingItemParent.setOnClickListener(listener);
 			} else if (Setting.type == SettingChild.CLICK) {//Click
 				viewHolder.mSettingItemSwitch.setVisibility(View.GONE);
+				if(Setting.target!=null){
+				String path = MSharedPreferenceUtils.getSharedPreference().getString(Setting.target,null);
+				if(path ==null||"".equals(path))
+					path = Setting.defaultValue+"";
+				viewHolder.mSettingItemTo.setVisibility(View.GONE);
+				viewHolder.mSettingItemValue.setVisibility(View.VISIBLE);
+				viewHolder.mSettingItemValue.setText(path);
+					MSharedPreferenceUtils.getSharedPreference().registerOnSharedPreferenceChangeListener(new SharedPreferences.OnSharedPreferenceChangeListener(){
+
+							@Override
+							public void onSharedPreferenceChanged(SharedPreferences s, String target) {
+								if (target.equals(Setting.target)){
+									String path = MSharedPreferenceUtils.getSharedPreference().getString(Setting.target,null);
+									if(path ==null||"".equals(path))
+										path = Setting.defaultValue+"";
+									viewHolder.mSettingItemValue.setText(path);
+								}
+							}
+						});
+				}
+				if(Setting.defaultValue==null){
 				viewHolder.mSettingItemTo.setVisibility(View.VISIBLE);
 				viewHolder.mSettingItemValue.setVisibility(View.GONE);
+				}
 				viewHolder.mSettingItemParent.setOnClickListener(Setting.listener);
+				
 			} else if (Setting.type == SettingChild.EDIT) {//Intent
 				viewHolder.mSettingItemSwitch.setVisibility(View.GONE);
 				viewHolder.mSettingItemTo.setVisibility(View.GONE);

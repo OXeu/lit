@@ -53,11 +53,13 @@ public class SettingChild {
 	
 	
 	
-	public SettingChild(String title, String description, OnClickListener listener) {
+	public SettingChild(String title, String description ,String target,String defaultValue, OnClickListener listener) {
 		this.title = title;
 		this.description = description;
 		this.listener = listener;
+		this.target = target;
 		this.type = CLICK;
+		this.defaultValue = defaultValue;
 		this.isWebSetting = false;
 	}
 	
