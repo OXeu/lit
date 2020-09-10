@@ -157,6 +157,7 @@ public class SettingChildAdapter extends RecyclerView.Adapter<SettingChildAdapte
 									if(path ==null||"".equals(path))
 										path = Setting.defaultValue+"";
 									viewHolder.mSettingItemValue.setText(path);
+									notifyItemChanged(position);
 								}
 							}
 						});
