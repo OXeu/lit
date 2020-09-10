@@ -32,7 +32,7 @@ public class MDownloadManager {
 		String uris =MSharedPreferenceUtils.getSharedPreference().getString("download_uri",null);
 		Uri uri = null;
 		if(uris!=null)
-			uri = Uri.parse(uris);
+			uri = Uri.parse(uris+"/"+fileName);
 		if(uri!=null)
 		request.setDestinationUri(uri);
 		else
