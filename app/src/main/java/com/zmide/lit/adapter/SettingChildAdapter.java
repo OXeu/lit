@@ -31,6 +31,8 @@ import com.zmide.lit.util.MSharedPreferenceUtils;
 
 import java.util.ArrayList;
 import java.util.Objects;
+import com.zmide.lit.dialog.InputDialog;
+import android.app.Activity;
 
 /**
  * Created by xeu on 2019/12/13.
@@ -38,7 +40,7 @@ import java.util.Objects;
 
 public class SettingChildAdapter extends RecyclerView.Adapter<SettingChildAdapter.MyViewHolder> {
 	
-	private Context mContext;
+	private Activity mContext;
 	private ArrayList<SettingChild> settings;
 	private LayoutInflater mInflater;
 	private MDialogUtils d;
@@ -51,7 +53,7 @@ public class SettingChildAdapter extends RecyclerView.Adapter<SettingChildAdapte
 	private TextView tt;
 	
 	//提供一个合适的构造方法
-	public SettingChildAdapter(Context context, ArrayList<SettingChild> settings) {
+	public SettingChildAdapter(Activity context, ArrayList<SettingChild> settings) {
 		this.mContext = context;
 		this.settings = settings;
 		mInflater = LayoutInflater.from(context);
@@ -137,6 +139,28 @@ public class SettingChildAdapter extends RecyclerView.Adapter<SettingChildAdapte
 				viewHolder.mSettingItemValue.setVisibility(View.GONE);
 				OnClickListener listener = view -> mContext.startActivity(Setting.intent);
 				viewHolder.mSettingItemParent.setOnClickListener(listener);
+			} else if (Setting.type == SettingChild.CLICK) {//Click
+				viewHolder.mSettingItemSwitch.setVisibility(View.GONE);
+				viewHolder.mSettingItemTo.setVisibility(View.VISIBLE);
+				viewHolder.mSettingItemValue.setVisibility(View.GONE);
+				viewHolder.mSettingItemParent.setOnClickListener(Setting.listener);
+			} else if (Setting.type == SettingChild.EDIT) {//Intent
+				viewHolder.mSettingItemSwitch.setVisibility(View.GONE);
+				viewHolder.mSettingItemTo.setVisibility(View.GONE);
+				viewHolder.mSettingItemValue.setVisibility(View.VISIBLE);
+				viewHolder.mSettingItemParent.setOnClickListener(new OnClickListener(){
+
+						@Override
+						public void onClick(View v) {
+							InputDialog.create(mContext,
+							Setting.title,
+							Setting.drawable,
+							Setting.hint,
+							Setting.okText,
+							Setting.cancelText,
+							Setting.listener);
+						}
+					});
 			} else if (Setting.type == SettingChild.DOWNLOAD) {
 				viewHolder.mSettingItemSwitch.setVisibility(View.GONE);
 				viewHolder.mSettingItemTo.setVisibility(View.VISIBLE);
