@@ -29,7 +29,7 @@ import android.view.View.OnClickListener;
 public class InputDialog {
 
     //创建一个编辑对话框
-    public static void create(Activity activity,String titleText,int... drawable,String hint,String okText,String cancelText,OnClickListener listener) {
+    public static void create(Activity activity,String titleText,int[] drawable,String hint,String okText,String cancelText,OnClickListener listener) {
         Dialog dialog = new Dialog(activity);
         @SuppressLint("InflateParams") View layout = LayoutInflater.from(activity).inflate(R.layout.dialog_input, null);
         dialog.setContentView(layout);
