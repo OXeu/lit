@@ -1,24 +1,24 @@
 package com.zmide.lit.ui;
 
+import android.R;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.DocumentsContract;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ImageView;
-
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.zmide.lit.R;
 import com.zmide.lit.adapter.SettingChildAdapter;
 import com.zmide.lit.base.BaseActivity;
 import com.zmide.lit.bean.SettingChild;
-import com.zmide.lit.interfaces.Dark;
 import com.zmide.lit.object.Diy;
 import com.zmide.lit.object.Mode;
-
 import java.util.ArrayList;
 import java.util.Arrays;
+import com.zmide.lit.util.MSharedPreferenceUtils;
 
 public class SettingChildActivity extends BaseActivity {
 	private RecyclerView mSettingRecyclerView;
@@ -65,6 +65,12 @@ public class SettingChildActivity extends BaseActivity {
 						
 						new SettingChild("其他设置"),
 						new SettingChild("启动恢复", "启动时恢复上次未关闭标签页", new String[]{"禁用","询问","总是"}, "state_resume_type", "0", null, SettingChild.CHOOSE),
+						new SettingChild("下载路径", "自定义下载路径", new OnClickListener(){
+							@Override
+							public void onClick(View v) {
+								openDirectory();
+							}
+						}),
 						new SettingChild("默认下载器", "下载默认调用的下载器", new String[]{""}, "downloader", "", null, SettingChild.DOWNLOAD),
 				};
 				break;
@@ -116,6 +122,21 @@ public class SettingChildActivity extends BaseActivity {
 		return st;
 	}
 	
+	public void openDirectory() {
+		// Choose a directory using the system's file picker.
+		Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
+
+		// Provide read access to files and sub-directories in the user-selected
+		// directory.
+		intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+		
+		// Optionally, specify a URI for the directory that should be opened in
+		// the system file picker when it loads.
+		
+		//intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, uriToLoad);
+		startActivityForResult(intent, 1479);
+	}
+	
 	private void loadSetting() {
 		ArrayList<SettingChild> Settings = new ArrayList<>(Arrays.asList(getSetting(mode)));
 		LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);//这里我们使用默认的线性布局管理器,将其设为垂直显示
@@ -126,4 +147,20 @@ public class SettingChildActivity extends BaseActivity {
 		sp.registerOnSharedPreferenceChangeListener(sharedlistener);
 	}
 	
+	
+	@Override
+	public void onActivityResult(int requestCode, int resultCode,
+								 Intent resultData ){
+	if (requestCode == 1479 && resultCode == Activity.RESULT_OK) {
+        // The result data contains a URI for the document or directory that
+        // the user selected.
+        Uri uri = null;
+        if (resultData != null) {
+            uri = resultData.getData();
+			MSharedPreferenceUtils.getSharedPreference().edit().putString("download_uri",uri.toString()).commit();
+			}
+		}
+	}
+
+			
 }
