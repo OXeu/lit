@@ -1,6 +1,5 @@
 package com.zmide.lit.ui;
 
-import android.R;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -19,6 +18,11 @@ import com.zmide.lit.object.Mode;
 import java.util.ArrayList;
 import java.util.Arrays;
 import com.zmide.lit.util.MSharedPreferenceUtils;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.zmide.lit.R;
+import com.zmide.lit.interfaces.Dark;
 
 public class SettingChildActivity extends BaseActivity {
 	private RecyclerView mSettingRecyclerView;
