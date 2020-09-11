@@ -29,7 +29,7 @@ public class DownLoadCompleteReceiver extends BroadcastReceiver {
 				try {
 					if (c.moveToFirst()){
 						//获取文件下载路径
-						String fileName = c.getString(c.getColumnIndexOrThrow(DownloadManager.COLUMN_LOCAL_FILENAME));
+						String fileName = c.getString(c.getColumnIndexOrThrow(DownloadManager.COLUMN_TITLE));
 						String uris =MSharedPreferenceUtils.getSharedPreference().getString("download_uri",null);
 						Uri uri = null;
 						if(uris!=null){
