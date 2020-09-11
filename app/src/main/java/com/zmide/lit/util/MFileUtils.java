@@ -308,7 +308,7 @@ public class MFileUtils {
 		final int takeFlags =  (Intent.FLAG_GRANT_READ_URI_PERMISSION
             | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
 // Check for the freshest data.
-		MApplication.getContext().getContentResolver().takePersistableUriPermission(uri, takeFlags);
+		MApplication.getContext().getContentResolver().takePersistableUriPermission(treeUri, takeFlags);
 		DocumentFile pickedDir = DocumentFile.fromTreeUri(MApplication.getContext(), treeUri);
 		try {
 			DocumentFile newFile = pickedDir.createFile(extension, filename);
