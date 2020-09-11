@@ -45,7 +45,7 @@ public class DownLoadCompleteReceiver extends BroadcastReceiver {
 							}
 							
 						}
-						MToastUtils.makeText("下载").show();
+						
 					}
 				}catch (Exception e){
 					MExceptionUtils.reportException(e);
