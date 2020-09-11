@@ -34,7 +34,7 @@ public class DownLoadCompleteReceiver extends BroadcastReceiver {
 						String uris =MSharedPreferenceUtils.getSharedPreference().getString("download_uri",null);
 						Uri uri = null;
 						if(uris!=null){
-							uri = Uri.parse(uris+"/"+fileName);
+							uri = Uri.parse(uris);
 							String mime = dm.getMimeTypeForDownloadedFile(id);
 							int status = c.getInt(c.getColumnIndexOrThrow(DownloadManager.COLUMN_STATUS));
 							if (status==DownloadManager.STATUS_SUCCESSFUL){
