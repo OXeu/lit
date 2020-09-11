@@ -119,6 +119,12 @@
 		<meta-data
 			android:name="UMENG_CHANNEL"
 			android:value="${UMENG_CHANNEL_VALUE}" />-->
+		<receiver android:name=".util.MDownloadManager.DownLoadCompleteReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.DOWNLOAD_COMPLETE"/>
+            </intent-filter>
+        </receiver>
+		
 	</application>
 
 </manifest>
