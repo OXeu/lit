@@ -10,6 +10,7 @@ import android.util.Base64;
 
 import com.blankj.utilcode.util.FileUtils;
 import com.blankj.utilcode.util.PathUtils;
+import com.blankj.utilcode.util.UriUtils;
 import com.zmide.lit.base.MApplication;
 
 import java.io.ByteArrayOutputStream;
@@ -21,6 +22,9 @@ import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.io.FileInputStream;
+import android.os.ParcelFileDescriptor;
+import java.io.FileDescriptor;
 
 /**
  * The type File utils.
@@ -277,6 +281,22 @@ public class MFileUtils {
 			activity.runOnUiThread(() -> MToastUtils.makeText("已保存至" + galleryPath, MToastUtils.LENGTH_SHORT).show());
 		}
 	}
+	
+	
+	/**
+     * 复制单个文件
+     *
+     * @param oldPath String  原文件路径  如：c:/fqf.txt
+     * @param newPath String  复制后路径  如：f:/fqf.txt
+     * @return boolean
+     */
+    public static void moveFile(Uri oldPath, Uri newPath) {
+       // try {
+			FileUtils.move(UriUtils.uri2File(oldPath),UriUtils.uri2File(newPath));
+            
+       
+
+    }
 	
 	
 }
