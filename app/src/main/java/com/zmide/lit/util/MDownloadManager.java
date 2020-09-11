@@ -98,7 +98,7 @@ public class MDownloadManager {
 	/**
 	 * Created by YuShuangPing on 2018/9/4.
 	 */
-	public class DownLoadCompleteReceiver extends BroadcastReceiver {
+	public static class DownLoadCompleteReceiver extends BroadcastReceiver {
 		@Override
 		public void onReceive(Context context, Intent intent) {
 			if (DownloadManager.ACTION_DOWNLOAD_COMPLETE.equals(intent.getAction())){
