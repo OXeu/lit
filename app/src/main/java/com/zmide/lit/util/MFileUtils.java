@@ -301,7 +301,7 @@ public class MFileUtils {
     }
 	
 	
-	public static String copyFile(Uri uri ,String filename, String extention, Uri treeUri) {
+	public static String copyFile(Uri uri ,String filename, String extension, Uri treeUri) {
 		InputStream in = null;
 		OutputStream out = null;
 		String error = null;
