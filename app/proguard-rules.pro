@@ -82,14 +82,14 @@
 -keepclasseswithmembers class * {
     @android.support.annotation.Keep <init>(...);
 }
--keep public class com.zmide.lit.util.MDownloadManager.DownLoadCompleteReceiver
+-keep public class com.zmide.lit.receiver.DownLoadCompleteReceiver
 -keep public class * extends android.database.sqlite.SQLiteOpenHelper
 -keep public class com.zmide.lit.javascript.EasySearch
 -keep public class com.zmide.lit.javascript.LitJavaScript
 -keepattributes *Annotation*
 -keepattributes *JavascriptInterface*
 -keepclassmembers class * {
-@android.webkit.JavascriptInterface <methods>;
+@android.webkit.JrvascriptInterface <methods>;
 }
 -keepclassmembers public class com.zmide.lit.javascript.EasySearch{
 <fields>;
