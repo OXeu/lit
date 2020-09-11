@@ -13,6 +13,7 @@ import com.blankj.utilcode.util.PathUtils;
 import com.blankj.utilcode.util.UriUtils;
 import com.zmide.lit.base.MApplication;
 
+import androidx.documentfile.provider.DocumentFile;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -25,6 +26,7 @@ import java.security.NoSuchAlgorithmException;
 import java.io.FileInputStream;
 import android.os.ParcelFileDescriptor;
 import java.io.FileDescriptor;
+import java.io.FileNotFoundException;
 
 /**
  * The type File utils.
@@ -299,4 +301,31 @@ public class MFileUtils {
     }
 	
 	
+	public static String copyFile(Uri uri ,String filename, String extention, Uri treeUri) {
+		InputStream in = null;
+		OutputStream out = null;
+		String error = null;
+		DocumentFile pickedDir = DocumentFile.fromTreeUri(MApplication.getContext(), treeUri);
+		try {
+			DocumentFile newFile = pickedDir.createFile(extension, filename);
+			out = MApplication.getContext().getContentResolver().openOutputStream(newFile.getUri());
+			in = new FileInputStream(UriUtils.uri2File(uri));
+
+			byte[] buffer = new byte[1024];
+			int read;
+			while ((read = in.read(buffer)) != -1) {
+				out.write(buffer, 0, read);
+			}
+			in.close();
+			// write the output file (You have now copied the file)
+			out.flush();
+			out.close();
+
+		} catch (FileNotFoundException fnfe1) {
+			error = fnfe1.getMessage();
+		} catch (Exception e) {
+			error = e.getMessage();
+		}
+		return error;
+	}
 }

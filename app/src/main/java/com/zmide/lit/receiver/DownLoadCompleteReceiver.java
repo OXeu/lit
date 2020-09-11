@@ -13,6 +13,7 @@ import com.zmide.lit.util.MFileUtils;
 import com.zmide.lit.util.MSharedPreferenceUtils;
 import com.zmide.lit.util.MToastUtils;
 import com.zmide.lit.util.MExceptionUtils;
+import android.webkit.URLUtil;
 
 public class DownLoadCompleteReceiver extends BroadcastReceiver {
 	@Override
@@ -34,10 +35,12 @@ public class DownLoadCompleteReceiver extends BroadcastReceiver {
 						Uri uri = null;
 						if(uris!=null){
 							uri = Uri.parse(uris+"/"+fileName);
+							String mime = dm.getMimeTypeForDownloadedFile(id);
 							int status = c.getInt(c.getColumnIndexOrThrow(DownloadManager.COLUMN_STATUS));
 							if (status==DownloadManager.STATUS_SUCCESSFUL){
 								//移动文件
-								MFileUtils.moveFile(fileUriOrigin,uri);
+								MFileUtils.copyFile(fileUriOrigin,fileName,mime,uri);
+								//(fileUriOrigin,uri);
 								MToastUtils.makeText("下载成功").show();
 							}
 							
