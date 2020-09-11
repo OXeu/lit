@@ -12,6 +12,7 @@ import android.net.Uri;
 import com.zmide.lit.util.MFileUtils;
 import com.zmide.lit.util.MSharedPreferenceUtils;
 import com.zmide.lit.util.MToastUtils;
+import com.zmide.lit.util.MExceptionUtils;
 
 public class DownLoadCompleteReceiver extends BroadcastReceiver {
 	@Override
@@ -37,12 +38,14 @@ public class DownLoadCompleteReceiver extends BroadcastReceiver {
 							if (status==DownloadManager.STATUS_SUCCESSFUL){
 								//移动文件
 								MFileUtils.moveFile(fileUriOrigin,uri);
-								MToastUtils.makeText("下载成功");
+								MToastUtils.makeText("下载成功").show();
 							}
+							
 						}
+						MToastUtils.makeText("下载").show();
 					}
 				}catch (Exception e){
-					e.printStackTrace();
+					MExceptionUtils.reportException(e);
 					return;
 				}finally {
 					c.close();
