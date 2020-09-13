@@ -114,7 +114,7 @@ public class SettingChildActivity extends BaseActivity {
 			case Mode.BACKUP:
 				st = new SettingChild[]{
 					new SettingChild("导入书签", "支持html/htm书签导入", new String[]{""}, "", "", new Intent(this, BookmarkImport.class), SettingChild.INTENT),
-					new SettingChild("导出书签", "导出书签至下载目录","请输入导出书签文件名称",new int[]{0,1},"导出","取消",null,filename4Export,new EditClick(){
+					new SettingChild("导出书签", "导出书签至下载目录","请输入导出书签文件名称",new int[]{R.drawable.quill_pen_line,R.drawable.quill_pen_fill},"导出","取消",null,filename4Export,new EditClick(){
 							@Override
 							public void onClick(View v,Editor editor) {
 								String uris = MSharedPreferenceUtils.getWritablePath();
