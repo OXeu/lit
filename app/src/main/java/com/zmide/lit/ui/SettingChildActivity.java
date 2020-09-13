@@ -54,7 +54,7 @@ public class SettingChildActivity extends BaseActivity {
 
 	private SettingChild[] getSetting(int mode) {
 		Date date =  new Date();
-		String filename4Export = "LitBrowserBookmark"+ date.getYear()+"/"+date.getMonth()+"/"+date.getDate()+" "+date.getHours()+"-"+date.getMinutes()+"-"+date.getSeconds()+".html";
+		String filename4Export = "LitBrowserBookmark"+ date.getYear()+"/"+date.getMonth()+"/"+date.getDate()+" "+date.getHours()+"-"+date.getMinutes()+"-"+date.getSeconds();
 		switch (mode) {
 			case Mode.NORMAL:
 				st = new SettingChild[]{
@@ -121,14 +121,16 @@ public class SettingChildActivity extends BaseActivity {
 								Uri uri = null;
 								if(uris!=null){
 									uri = Uri.parse(uris);
-									}
-									else{
-										uri = Uri.parse(PathUtils.getExternalAppDocumentsPath());
-									}
 									String fName = editor.getText()+"";
 									String text = new BookmarkExport().toString();
 									MFileUtils.writeText(text,fName,"text/html",uri);
 									MToastUtils.makeText("导出成功").show();
+									}
+									else{
+										openDirectory();
+										MToastUtils.makeText("请设置文件保存路径后重试").show();
+									}
+									
 								
 							}
 						}),

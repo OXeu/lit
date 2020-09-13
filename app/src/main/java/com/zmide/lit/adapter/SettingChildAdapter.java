@@ -173,12 +173,12 @@ public class SettingChildAdapter extends RecyclerView.Adapter<SettingChildAdapte
 				viewHolder.mSettingItemTo.setVisibility(View.GONE);
 				viewHolder.mSettingItemValue.setVisibility(View.VISIBLE);
 				viewHolder.mSettingItemParent.setOnClickListener(new OnClickListener(){
-
 						@Override
 						public void onClick(View v) {
 							InputDialog.create(mContext,
 							Setting.title,
 							Setting.drawable,
+							Setting.defaultValue,
 							Setting.hint,
 							Setting.okText,
 							Setting.cancelText,

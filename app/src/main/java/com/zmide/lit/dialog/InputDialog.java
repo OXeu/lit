@@ -30,7 +30,7 @@ import com.zmide.lit.interfaces.EditClick;
 public class InputDialog {
 
     //创建一个编辑对话框
-    public static void create(Activity activity,String titleText,int[] drawable,String hint,String okText,String cancelText,final EditClick listener) {
+    public static void create(Activity activity,String titleText,int[] drawable,String defaultValue,String hint,String okText,String cancelText,final EditClick listener) {
         final Dialog dialog = new Dialog(activity);
         @SuppressLint("InflateParams") View layout = LayoutInflater.from(activity).inflate(R.layout.dialog_input, null);
         dialog.setContentView(layout);
@@ -46,6 +46,8 @@ public class InputDialog {
             inputEditor.setLeftDrawableAfterFocus(drawable[1]);
         ok.setText(okText);
         title.setText(titleText);//设置标题（新建目录）
+		if(defaultValue != null)
+			inputEditor.setText(defaultValue);
         ok.setOnClickListener(new OnClickListener(){
 				@Override
 				public void onClick(View v) {
