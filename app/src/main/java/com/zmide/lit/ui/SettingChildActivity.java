@@ -49,7 +49,7 @@ public class SettingChildActivity extends BaseActivity {
 	private void initView() {
 		ImageView mSettingBack = findViewById(R.id.settingBack);
 		mSettingRecyclerView = findViewById(R.id.settingRecyclerView);
-		mSettingBack.setOnClickListener(> finish());
+		mSettingBack.setOnClickListener( (view) -> finish());
 	}
 
 	private SettingChild[] getSetting(int mode) {
@@ -123,7 +123,7 @@ public class SettingChildActivity extends BaseActivity {
 									uri = Uri.parse(uris);
 									}
 									else{
-										uri = Uri.parse(PathUtils.getExternalAppDocumentsPath()):
+										uri = Uri.parse(PathUtils.getExternalAppDocumentsPath());
 									}
 									String fName = editor.getText()+"";
 									String text = new BookmarkExport().toString();
