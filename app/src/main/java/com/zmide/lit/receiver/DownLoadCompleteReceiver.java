@@ -31,7 +31,7 @@ public class DownLoadCompleteReceiver extends BroadcastReceiver {
 					if (c.moveToFirst()){
 						//获取文件下载路径
 						String fileName = c.getString(c.getColumnIndexOrThrow(DownloadManager.COLUMN_TITLE));
-						String uris =MSharedPreferenceUtils.getSharedPreference().getString("download_uri",null);
+						String uris =MSharedPreferenceUtils.getWritablePath();
 						Uri uri = null;
 						if(uris!=null){
 							uri = Uri.parse(uris);

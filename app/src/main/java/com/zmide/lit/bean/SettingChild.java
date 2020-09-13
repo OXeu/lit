@@ -2,6 +2,7 @@ package com.zmide.lit.bean;
 
 import android.content.Intent;
 import android.view.View.OnClickListener;
+import com.zmide.lit.interfaces.EditClick;
 
 public class SettingChild {
 	public final static int SWITCH = 0;
@@ -24,6 +25,7 @@ public class SettingChild {
 	public int drawable[];
 	public String hint;
 	public OnClickListener listener;
+	public EditClick editListener;
 	public String okText;
 	public String cancelText;
 	
@@ -38,13 +40,14 @@ public class SettingChild {
 		this.isWebSetting = false;
 	}
 	
-	public SettingChild(String title,String description, String hint, int[] drawable,String okText,String cancelText, String target, String defaultValue, int type) {
+	public SettingChild(String title,String description, String hint, int[] drawable,String okText,String cancelText, String target, String defaultValue, EditClick listener) {
 		this.title = title;
 		this.description = description;
 		this.drawable = drawable;
 		this.hint = hint;
+		this.editListener = listener;
 		this.target = target;
-		this.type = type;
+		this.type = EDIT;
 		this.defaultValue = defaultValue;
 		this.okText = okText;
 		this.cancelText = cancelText;

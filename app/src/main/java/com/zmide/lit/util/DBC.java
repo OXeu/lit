@@ -23,6 +23,7 @@ import com.zmide.lit.object.json.MarkBean;
 import com.zmide.lit.object.json.ParentBean;
 
 import java.util.ArrayList;
+import com.zmide.lit.bookmark.BookmarkElement;
 
 public class DBC {
 	
@@ -43,6 +44,8 @@ public class DBC {
 		//由于数据库只需要调用一次，所以在单例中建出来
 		dbHelper = new DbHelper(ctx);
 	}
+
+	
 	
 	//常用方法  增删改查
 	
@@ -270,6 +273,39 @@ public class DBC {
 		// 关闭游标，释放资源
 		cursor.close();
 		return marks;
+	}
+	
+	public BookmarkElement getBookMarks4Export() {
+		
+			BookmarkElement bookmark = new BookmarkElement();
+			bookmark.name = "Lit Root Index";
+			bookmark.isFolder = true;
+			bookmark.child = getBookMarksElements("0");
+			
+		return bookmark;
+	}
+	
+	public ArrayList<BookmarkElement> getBookMarksElements(String parentf) {
+		ArrayList<BookmarkElement> bookmarks = new ArrayList<>();
+		ArrayList<Parent> parents = getParents(parentf);
+		for (Parent parent : parents){
+			BookmarkElement bookmark = new BookmarkElement();
+			bookmark.name = parent.name;
+			bookmark.isFolder = true;
+			bookmark.child = getBookMarksElements(parent.id);
+			bookmarks.add(bookmark);
+		}
+		ArrayList<MarkBean> marks = getMarks(parentf);
+		for(MarkBean mark : marks){
+			BookmarkElement bookmark = new BookmarkElement();
+			bookmark.name = mark.title;
+			bookmark.date = ""+mark.mod_time;
+			bookmark.isFolder = false;
+			bookmark.URL = mark.url;
+			bookmarks.add(bookmark);
+		}
+		
+		return bookmarks;
 	}
 
 	public ArrayList<MarkBean> getMarks(String parent) {

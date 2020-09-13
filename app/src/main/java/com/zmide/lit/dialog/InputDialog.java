@@ -16,6 +16,7 @@ import com.zmide.lit.view.Editor;
 
 import java.util.Objects;
 import android.view.View.OnClickListener;
+import com.zmide.lit.interfaces.EditClick;
 
 /**
  * Copyright (C), 2019-2020, DreamStudio
@@ -29,14 +30,14 @@ import android.view.View.OnClickListener;
 public class InputDialog {
 
     //创建一个编辑对话框
-    public static void create(Activity activity,String titleText,int[] drawable,String hint,String okText,String cancelText,OnClickListener listener) {
-        Dialog dialog = new Dialog(activity);
+    public static void create(Activity activity,String titleText,int[] drawable,String hint,String okText,String cancelText,final EditClick listener) {
+        final Dialog dialog = new Dialog(activity);
         @SuppressLint("InflateParams") View layout = LayoutInflater.from(activity).inflate(R.layout.dialog_input, null);
         dialog.setContentView(layout);
         TextView ok = layout.findViewById(R.id.editDialogOk);//书签编辑确认
         TextView cancel = layout.findViewById(R.id.editDialogCancel);//放弃按钮
         TextView title = layout.findViewById(R.id.editDialogTitle);//标题（书签）
-        Editor inputEditor = layout.findViewById(R.id.editDialogInput);//链接编辑框
+        final Editor inputEditor = layout.findViewById(R.id.editDialogInput);//链接编辑框
         inputEditor.setVisibility(View.VISIBLE);
         inputEditor.setHint(hint);
         if(drawable.length>=1)
@@ -45,7 +46,14 @@ public class InputDialog {
             inputEditor.setLeftDrawableAfterFocus(drawable[1]);
         ok.setText(okText);
         title.setText(titleText);//设置标题（新建目录）
-        ok.setOnClickListener(listener);
+        ok.setOnClickListener(new OnClickListener(){
+				@Override
+				public void onClick(View v) {
+					listener.onClick(v,inputEditor);
+					dialog.cancel();
+				}
+			
+		});
         cancel.setText(cancelText);
         cancel.setOnClickListener((view2) -> dialog.cancel());
         WindowManager.LayoutParams lp = Objects.requireNonNull(dialog.getWindow()).getAttributes();

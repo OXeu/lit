@@ -141,9 +141,9 @@ public class SettingChildAdapter extends RecyclerView.Adapter<SettingChildAdapte
 				viewHolder.mSettingItemParent.setOnClickListener(listener);
 			} else if (Setting.type == SettingChild.CLICK) {//Click
 				viewHolder.mSettingItemSwitch.setVisibility(View.GONE);
-				if(Setting.target!=null){
+				if(Setting.target!=null && !"".equals(Setting.target)){
 				String path = MSharedPreferenceUtils.getSharedPreference().getString(Setting.target,null);
-				if(path ==null||"".equals(path))
+				if(path == null||"".equals(path))
 					path = Setting.defaultValue+"";
 				viewHolder.mSettingItemTo.setVisibility(View.GONE);
 				viewHolder.mSettingItemValue.setVisibility(View.VISIBLE);
@@ -182,7 +182,7 @@ public class SettingChildAdapter extends RecyclerView.Adapter<SettingChildAdapte
 							Setting.hint,
 							Setting.okText,
 							Setting.cancelText,
-							Setting.listener);
+							Setting.editListener);
 						}
 					});
 			} else if (Setting.type == SettingChild.DOWNLOAD) {

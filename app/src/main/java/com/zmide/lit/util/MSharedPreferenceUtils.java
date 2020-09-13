@@ -20,5 +20,10 @@ public class MSharedPreferenceUtils {
 		return mSharedPreferenceWebView;
 	}
 	
+	public static String getWritablePath() {
+		return mSharedPreferenceSetting.getString("download_uri","");
+	}
+	
+	
 	
 }

@@ -332,4 +332,28 @@ public class MFileUtils {
 		}
 		return error;
 	}
+	
+	public static String writeText(String text ,String filename, String extension, Uri treeUri) {
+		OutputStream out = null;
+		String error = null;
+		final int takeFlags =  (Intent.FLAG_GRANT_READ_URI_PERMISSION
+            | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+// Check for the freshest data.
+		MApplication.getContext().getContentResolver().takePersistableUriPermission(treeUri, takeFlags);
+		DocumentFile pickedDir = DocumentFile.fromTreeUri(MApplication.getContext(), treeUri);
+		try {
+			DocumentFile newFile = pickedDir.createFile(extension, filename);
+			out = MApplication.getContext().getContentResolver().openOutputStream(newFile.getUri());
+			out.write(text.getBytes());
+			// write the output file (You have now copied the file)
+			out.flush();
+			out.close();
+
+		} catch (FileNotFoundException fnfe1) {
+			error = fnfe1.getMessage();
+		} catch (Exception e) {
+			error = e.getMessage();
+		}
+		return error;
+	}
 }
