@@ -30,6 +30,7 @@ import java.util.Date;
 import com.zmide.lit.util.MFileUtils;
 import android.widget.Toast;
 import com.zmide.lit.util.MToastUtils;
+import com.zmide.lit.util.TimeUtil;
 
 public class SettingChildActivity extends BaseActivity {
 	private RecyclerView mSettingRecyclerView;
@@ -54,7 +55,7 @@ public class SettingChildActivity extends BaseActivity {
 
 	private SettingChild[] getSetting(int mode) {
 		Date date =  new Date();
-		String filename4Export = "LitBrowserBookmark"+ date.getYear()+"/"+date.getMonth()+"/"+date.getDate()+" "+date.getHours()+"-"+date.getMinutes()+"-"+date.getSeconds();
+		String filename4Export = "LitBrowserBookmark "+ TimeUtil.getDate(System.currentTimeMillis()+"");
 		switch (mode) {
 			case Mode.NORMAL:
 				st = new SettingChild[]{

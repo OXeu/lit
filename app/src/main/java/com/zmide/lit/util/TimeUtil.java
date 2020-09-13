@@ -48,5 +48,16 @@ public class TimeUtil {
 		}
 		return "刚刚";
 	}
+	
+	public static String getDate(String time){
+		long timel = Long.parseLong(time);
+		SimpleDateFormat simpleDateFormat;
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+			simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			Date date = new Date(timel);
+			return simpleDateFormat.format(date);
+		}
+		return "Unknown";
+	}
 }
 
