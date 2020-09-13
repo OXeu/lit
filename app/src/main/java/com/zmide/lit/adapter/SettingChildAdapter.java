@@ -178,7 +178,7 @@ public class SettingChildAdapter extends RecyclerView.Adapter<SettingChildAdapte
 							InputDialog.create(mContext,
 							Setting.title,
 							Setting.drawable,
-							Setting.defaultValue,
+							Setting.defaultValue+"",
 							Setting.hint,
 							Setting.okText,
 							Setting.cancelText,
