@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    android:background="@color/bgcolor">
+
+    <ImageView
+        android:id="@+id/leftBt"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/windows"
+        android:padding="12dp"
+        android:src="@drawable/ic_window"
+        android:tint="@color/accent" />
+
+    <RelativeLayout
+        android:id="@+id/centerBarParent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toStartOf="@id/rightBt"
+        android:layout_toEndOf="@id/leftBt">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/title_bar">
+
+            <ImageView
+                android:id="@+id/safe"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="4dp"
+                android:contentDescription="@string/safe"
+                android:padding="4dp"
+                android:src="@drawable/shield"
+                android:tint="@color/light" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_toStartOf="@id/resource"
+                android:layout_toEndOf="@id/safe"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text="Yogurt官网 酸奶酪官网 大有所为"
+                android:textColor="@color/accent"
+                android:textSize="12sp" />
+
+            <ImageView
+                android:id="@+id/resource"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="4dp"
+                android:contentDescription="@string/resource_catcher"
+                android:padding="4dp"
+                android:src="@drawable/resource_catcher"
+                android:tint="@color/light" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/rightBt"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:background="@drawable/ripple_circle"
+        android:contentDescription="@string/menu"
+        android:padding="12dp"
+        android:src="@drawable/ic_menu"
+        android:tint="@color/accent" />
+
+
+</RelativeLayout>

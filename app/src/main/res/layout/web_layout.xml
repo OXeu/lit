@@ -6,14 +6,22 @@
 	<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 		android:id="@+id/mainSwipe"
 		android:layout_width="match_parent"
-		android:layout_height="match_parent">
-		
+		android:layout_height="match_parent"
+		android:layout_above="@id/bt_bar">
+
 		<com.zmide.lit.view.LitWebView
 			android:id="@+id/mainWebView"
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
 			android:background="@color/bgcolor" />
-	
+
 	</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+	<include
+		android:id="@+id/bt_bar"
+		layout="@layout/bottom_bar"
+		android:layout_width="match_parent"
+		android:layout_height="48dp"
+		android:layout_alignParentBottom="true" />
 
 </RelativeLayout>

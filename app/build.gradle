@@ -12,7 +12,9 @@ android {
 			keyPassword '***REMOVED***'
 		}
 	}
-	
+	packagingOptions{
+		exclude 'META-INF/androidx.vectordrawable_vectordrawable.version'
+	}
 	android.applicationVariants.all {
 		variant ->
 			variant.outputs.all {
