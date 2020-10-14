@@ -18,7 +18,7 @@ import com.zmide.lit.util.MWindowsUtils;
 import com.zmide.lit.util.ViewO;
 
 import static com.zmide.lit.main.MainViewBindUtils.getBallCardView;
-import static com.zmide.lit.main.MainViewBindUtils.getWebFrame;
+
 
 public class MWebChromeClient extends WebChromeClient {
 	private Activity a;
@@ -81,7 +81,7 @@ public class MWebChromeClient extends WebChromeClient {
                 return;
             }
             mCustomView = view;
-            getWebFrame().addView(mCustomView);
+			WebContainerPlus.getViewHolder().getWebFrame().addView(mCustomView);
             mCustomViewCallback = callback;
             //mWebView.setVisibility(View.GONE);
             ViewO.hideView(getBallCardView());
@@ -104,7 +104,7 @@ public class MWebChromeClient extends WebChromeClient {
         }
         MWindowsUtils.back2DefaultScreen(a);
         mCustomView.setVisibility(View.GONE);
-        getWebFrame().removeView(mCustomView);
+        WebContainerPlus.getViewHolder().getWebFrame().removeView(mCustomView);
         mCustomViewCallback.onCustomViewHidden();
         mCustomView = null;
         BarUtils.setNavBarVisibility(a, true);

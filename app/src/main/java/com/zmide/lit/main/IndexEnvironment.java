@@ -28,16 +28,26 @@ import java.io.FileNotFoundException;
 import java.util.Objects;
 
 import static com.zmide.lit.main.MainViewBindUtils.getBallCardView;
-import static com.zmide.lit.main.MainViewBindUtils.getIndexParent;
-import static com.zmide.lit.main.MainViewBindUtils.getIndexSearchBar;
-import static com.zmide.lit.main.MainViewBindUtils.getIndexTitle;
-import static com.zmide.lit.main.MainViewBindUtils.getIndexWallpaper;
 import static com.zmide.lit.main.MainViewBindUtils.getTitleParent;
-import static com.zmide.lit.main.MainViewBindUtils.getWebFrame;
+import com.zmide.lit.adapter.web.WebAdapter;
+import com.zmide.lit.adapter.web.WebAdapter.MyViewHolder;
 
 public class IndexEnvironment {
+	/**
+	* 老规矩，写了睡觉
+	* 2020 10.10 01:02
+	* 首页工具类最开始是基于静态获取主页控件的实例来进行操作的
+	* 想要实现重构并不难，甚至不需要改动IndexEnvironment的代码
+	* 直接改动绑定类的获取控件代码就行了
+	* 不过调用IndexEnvironment的初始化代码可能需要在Adapter的绑定事件里初始化
+	*/
+	
+	
+	
 	private static MainActivity activity;
 	private static SharedPreferences mSharedPreferences = MSharedPreferenceUtils.getSharedPreference();
+
+	private static WebAdapter.MyViewHolder holder;
 	
 	public static void init(MainActivity mainActivity) {
 		if (activity == null)
@@ -50,9 +60,9 @@ public class IndexEnvironment {
 	
 	public static void hideIndex() {
 		StatusEnvironment.updateStatusColor(WebContainer.getWebView());
-		ImageView mIndexWallpaper = getIndexWallpaper();
-		RelativeLayout mIndexParent = getIndexParent();
-		FrameLayout mWebFrame = getWebFrame();
+		ImageView mIndexWallpaper = holder.getIndexWallpaper();
+		RelativeLayout mIndexParent = holder.getIndexParent();
+		FrameLayout mWebFrame = holder.getWebFrame();
 		LinearLayout mTitleParent = getTitleParent();
 		if (mIndexParent.getVisibility() == View.VISIBLE) {
 			WebEnvironment.refreshFrame();
@@ -70,9 +80,9 @@ public class IndexEnvironment {
 	
 	public static void showIndex() {
 		BarUtils.setStatusBarColor(activity, 0x00000000);
-		ImageView mIndexWallpaper = getIndexWallpaper();
-		RelativeLayout mIndexParent = getIndexParent();
-		FrameLayout mWebFrame = getWebFrame();
+		ImageView mIndexWallpaper = holder.getIndexWallpaper();
+		RelativeLayout mIndexParent = holder.getIndexParent();
+		FrameLayout mWebFrame = holder.getWebFrame();
 		LinearLayout mTitleParent = getTitleParent();
 		mIndexParent.setVisibility(View.VISIBLE);
 		mWebFrame.setVisibility(View.GONE);
@@ -91,9 +101,9 @@ public class IndexEnvironment {
 	
 	@SuppressLint("ClickableViewAccessibility")
 	private static void initIndex() {
-		RelativeLayout mIndexSearchBar = getIndexSearchBar();
-		TextView mIndexTitle = getIndexTitle();
-		RelativeLayout mIndexParent = getIndexParent();
+		RelativeLayout mIndexSearchBar = holder.getIndexSearchBar();
+		TextView mIndexTitle = holder.getIndexTitle();
+		RelativeLayout mIndexParent = holder.getIndexParent();
 		Typeface customFont = Typeface.createFromAsset(activity.getAssets(), "font/a.ttf");
 		mIndexTitle.setTypeface(customFont);
 		mIndexTitle.setOnLongClickListener(v -> {
@@ -161,7 +171,7 @@ public class IndexEnvironment {
 		} else {
 			mIndexTitle.setVisibility(View.VISIBLE);
 		}
-		ImageView mIndexWallpaper =  getIndexWallpaper();
+		ImageView mIndexWallpaper =  holder.getIndexWallpaper();
 		if (mSharedPreferences.getString("is_apply_wallpaper", "false").equals("true")) {
 			try {
 				
@@ -191,7 +201,8 @@ public class IndexEnvironment {
 		}
 	}
 	
-	public static void start(){
+	public static void start(WebAdapter.MyViewHolder viewholder){
+		holder = viewholder;
 		initIndex();
 		MSharedPreferenceUtils.getSharedPreference().registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);
 	}

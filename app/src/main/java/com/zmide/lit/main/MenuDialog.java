@@ -17,11 +17,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.viewpager.widget.ViewPager;
+
 import com.blankj.utilcode.util.BarUtils;
 import com.zmide.lit.R;
 import com.zmide.lit.animation.Slide;
-import com.zmide.lit.base.BaseActivity;
-import com.zmide.lit.fragment.ResourceShowerFragment;
 import com.zmide.lit.object.Diy;
 import com.zmide.lit.skin.RippleAnimation;
 import com.zmide.lit.skin.SkinFactory;
@@ -37,6 +37,7 @@ import com.zmide.lit.util.MSharedPreferenceUtils;
 import com.zmide.lit.util.MToastUtils;
 import com.zmide.lit.util.MarkEditDialog;
 import com.zmide.lit.view.LitWebView;
+
 
 import java.util.List;
 import java.util.Objects;
@@ -67,9 +68,8 @@ public class MenuDialog {
 	}
 	
 	private static LitWebView mWebView() {
-		FrameLayout mWebFrame = activity.findViewById(R.id.mainWebFrame);
-		return mWebFrame.findViewById(R.id.mainWebView);
-	}
+        return WebContainerPlus.getWebView();
+    }
 	
 	public static void initDialog() {
 		
@@ -408,23 +408,22 @@ public class MenuDialog {
 	}
 	
 	public static void showDialog() {
-		mSharedPreferences = MSharedPreferenceUtils.getSharedPreference();
-		final boolean res = mSharedPreferences.getString("no_history", "false").equals("false");
-		final ImageView mMenuNoHistoryI = d.findViewById(R.id.menuNoHistoryI);
-		final LinearLayout mMenuMarked = Objects.requireNonNull(d.getWindow()).findViewById(R.id.menuMarked);
-		final LinearLayout mMenuMarkAdd = d.getWindow().findViewById(R.id.menuMarkAdd);
-		final LinearLayout mMenuResource = d.getWindow().findViewById(R.id.menuResource_catcher);
-		FrameLayout mWebFrame = activity.findViewById(R.id.mainWebFrame);
-		final LitWebView mWebView = mWebFrame.findViewById(R.id.mainWebView);
-		activity.runOnUiThread(() -> {
-			if (res) {
-				mMenuNoHistoryI.setImageDrawable(SkinManager.getInstance().getDrawable(R.drawable.no_history_closed));
-				
-			} else {
-				mMenuNoHistoryI.setImageDrawable(SkinManager.getInstance().getDrawable(R.drawable.no_history_open));
-				
-			}
-		});
+        mSharedPreferences = MSharedPreferenceUtils.getSharedPreference();
+        final boolean res = mSharedPreferences.getString("no_history", "false").equals("false");
+        final ImageView mMenuNoHistoryI = d.findViewById(R.id.menuNoHistoryI);
+        final LinearLayout mMenuMarked = Objects.requireNonNull(d.getWindow()).findViewById(R.id.menuMarked);
+        final LinearLayout mMenuMarkAdd = d.getWindow().findViewById(R.id.menuMarkAdd);
+        final LinearLayout mMenuResource = d.getWindow().findViewById(R.id.menuResource_catcher);
+        final LitWebView mWebView = WebContainerPlus.getWebView();
+        activity.runOnUiThread(() -> {
+            if (res) {
+                mMenuNoHistoryI.setImageDrawable(SkinManager.getInstance().getDrawable(R.drawable.no_history_closed));
+
+            } else {
+                mMenuNoHistoryI.setImageDrawable(SkinManager.getInstance().getDrawable(R.drawable.no_history_open));
+
+            }
+        });
 		if (DBC.getInstance(activity).getMark(mWebView.getUrl())) {
 			activity.runOnUiThread(() -> {
 				mMenuMarked.setVisibility(View.VISIBLE);

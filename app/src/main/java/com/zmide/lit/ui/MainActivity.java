@@ -49,7 +49,8 @@ import java.util.Objects;
 
 import static com.zmide.lit.main.MainViewBindUtils.getBallCardView;
 import static com.zmide.lit.main.MainViewBindUtils.getBallText;
-import static com.zmide.lit.main.MainViewBindUtils.getWebFrame;
+import static com.zmide.lit.main.MainViewBindUtils.getWebRecyclerView;
+
 
 public class MainActivity extends BaseActivity implements WindowsInterface {
 	private static final long TIME_EXIT = 2000;
@@ -100,7 +101,6 @@ public class MainActivity extends BaseActivity implements WindowsInterface {
 		MSharedPreferenceUtils.getSharedPreference().registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);
 		BallEnvironment.start();
 		SearchEnvironment.start();
-		IndexEnvironment.start();
 		WebEnvironment.start();
 		findViewById(R.id.mainMask).setVisibility(View.GONE);
 		MThemeConfig();
@@ -268,7 +268,7 @@ public class MainActivity extends BaseActivity implements WindowsInterface {
 			0, 0, 0, 1.0f, 0     // Alpha
 	};
 	public void initRendering() {
-		if (getWebFrame() != null) {
+		if ( getWebRecyclerView() != null) {
 			if (MSharedPreferenceUtils.getSharedPreference().getString("web_isdark", "false").equals("true") && isNight()) {
 				Paint paint = new Paint();
 				ColorMatrix matrix = new ColorMatrix();
@@ -280,9 +280,9 @@ public class MainActivity extends BaseActivity implements WindowsInterface {
 				ColorMatrixColorFilter filter = new ColorMatrixColorFilter(concat);
 				paint.setColorFilter(filter);
 				// maybe sometime LAYER_TYPE_NONE would better?
-				getWebFrame().setLayerType(View.LAYER_TYPE_HARDWARE, paint);
+				getWebRecyclerView().setLayerType(View.LAYER_TYPE_HARDWARE, paint);
 			} else {
-				getWebFrame().setLayerType(View.LAYER_TYPE_HARDWARE, null);
+				getWebRecyclerView().setLayerType(View.LAYER_TYPE_HARDWARE, null);
 			}
 		}
 	}

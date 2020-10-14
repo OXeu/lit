@@ -5,7 +5,6 @@ import android.view.View;
 import com.zmide.lit.ui.MainActivity;
 
 import static com.zmide.lit.main.MainViewBindUtils.getMainTitle;
-import static com.zmide.lit.main.MainViewBindUtils.getWebFrame;
 
 public class WebEnvironment {
 	private static MainActivity activity;
@@ -26,8 +25,8 @@ public class WebEnvironment {
 	public static void refreshFrame() {
 		View view = WebContainer.getView();
 		if (view != null) {
-			getWebFrame().removeAllViews();
-			getWebFrame().addView(view);
+			WebContainerPlus.getViewHolder().getWebFrame().removeAllViews();
+			WebContainerPlus.getViewHolder().getWebFrame().addView(view);
 			MWeb mWeb = WebContainer.getWindow();
 			getMainTitle().setText(mWeb.getTitle());
 		}

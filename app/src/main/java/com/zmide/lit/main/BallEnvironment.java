@@ -50,7 +50,6 @@ import static com.zmide.lit.main.MainViewBindUtils.getBallCardView;
 import static com.zmide.lit.main.MainViewBindUtils.getBallImage;
 import static com.zmide.lit.main.MainViewBindUtils.getBallText;
 import static com.zmide.lit.main.MainViewBindUtils.getBallWindowButton;
-import static com.zmide.lit.main.MainViewBindUtils.getIndexWallpaper;
 import static com.zmide.lit.main.MainViewBindUtils.getMainBallParent;
 import static com.zmide.lit.main.MainViewBindUtils.getMainGestureColor;
 import static com.zmide.lit.main.MainViewBindUtils.getMainGestureImage;
@@ -274,7 +273,7 @@ public class BallEnvironment {
 			if (getSearchEdit().getText().toString().equals(getUrl()) || getSearchEdit().getText().toString().equals("")) {
 				ViewO.hideView(view);
 				if (WebContainer.isIndex())
-					ViewO.showView(getIndexWallpaper());
+					ViewO.showView(WebContainerPlus.getViewHolder().getIndexWallpaper());
 				InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
 				if (inputMethodManager != null) {
 					inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);

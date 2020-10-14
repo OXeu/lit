@@ -33,7 +33,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
-import static com.zmide.lit.main.MainViewBindUtils.getIndexSearchBar;
+
 import static com.zmide.lit.main.MainViewBindUtils.getSearchButton;
 import static com.zmide.lit.main.MainViewBindUtils.getSearchEdit;
 import static com.zmide.lit.main.MainViewBindUtils.getSearchEngineList;
@@ -182,7 +182,7 @@ public class SearchEnvironment {
 		int tx = 0;
 		int th = 0;
 		int y = 0;
-		RelativeLayout mIndexSearchBar = getIndexSearchBar();
+		RelativeLayout mIndexSearchBar = WebContainerPlus.getViewHolder().getIndexSearchBar();
 		int x = mIndexSearchBar.getWidth();
 		int h = mIndexSearchBar.getHeight();
 		int oY = MWindowsUtils.dp2px(0);

@@ -30,6 +30,11 @@ public class WebContainer {
 	#获取所有Windows，便于多窗口处理
 	
 	#WebContainer最大的任务，就是防止Exception发生
+	
+	
+	##通过分析WebContainer代码，使用静态类管理RecyclerView和其Adapter是最好的办法
+	# 需要初始化
+	# 滑动切换即按下解锁RecyclerView允许滑动，滑动，松手锁定滑动(自动对齐)
 	 */
     private static ArrayList<MWeb> mWebs = new ArrayList<>();
     private static WindowsInterface mWindowsInterface;

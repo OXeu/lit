@@ -15,6 +15,9 @@ import com.zmide.lit.util.MFileUtils;
 import com.zmide.lit.util.MSharedPreferenceUtils;
 import com.zmide.lit.util.MWebStateSaveUtils;
 import com.zmide.lit.view.LitWebView;
+import com.zmide.lit.main.bottom.ClassicalBottomBar;
+import com.zmide.lit.main.bottom.FunctionalBottomBar;
+import com.zmide.lit.main.bottom.SimplifyBottomBar;
 
 public class MWeb {
 	public int sid;
@@ -31,6 +34,7 @@ public class MWeb {
 	private String icon;
 	private SharedPreferences.OnSharedPreferenceChangeListener sharedPreferenceChangeListener = (sharedPreferences, key) -> {
 		canRefresh();
+		initBtBar();
 	};
 
 	public MWeb(MainActivity activity) {
@@ -41,6 +45,7 @@ public class MWeb {
 		getSwipe().setOnRefreshListener(() -> getWebView().reload());
 		getSwipe().setOnChildScrollUpCallback((parent, child) -> getWebView().getScrollY() > 0);
 		canRefresh();
+		initBtBar();
 		MSharedPreferenceUtils.getWebViewSharedPreference().registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);
 	}
 	
@@ -154,4 +159,21 @@ public class MWeb {
 	public int getCode() {
 		return getWebView().getCodeId();
 	}
+	
+	public void initBtBar(){
+		String type = MSharedPreferenceUtils.getSharedPreference().getString("bt_bar","0");
+		switch(type){
+			case "0"://经典底栏
+			ClassicalBottomBar.loadBar();
+			break;
+			case "1"://手势底栏
+			FunctionalBottomBar.loadBar();
+			break;
+			case "2"://简洁底栏
+			SimplifyBottomBar.loadBar();
+			break;
+			}
+		}
+	
+	
 }
