@@ -4,6 +4,14 @@
 	android:layout_width="match_parent"
 	android:layout_height="match_parent">
 	
+	<ImageView
+		android:id="@+id/indexWallpaper"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:scaleType="centerCrop"
+		android:tint="@color/mask" />
+	
+	
 	<RelativeLayout
 		android:id="@+id/indexRelativeLayout1"
 		android:layout_width="match_parent"
