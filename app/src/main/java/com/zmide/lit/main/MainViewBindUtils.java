@@ -15,9 +15,11 @@ import com.zmide.lit.R;
 import com.zmide.lit.ui.MainActivity;
 import com.zmide.lit.view.LitProgressBar;
 import android.widget.FrameLayout;
+import android.app.Activity;
+import android.util.Log;
 
 public class MainViewBindUtils {
-	private static MainActivity activity;
+	private static Activity activity;
 	@SuppressLint("StaticFieldLeak")
 	private static LinearLayout mSearchHolder;
 	private static CardView mCardView;
@@ -150,6 +152,8 @@ public class MainViewBindUtils {
 	}
 	
 	public static RecyclerView getWebRecyclerView() {
+		if(mWebRecyclerView == null)
+			Log.e("LitError","empty RecyclerView");
 		return mWebRecyclerView;
 	}
 	
