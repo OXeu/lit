@@ -22,7 +22,7 @@ import android.content.Context;
 
 public class MWeb {
 	public int sid;
-	private MainActivity a;
+	private Context a;
 	/**
 	 * 功能
 	 * 初始化WebView
