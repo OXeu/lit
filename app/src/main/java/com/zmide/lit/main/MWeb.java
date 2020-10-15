@@ -18,6 +18,7 @@ import com.zmide.lit.view.LitWebView;
 import com.zmide.lit.main.bottom.ClassicalBottomBar;
 import com.zmide.lit.main.bottom.FunctionalBottomBar;
 import com.zmide.lit.main.bottom.SimplifyBottomBar;
+import android.content.Context;
 
 public class MWeb {
 	public int sid;
@@ -37,7 +38,7 @@ public class MWeb {
 		initBtBar();
 	};
 
-	public MWeb(MainActivity activity) {
+	public MWeb(Context activity) {
 		@SuppressLint("InflateParams") View view = LayoutInflater.from(activity).inflate(R.layout.web_layout, null);
 		this.view = view;
 		this.a = activity;
@@ -49,7 +50,7 @@ public class MWeb {
 		MSharedPreferenceUtils.getWebViewSharedPreference().registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);
 	}
 	
-	public MWeb(MainActivity activity, WebView webView) {
+	public MWeb(Context activity, WebView webView) {
 		@SuppressLint("InflateParams") View view = LayoutInflater.from(activity).inflate(R.layout.web_layout, null);
 		LitWebView LitWebView = view.findViewById(R.id.mainWebView);
 		if (webView instanceof LitWebView)
