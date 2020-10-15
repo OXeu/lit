@@ -50,6 +50,7 @@ import java.util.Objects;
 import static com.zmide.lit.main.MainViewBindUtils.getBallCardView;
 import static com.zmide.lit.main.MainViewBindUtils.getBallText;
 import static com.zmide.lit.main.MainViewBindUtils.getWebRecyclerView;
+import com.zmide.lit.main.WebContainerPlus;
 
 
 public class MainActivity extends BaseActivity implements WindowsInterface {
@@ -83,7 +84,7 @@ public class MainActivity extends BaseActivity implements WindowsInterface {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		MExceptionUtils.init(this);
-
+		
 		Chiper.init(this);
 
 		StatusEnvironment.init(MainActivity.this);
@@ -93,7 +94,7 @@ public class MainActivity extends BaseActivity implements WindowsInterface {
 		BallEnvironment.init(MainActivity.this);
 		SearchEnvironment.init(MainActivity.this);
 		WebEnvironment.init(MainActivity.this);
-		WebContainer.init(MainActivity.this, getIntent());//容器加载时处理外部请求
+		WebContainerPlus.init(MainActivity.this, getIntent());//容器加载时处理外部请求
 		WindowsManager.init(MainActivity.this);
 		LitJavaScript.init(this);
 		MenuDialog.init(MainActivity.this);
