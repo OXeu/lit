@@ -293,7 +293,7 @@ public class WebContainerPlus {
 		}
 		if (adapter.getItemCount()==0) {
 			createWindow(null, true);
-			WebEnvironment.refreshFrame();
+			//WebEnvironment.refreshFrame();
 			WindowsManager.hideWindows();
 		}
 	}
