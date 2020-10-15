@@ -22,7 +22,7 @@ jobs:
 
     - name: Build Release APK
 
-      run: bash ./gradlew assembleDebug --build-cache
+      run: bash ./gradlew assembleRelease --build-cache
 
     - name: Upload APK
 
