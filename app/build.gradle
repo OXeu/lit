@@ -93,7 +93,7 @@ android {
 			//对齐
 			zipAlignEnabled true
 			//移除无用的resource文件
-			shrinkResources true
+			shrinkResources false
 			
 			//混淆
 			minifyEnabled false

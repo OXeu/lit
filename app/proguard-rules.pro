@@ -10,7 +10,7 @@
 
 
 #包字典
-# 将.class信息中的类名重新定义为"Proguard"字符串
+# 将.class信息中的类名重新定义为"Lit"字符串
 #-renamesourcefileattribute Lit
 # 并保留源文件名为"Proguard"字符串，而非原始的类名 并保留行号 
 -keepattributes SourceFile,LineNumberTable
