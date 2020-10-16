@@ -182,7 +182,7 @@ public class SearchEnvironment {
 		int tx = 0;
 		int th = 0;
 		int y = 0;
-		RelativeLayout mIndexSearchBar = WebContainerPlus2.getViewHolder().getIndexSearchBar();
+		RelativeLayout mIndexSearchBar = WebContainerPlus.getViewHolder().getIndexSearchBar();
 		int x = mIndexSearchBar.getWidth();
 		int h = mIndexSearchBar.getHeight();
 		int oY = MWindowsUtils.dp2px(0);

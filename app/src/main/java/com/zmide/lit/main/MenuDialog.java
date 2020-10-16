@@ -68,7 +68,7 @@ public class MenuDialog {
 	}
 	
 	private static LitWebView mWebView() {
-        return WebContainerPlus2.getWebView();
+        return WebContainerPlus.getWebView();
     }
 	
 	public static void initDialog() {
@@ -414,7 +414,7 @@ public class MenuDialog {
         final LinearLayout mMenuMarked = Objects.requireNonNull(d.getWindow()).findViewById(R.id.menuMarked);
         final LinearLayout mMenuMarkAdd = d.getWindow().findViewById(R.id.menuMarkAdd);
         final LinearLayout mMenuResource = d.getWindow().findViewById(R.id.menuResource_catcher);
-        final LitWebView mWebView = WebContainerPlus2.getWebView();
+        final LitWebView mWebView = WebContainerPlus.getWebView();
         activity.runOnUiThread(() -> {
             if (res) {
                 mMenuNoHistoryI.setImageDrawable(SkinManager.getInstance().getDrawable(R.drawable.no_history_closed));

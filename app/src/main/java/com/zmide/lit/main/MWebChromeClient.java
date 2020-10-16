@@ -81,7 +81,7 @@ public class MWebChromeClient extends WebChromeClient {
                 return;
             }
             mCustomView = view;
-			WebContainerPlus2.getViewHolder().getWebFrame().addView(mCustomView);
+			WebContainerPlus.getViewHolder().getWebFrame().addView(mCustomView);
             mCustomViewCallback = callback;
             //mWebView.setVisibility(View.GONE);
             ViewO.hideView(getBallCardView());
@@ -104,7 +104,7 @@ public class MWebChromeClient extends WebChromeClient {
         }
         MWindowsUtils.back2DefaultScreen(a);
         mCustomView.setVisibility(View.GONE);
-        WebContainerPlus2.getViewHolder().getWebFrame().removeView(mCustomView);
+        WebContainerPlus.getViewHolder().getWebFrame().removeView(mCustomView);
         mCustomViewCallback.onCustomViewHidden();
         mCustomView = null;
         BarUtils.setNavBarVisibility(a, true);

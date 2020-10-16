@@ -25,8 +25,8 @@ public class WebEnvironment {
 	public static void refreshFrame() {
 		View view = WebContainerPlus.getView();
 		if (view != null) {
-			WebContainerPlus2.getViewHolder().getWebFrame().removeAllViews();
-			WebContainerPlus2.getViewHolder().getWebFrame().addView(view);
+			WebContainerPlus.getViewHolder().getWebFrame().removeAllViews();
+			WebContainerPlus.getViewHolder().getWebFrame().addView(view);
 			MWeb mWeb = WebContainerPlus.getWindow();
 			getMainTitle().setText(mWeb.getTitle());
 		}

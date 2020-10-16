@@ -273,7 +273,7 @@ public class BallEnvironment {
 			if (getSearchEdit().getText().toString().equals(getUrl()) || getSearchEdit().getText().toString().equals("")) {
 				ViewO.hideView(view);
 				if (WebContainerPlus.isIndex())
-					ViewO.showView(WebContainerPlus2.getViewHolder().getIndexWallpaper());
+					ViewO.showView(WebContainerPlus.getViewHolder().getIndexWallpaper());
 				InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
 				if (inputMethodManager != null) {
 					inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
