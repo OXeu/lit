@@ -137,7 +137,7 @@ public class WebContainerPlus {
 	}
 
 	public static MWeb createWindow(String url, int id) {
-		MWeb web = new MWeb(rv.getContext());
+		MWeb web = new MWeb(activity);
 		if (url != null && !Objects.equals(url, "")) {
 			web.getWebView().loadUrl(url);
 		}
@@ -150,7 +150,7 @@ public class WebContainerPlus {
 	public static MWeb createWindow(WebView webView) {
 		
 		//包装裸露的WebView
-		MWeb web = new MWeb(rv.getContext(), webView);
+		MWeb web = new MWeb(activity, webView);
 		adapter.createWindow(web);
 		mWindowsInterface.onWindowsCountChanged(adapter.getItemCount());
 		return web;

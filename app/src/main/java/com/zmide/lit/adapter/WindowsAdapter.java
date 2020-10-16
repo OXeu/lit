@@ -76,7 +76,7 @@ public class WindowsAdapter extends RecyclerView.Adapter<WindowsAdapter.MyViewHo
 		else
 			viewHolder.mWindowIcon.setImageResource(R.drawable.dialog);
 		viewHolder.mWindowParent.setOnClickListener(view -> {
-				WebContainerPlus.switchWindow(position);
+				WebContainerPlus.changeWindow(position);
 				WindowsManager.hideWindows();
 		});
 		Animation animation = new Animation() {
