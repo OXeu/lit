@@ -195,9 +195,11 @@ public class WebContainerPlus {
 	}
 	
 	public static int getWindowId() {
-		if (adapter.getItemCount() != 0)
-			return layoutManager.findFirstVisibleItemPosition();
-		else
+		if (adapter.getItemCount() > 0){
+			int index =  layoutManager.findFirstVisibleItemPosition();
+			if(index>0)
+				return index;
+		}else
 			createWindow(null,true);
 		return 0;
 	}
