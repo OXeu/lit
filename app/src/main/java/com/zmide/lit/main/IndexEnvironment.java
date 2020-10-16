@@ -64,9 +64,6 @@ public class IndexEnvironment {
 		RelativeLayout mIndexParent = holder.getIndexParent();
 		FrameLayout mWebFrame = holder.getWebFrame();
 		LinearLayout mTitleParent = getTitleParent();
-		if (mIndexParent.getVisibility() == View.VISIBLE) {
-			WebEnvironment.refreshFrame();
-		}
 		if (mIndexWallpaper.getVisibility() == View.VISIBLE) {
 			mIndexWallpaper.setVisibility(View.GONE);
 		}
