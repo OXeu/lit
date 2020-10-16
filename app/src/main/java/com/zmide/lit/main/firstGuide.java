@@ -31,7 +31,7 @@ public class firstGuide {
 			pop.showAtLocation(MainViewBindUtils.getMainBallParent(),Gravity.CENTER,0, 200);
 			pop.setOnDismissListener(() -> MSharedPreferenceUtils.getSharedPreference().edit().putBoolean("isfirst", false).apply());
 		});*/
-        WebContainer.loadUrl("https://xeu.zmide.com/2020/04/09/73");
+        WebContainerPlus.loadUrl("https://xeu.zmide.com/2020/04/09/73");
     }
 	
 	

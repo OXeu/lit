@@ -58,8 +58,8 @@ import static com.zmide.lit.main.MainViewBindUtils.getSearchEdit;
 import static com.zmide.lit.main.MainViewBindUtils.getSearchParent;
 import static com.zmide.lit.main.MainViewBindUtils.getSugRecyclerView;
 import static com.zmide.lit.main.MainViewBindUtils.getTitleParent;
-import static com.zmide.lit.main.WebContainer.getUrl;
-import static com.zmide.lit.main.WebContainer.getWindowId;
+import static com.zmide.lit.main.WebContainerPlus.getUrl;
+import static com.zmide.lit.main.WebContainerPlus.getWindowId;
 
 public class BallEnvironment {
 	private static MainActivity activity;
@@ -272,8 +272,8 @@ public class BallEnvironment {
 		getSearchParent().setOnClickListener(view -> {
 			if (getSearchEdit().getText().toString().equals(getUrl()) || getSearchEdit().getText().toString().equals("")) {
 				ViewO.hideView(view);
-				if (WebContainer.isIndex())
-					ViewO.showView(WebContainerPlus.getViewHolder().getIndexWallpaper());
+				if (WebContainerPlus.isIndex())
+					ViewO.showView(WebContainerPlus2.getViewHolder().getIndexWallpaper());
 				InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
 				if (inputMethodManager != null) {
 					inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
@@ -487,7 +487,7 @@ public class BallEnvironment {
 						//防止是按下也判断
 						if (moveX > secondLevel) {
 							//通过距离差判断方向
-							LitWebView mView = WebContainer.getWebView();
+							LitWebView mView = WebContainerPlus.getWebView();
 							switch (orientation) {
 								case 'r':
 									if (!isChangeGesture)
@@ -509,15 +509,15 @@ public class BallEnvironment {
 									break;
 								case 'c'://切换窗口
 									if (!isChangeGesture)
-										WebContainer.changeWindow(-1);
+										WebContainerPlus.changeWindow(-1);
 									else
-										WebContainer.changeWindow(1);
+										WebContainerPlus.changeWindow(1);
 									break;
 								case 'd':
 									if (!isChangeGesture)
-										WebContainer.changeWindow(1);
+										WebContainerPlus.changeWindow(1);
 									else
-										WebContainer.changeWindow(-1);
+										WebContainerPlus.changeWindow(-1);
 									break;
 								case 'm'://多窗口
 									WindowsManager.loadWindows();
@@ -708,30 +708,30 @@ public class BallEnvironment {
 						//防止是按下也判断
 						if (moveX > secondLevel) {
 							//通过距离差判断方向
-							LitWebView mView = WebContainer.getWebView();
+							LitWebView mView = WebContainerPlus.getWebView();
 							switch (orientation) {
 								case 'r':
 								case 'd'://右
 									if (!isChangeGesture)
-										WebContainer.changeWindow(1);
+										WebContainerPlus.changeWindow(1);
 									else
-										WebContainer.changeWindow(-1);
+										WebContainerPlus.changeWindow(-1);
 									break;
 								case 'l':
 								case 'c'://左
 									if (!isChangeGesture)
-									WebContainer.changeWindow(-1);
+									WebContainerPlus.changeWindow(-1);
 									else
-									WebContainer.changeWindow(1);
+									WebContainerPlus.changeWindow(1);
 									break;
 								case 't':
 								case 'm'://上
-									WebContainer.removeWindow(getWindowId());
+									WebContainerPlus.removeWindow(getWindowId());
 									break;
 								case 'b':
 								case 'q'://下
 								//MToastUtils.makeText("网站独立设置暂未开放").show();
-									String domain = WebsiteUtils.getDomain(WebContainer.getUrl());
+									String domain = WebsiteUtils.getDomain(WebContainerPlus.getUrl());
 									if(domain!=null) {
 										WebsiteSetting websiteSetting = WebsiteUtils.getWebsiteSetting(activity, domain);
 										new MWebsiteSettingDialog.Builder(activity).setItems(websiteSetting).create().show();
@@ -751,7 +751,7 @@ public class BallEnvironment {
 		getBallWindowButton().setOnTouchListener(touchWindow);
 		getBallWindowButton().setClickable(true);
 		getBallWindowButton().setOnLongClickListener((view)->{
-			WebContainer.createWindow(null,true);
+			WebContainerPlus.createWindow(null,true);
 			return true;
 		});
 	}
@@ -827,7 +827,7 @@ public class BallEnvironment {
             case 1://多窗口
                 getBallImage().setVisibility(View.GONE);
                 getBallText().setVisibility(View.VISIBLE);
-                getBallText().setText(WebContainer.getWindowCount() + "");
+                getBallText().setText(WebContainerPlus.getWindowCount() + "");
                 break;
             case 2:
 				try {

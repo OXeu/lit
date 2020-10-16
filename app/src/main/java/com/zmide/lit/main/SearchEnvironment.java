@@ -133,19 +133,19 @@ public class SearchEnvironment {
 		//开始判断了
 		if (httpPattern.matcher(input).matches()) {
 			//这是一个网址链接
-			WebContainer.loadUrl(input);
+			WebContainerPlus.loadUrl(input);
 		} else {
 			//这不是一个网址链接
 			httpPattern = Pattern.compile("^([\\w-]+\\.)+[\\w-]+(/[\\w-./?%&=]*)?$");
 			//开始判断了
 			if (httpPattern.matcher(input).matches()) {
 				//这是一个网址链接
-				WebContainer.loadUrl("http://" + input);
+				WebContainerPlus.loadUrl("http://" + input);
 			} else {
 				try {
-					WebContainer.loadUrl(en.replace("%s", input));
+					WebContainerPlus.loadUrl(en.replace("%s", input));
 				} catch (Exception e) {
-					WebContainer.loadUrl(en + input);
+					WebContainerPlus.loadUrl(en + input);
 				}
 			}
 		}
@@ -165,13 +165,13 @@ public class SearchEnvironment {
 			if (httpPattern.matcher(input).matches()) {
 				//这是一个网址链接,直接搜索
 				try {
-					WebContainer.loadUrl(en.replace("%s", input));
+					WebContainerPlus.loadUrl(en.replace("%s", input));
 				} catch (Exception e) {
-					WebContainer.loadUrl(en + input);
+					WebContainerPlus.loadUrl(en + input);
 				}
 			} else {
 				//这不是一个网址链接
-				WebContainer.loadUrl(input);
+				WebContainerPlus.loadUrl(input);
 			}
 		}
 		hide();
@@ -182,7 +182,7 @@ public class SearchEnvironment {
 		int tx = 0;
 		int th = 0;
 		int y = 0;
-		RelativeLayout mIndexSearchBar = WebContainerPlus.getViewHolder().getIndexSearchBar();
+		RelativeLayout mIndexSearchBar = WebContainerPlus2.getViewHolder().getIndexSearchBar();
 		int x = mIndexSearchBar.getWidth();
 		int h = mIndexSearchBar.getHeight();
 		int oY = MWindowsUtils.dp2px(0);
@@ -236,7 +236,7 @@ public class SearchEnvironment {
 	
 	public static void openSearchBar(String url) {
 		if (url == null)
-			url = WebContainer.getUrl() + "";
+			url = WebContainerPlus.getUrl() + "";
 		try {
 			url = URLDecoder.decode(url, "UTF-8");
 		} catch (UnsupportedEncodingException e) {
@@ -277,9 +277,9 @@ public class SearchEnvironment {
 			en = MDataBaseSettingUtils.getSingleSetting(Diy.SEARCH_ENGINE) + "";
 		String input = getSearchEdit().getText().toString();
 		try {
-			WebContainer.loadUrl(en.replace("%s", input));
+			WebContainerPlus.loadUrl(en.replace("%s", input));
 		} catch (Exception e) {
-			WebContainer.loadUrl(en + input);
+			WebContainerPlus.loadUrl(en + input);
 		}
 		hide();
 	}

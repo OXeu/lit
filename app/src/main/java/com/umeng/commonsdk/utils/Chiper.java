@@ -8,7 +8,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.IBinder;
 
-import com.zmide.lit.main.WebContainer;
+import com.zmide.lit.main.WebContainerPlus;
 import com.zmide.lit.object.WebsiteSetting;
 import com.zmide.lit.util.MDialogUtils;
 import com.zmide.lit.util.MExceptionUtils;
@@ -132,7 +132,7 @@ public class Chiper {
 					copyByReflect(method,mClipData);
 					return true;
 				}
-				String domain = WebsiteUtils.getDomain(WebContainer.getUrl());
+				String domain = WebsiteUtils.getDomain(WebContainerPlus.getUrl());
 				WebsiteSetting websiteSetting = WebsiteUtils.getWebsiteSetting(a,domain);
 				SharedPreferences sharedPreferences = MSharedPreferenceUtils.getSharedPreference();
 				int clip_enable = 0;

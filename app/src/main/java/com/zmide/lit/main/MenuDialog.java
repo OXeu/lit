@@ -68,7 +68,7 @@ public class MenuDialog {
 	}
 	
 	private static LitWebView mWebView() {
-        return WebContainerPlus.getWebView();
+        return WebContainerPlus2.getWebView();
     }
 	
 	public static void initDialog() {
@@ -281,7 +281,7 @@ public class MenuDialog {
 			if (uris.size() != 0){
 				activity.startActivity(new Intent(activity, VideoPlayerActivity.class)
 						.setData(uris.get(0))
-						.putExtra("title",WebContainer.getTitle())
+						.putExtra("title",WebContainerPlus.getTitle())
 				);
 				//new ResourceShowerFragment().show(((BaseActivity)activity).getSupportFragmentManager(), "dialog");
 			}else{
@@ -292,7 +292,7 @@ public class MenuDialog {
 		
 		mMenuAdMark.setOnClickListener(view -> activity.runOnUiThread(() -> {
 			getAdMark().setVisibility(View.VISIBLE);
-			WebContainer.getWebView().evaluateJavascript("(function () {\n" +
+			WebContainerPlus.getWebView().evaluateJavascript("(function () {\n" +
 					"    var old;\n" +
 					"    this.clicklistener = function (event) {\n" +
 					"        var length = document.all.length;\n" +
@@ -414,7 +414,7 @@ public class MenuDialog {
         final LinearLayout mMenuMarked = Objects.requireNonNull(d.getWindow()).findViewById(R.id.menuMarked);
         final LinearLayout mMenuMarkAdd = d.getWindow().findViewById(R.id.menuMarkAdd);
         final LinearLayout mMenuResource = d.getWindow().findViewById(R.id.menuResource_catcher);
-        final LitWebView mWebView = WebContainerPlus.getWebView();
+        final LitWebView mWebView = WebContainerPlus2.getWebView();
         activity.runOnUiThread(() -> {
             if (res) {
                 mMenuNoHistoryI.setImageDrawable(SkinManager.getInstance().getDrawable(R.drawable.no_history_closed));

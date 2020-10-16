@@ -30,7 +30,7 @@ import com.zmide.lit.main.MainViewBindUtils;
 import com.zmide.lit.main.MenuDialog;
 import com.zmide.lit.main.SearchEnvironment;
 import com.zmide.lit.main.StatusEnvironment;
-import com.zmide.lit.main.WebContainer;
+import com.zmide.lit.main.WebContainerPlus;
 import com.zmide.lit.main.WebEnvironment;
 import com.zmide.lit.main.WindowsManager;
 import com.zmide.lit.main.firstGuide;
@@ -50,7 +50,7 @@ import java.util.Objects;
 import static com.zmide.lit.main.MainViewBindUtils.getBallCardView;
 import static com.zmide.lit.main.MainViewBindUtils.getBallText;
 import static com.zmide.lit.main.MainViewBindUtils.getWebRecyclerView;
-import com.zmide.lit.main.WebContainerPlus;
+import com.zmide.lit.main.WebContainerPlus2;
 
 
 public class MainActivity extends BaseActivity implements WindowsInterface {
@@ -94,7 +94,7 @@ public class MainActivity extends BaseActivity implements WindowsInterface {
 		BallEnvironment.init(MainActivity.this);
 		SearchEnvironment.init(MainActivity.this);
 		WebEnvironment.init(MainActivity.this);
-		WebContainerPlus.init(MainActivity.this, getIntent());//容器加载时处理外部请求
+		WebContainerPlus2.init(MainActivity.this, getIntent());//容器加载时处理外部请求
 		WindowsManager.init(MainActivity.this);
 		LitJavaScript.init(this);
 		MenuDialog.init(MainActivity.this);
@@ -129,7 +129,7 @@ public class MainActivity extends BaseActivity implements WindowsInterface {
 
 						@Override
 						public void onClick(View v) {
-							WebContainer.resumeData();
+							WebContainerPlus.resumeData();
 							isResume = true;
 						}
 					}, 5000).show();
@@ -139,7 +139,7 @@ public class MainActivity extends BaseActivity implements WindowsInterface {
 					}, 5000);
 					break;
 				case "2"://打开
-					WebContainer.resumeData();
+					WebContainerPlus.resumeData();
 					break;
 			}
 		}
@@ -211,9 +211,9 @@ public class MainActivity extends BaseActivity implements WindowsInterface {
 			}
 			if (url != null) {
 				if (intent.getBooleanExtra("ifNew", true))
-					WebContainer.createWindow(url, true);
+					WebContainerPlus.createWindow(url, true);
 				else
-					WebContainer.loadUrl(url);
+					WebContainerPlus.loadUrl(url);
 			}
 		}
 	}
@@ -332,7 +332,7 @@ public class MainActivity extends BaseActivity implements WindowsInterface {
 	
 	@Override
 	public void onBackPressed() {
-		LitWebView mWebView = WebContainer.getWebView();
+		LitWebView mWebView = WebContainerPlus.getWebView();
 		if (WindowsManager.isWindowsShowing()) {
 			WindowsManager.hideWindows();
 		} else if (SearchEnvironment.isShowing()) {
@@ -340,9 +340,9 @@ public class MainActivity extends BaseActivity implements WindowsInterface {
 		} else {
 			if (mWebView.canGoBack())
 				mWebView.goBack();
-			else if (WebContainer.getWindowCount() != 1) {
+			else if (WebContainerPlus.getWindowCount() != 1) {
 				//不是最后一个页面
-				WebContainer.removeWindow(WebContainer.getWindowId());
+				WebContainerPlus.removeWindow(WebContainerPlus.getWindowId());
 			} else {
 				Toast toast = MToastUtils.makeText("再次点击退出程序", MToastUtils.LENGTH_SHORT);
 				if (mBackPressed + TIME_EXIT > System.currentTimeMillis()) {

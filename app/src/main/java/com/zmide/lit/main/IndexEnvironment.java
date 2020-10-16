@@ -59,7 +59,7 @@ public class IndexEnvironment {
 	};
 	
 	public static void hideIndex() {
-		StatusEnvironment.updateStatusColor(WebContainer.getWebView());
+		StatusEnvironment.updateStatusColor(WebContainerPlus.getWebView());
 		ImageView mIndexWallpaper = holder.getIndexWallpaper();
 		RelativeLayout mIndexParent = holder.getIndexParent();
 		FrameLayout mWebFrame = holder.getWebFrame();
@@ -196,7 +196,7 @@ public class IndexEnvironment {
 		} else {
 			mIndexWallpaper.setVisibility(View.GONE);
 		}
-		if (!Objects.equals(WebContainer.getUrl(), MDataBaseSettingUtils.WebIndex)){
+		if (!Objects.equals(WebContainerPlus.getUrl(), MDataBaseSettingUtils.WebIndex)){
 			mIndexWallpaper.setVisibility(View.GONE);
 		}
 	}

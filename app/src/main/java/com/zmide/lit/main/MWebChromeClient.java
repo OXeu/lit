@@ -42,10 +42,10 @@ public class MWebChromeClient extends WebChromeClient {
 	public void onReceivedTitle(WebView view, String title) {
 		super.onReceivedTitle(view, title);
 		try {
-			MWeb web = WebContainer.getWindow(view);
+			MWeb web = WebContainerPlus.getWindow(view);
 			if (web != null) {
-				int p = WebContainer.getWindowPosition(web);
-				if (p == WebContainer.getWindowId())
+				int p = WebContainerPlus.getWindowPosition(web);
+				if (p == WebContainerPlus.getWindowId())
 					MainViewBindUtils.getMainTitle().setText(title);
 				web.setTitle(title);
 			}
@@ -59,7 +59,7 @@ public class MWebChromeClient extends WebChromeClient {
 		super.onReceivedIcon(view, bitmap);
 		try {
 			Bitmap bm2 = MBitmapUtils.bitmapRound(bitmap, 15f);
-			MWeb web = WebContainer.getWindow(view);
+			MWeb web = WebContainerPlus.getWindow(view);
 			if (web != null) {
 				web.setIcon(MFileUtils.saveFile(bm2, null, false));
 			}
@@ -81,7 +81,7 @@ public class MWebChromeClient extends WebChromeClient {
                 return;
             }
             mCustomView = view;
-			WebContainerPlus.getViewHolder().getWebFrame().addView(mCustomView);
+			WebContainerPlus2.getViewHolder().getWebFrame().addView(mCustomView);
             mCustomViewCallback = callback;
             //mWebView.setVisibility(View.GONE);
             ViewO.hideView(getBallCardView());
@@ -104,7 +104,7 @@ public class MWebChromeClient extends WebChromeClient {
         }
         MWindowsUtils.back2DefaultScreen(a);
         mCustomView.setVisibility(View.GONE);
-        WebContainerPlus.getViewHolder().getWebFrame().removeView(mCustomView);
+        WebContainerPlus2.getViewHolder().getWebFrame().removeView(mCustomView);
         mCustomViewCallback.onCustomViewHidden();
         mCustomView = null;
         BarUtils.setNavBarVisibility(a, true);
@@ -117,7 +117,7 @@ public class MWebChromeClient extends WebChromeClient {
 		web2.setWebViewClient(new WebViewClient() {
 			@Override
 			public boolean shouldOverrideUrlLoading(WebView view, String url) {
-				WebContainer.createWindow(url, true);//将拦截到url交由新WebView打开
+				WebContainerPlus.createWindow(url, true);//将拦截到url交由新WebView打开
 				return true;
 			}
 		});
@@ -130,6 +130,6 @@ public class MWebChromeClient extends WebChromeClient {
 	
 	@Override
 	public void onCloseWindow(WebView view) {
-		WebContainer.removeWindow(WebContainer.getWindowPosition(WebContainer.getWindow(view)));
+		WebContainerPlus.removeWindow(WebContainerPlus.getWindowPosition(WebContainerPlus.getWindow(view)));
 	}
 }

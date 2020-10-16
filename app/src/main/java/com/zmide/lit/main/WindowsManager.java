@@ -37,7 +37,7 @@ public class WindowsManager {
 	public static void init(MainActivity mainActivity) {
 		if (activity == null) {
 			activity = mainActivity;
-			mAdapter = new WindowsAdapter(activity,WebContainer.getAllWindows());
+			mAdapter = new WindowsAdapter(activity,WebContainerPlus.getAllWindows());
 		}
 		initWindows();
 	}
@@ -49,7 +49,7 @@ public class WindowsManager {
 		mPopRv.setLayoutManager(mLayoutManager);//设置布局管理器
 		mPopRv.setAdapter(mAdapter);//设置适配器
 		mPopAdd.setOnClickListener(view -> {
-			WebContainer.createWindow(null,true);
+			WebContainerPlus.createWindow(null,true);
 			pop.dismiss();
 		});
 		mPopCancel.setOnClickListener(view -> pop.dismiss());
@@ -86,7 +86,7 @@ public class WindowsManager {
 	
 	
 	public static void loadWindows() {
-		mAdapter.updateWeb(WebContainer.getAllWindows());
+		mAdapter.updateWeb(WebContainerPlus.getAllWindows());
 		mAdapter.notifyDataSetChanged();
 		new ItemTouchHelper(new ItemTouchHelper.Callback() {
 			private RecyclerView.ViewHolder vh;
@@ -165,8 +165,8 @@ public class WindowsManager {
 			@Override
 			public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
 				// 刷新列表
-				WebContainer.removeWindow(viewHolder.getAdapterPosition());
-				mAdapter.updateWeb(WebContainer.getAllWindows());
+				WebContainerPlus.removeWindow(viewHolder.getAdapterPosition());
+				mAdapter.updateWeb(WebContainerPlus.getAllWindows());
 				mAdapter.notifyDataSetChanged();
 			}
 			

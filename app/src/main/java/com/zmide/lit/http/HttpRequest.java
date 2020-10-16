@@ -12,7 +12,7 @@ import com.zhy.http.okhttp.callback.StringCallback;
 import com.zmide.lit.R;
 import com.zmide.lit.databinding.LoginDB;
 import com.zmide.lit.interfaces.UpdateInterface;
-import com.zmide.lit.main.WebContainer;
+import com.zmide.lit.main.WebContainerPlus;
 import com.zmide.lit.object.json.MarkBean;
 import com.zmide.lit.object.json.ParentBean;
 import com.zmide.lit.object.json.DataStd;
@@ -97,7 +97,7 @@ public class HttpRequest {
 											});
 									if (!Objects.equals(data.url, ""))
 										builder.setNegativeButton("详情", (di, p2) -> {
-											WebContainer.loadUrl(data.url);
+											WebContainerPlus.loadUrl(data.url);
 											di.cancel();
 										});
 									builder.create().show();

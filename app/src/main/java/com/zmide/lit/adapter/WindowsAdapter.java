@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.zmide.lit.R;
 import com.zmide.lit.main.MWeb;
-import com.zmide.lit.main.WebContainer;
+import com.zmide.lit.main.WebContainerPlus;
 import com.zmide.lit.main.WindowsManager;
 
 import java.util.ArrayList;
@@ -65,7 +65,7 @@ public class WindowsAdapter extends RecyclerView.Adapter<WindowsAdapter.MyViewHo
 	public void onBindViewHolder(final MyViewHolder viewHolder, final int position) {
 		viewHolder.mWindowTitle.setText(webs.get(position).getTitle() + "");
 		viewHolder.mWindowUrl.setText(webs.get(position).getUrl() + "");
-		if (position == WebContainer.getWindowId())
+		if (position == WebContainerPlus.getWindowId())
 			viewHolder.mWindowParent.setBackgroundResource(R.drawable.box_blue_15_normal);
 		else
 			viewHolder.mWindowParent.setBackgroundResource(R.drawable.box_gray_15_normal);
@@ -76,7 +76,7 @@ public class WindowsAdapter extends RecyclerView.Adapter<WindowsAdapter.MyViewHo
 		else
 			viewHolder.mWindowIcon.setImageResource(R.drawable.dialog);
 		viewHolder.mWindowParent.setOnClickListener(view -> {
-				WebContainer.switchWindow(position);
+				WebContainerPlus.switchWindow(position);
 				WindowsManager.hideWindows();
 		});
 		Animation animation = new Animation() {

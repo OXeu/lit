@@ -49,7 +49,7 @@ public class MWebViewClient extends WebViewClient {
 	@Override
 	public boolean shouldOverrideUrlLoading(WebView view, final String url) {
 		// 处理自定义scheme
-		String domain = WebsiteUtils.getDomain(WebContainer.getUrl());
+		String domain = WebsiteUtils.getDomain(WebContainerPlus.getUrl());
 		WebsiteSetting websiteSetting = WebsiteUtils.getWebsiteSetting(a,domain);
 		if (!url.startsWith("http")
 				&& !url.startsWith("file")
@@ -133,7 +133,7 @@ public class MWebViewClient extends WebViewClient {
 		} else
 			showIndex();
 		WebSettings settings = view.getSettings();
-		String domain = WebsiteUtils.getDomain(WebContainer.getUrl());
+		String domain = WebsiteUtils.getDomain(WebContainerPlus.getUrl());
 		WebsiteSetting websiteSetting = WebsiteUtils.getWebsiteSetting(a,domain);
 		
 		//无图模式
@@ -187,7 +187,7 @@ public class MWebViewClient extends WebViewClient {
 
 					 }*/
 		MProgressManager.setProgress(100);
-		WebContainer.setRefreshing(false);
+		WebContainerPlus.setRefreshing(false);
         if (!url.equals(WebIndex))
             updateStatusColor(view);
         else {
@@ -196,7 +196,7 @@ public class MWebViewClient extends WebViewClient {
         }
         if (view.getUrl() == null)
             return;
-        String domain = WebsiteUtils.getDomain(WebContainer.getUrl());
+        String domain = WebsiteUtils.getDomain(WebContainerPlus.getUrl());
         WebsiteSetting websiteSetting = WebsiteUtils.getWebsiteSetting(a, domain);
         //与最后的历史记录不重复 &不是本地页面 并且 (网站独立设置关闭&无痕已关闭 或者 网站独立设置打开&独立设置无痕已关闭)
         History history = DBC.getInstance(a).getLatestHistory();
