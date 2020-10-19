@@ -8,13 +8,12 @@ import android.view.View;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import android.content.Context;
 
 /**
  @url https://github.com/ZhangHao555/BannerRecyclerView/blob/master/app/src/main/java/com/ahao/myapplication/banner/BannerLayoutManager.java
  */
 
-public class WindowsLayoutManager extends LinearLayoutManager implements RecyclerView.SmoothScroller.ScrollVectorProvider {
+public class WindowsLayoutManager extends RecyclerView.LinearLayoutManager implements RecyclerView.SmoothScroller.ScrollVectorProvider {
 
     private final OrientationHelper mOrientationHelper;
 
@@ -23,34 +22,14 @@ public class WindowsLayoutManager extends LinearLayoutManager implements Recycle
 
     private boolean infinite = true;  //默认无限循环
 
-	public static final int HORIZONTAL = OrientationHelper.HORIZONTAL;
-	
     private int itemWidth;
 
     private int smoothScrollTime = 500;
 
-	
-	/**
-     * Creates a vertical LinearLayoutManager
-     *
-     * @param context Current context, will be used to access resources.
-     */
-    public WindowsLayoutManager(Context context) {
-        this(context, HORIZONTAL, false);
+    public WindowsLayoutManager() {
+        mOrientationHelper = OrientationHelper.createHorizontalHelper(this);
     }
 
-
-    /**
-     * @param context       Current context, will be used to access resources.
-     * @param orientation   Layout orientation. Should be {@link #HORIZONTAL} or {@link
-     *                      #VERTICAL}.
-     * @param reverseLayout When set to true, layouts from end to start.
-     */
-    public WindowsLayoutManager(Context context, int orientation, boolean reverseLayout) {
-        super(context, orientation, reverseLayout);
-		mOrientationHelper = OrientationHelper.createHorizontalHelper(this);
-		}
-		
     @Override
     public RecyclerView.LayoutParams generateDefaultLayoutParams() {
         return new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT, RecyclerView.LayoutParams.WRAP_CONTENT);

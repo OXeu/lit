@@ -60,7 +60,7 @@ public class WebContainerPlus {
 		if (activity == null) {
 			activity = activityTemp;
 			rv = MainViewBindUtils.getWebRecyclerView();
-			layoutManager = new WindowsLayoutManager(activity);
+			layoutManager = new WindowsLayoutManager();
 			layoutManager.setHeightScale(1);
 			layoutManager.setWidthScale(1);
 			layoutManager.setInfinite(true);
@@ -204,7 +204,7 @@ public class WebContainerPlus {
 	
 	public static int getWindowId() {
 		if (adapter.getItemCount() > 0){
-			int index =  layoutManager.findFirstVisibleItemPosition();
+			int index =  layoutManager.getCurrentPosition();
 			if(index>0)
 				return index;
 		}else
