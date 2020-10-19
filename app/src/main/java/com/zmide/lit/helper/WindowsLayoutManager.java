@@ -13,7 +13,7 @@ import java.lang.reflect.Method;
  @url https://github.com/ZhangHao555/BannerRecyclerView/blob/master/app/src/main/java/com/ahao/myapplication/banner/BannerLayoutManager.java
  */
 
-public class WindowsLayoutManager extends RecyclerView.LinearLayoutManager implements RecyclerView.SmoothScroller.ScrollVectorProvider {
+public class WindowsLayoutManager extends RecyclerView.LayoutManager implements RecyclerView.SmoothScroller.ScrollVectorProvider {
 
     private final OrientationHelper mOrientationHelper;
 
