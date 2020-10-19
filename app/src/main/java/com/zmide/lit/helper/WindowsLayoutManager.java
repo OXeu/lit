@@ -8,6 +8,7 @@ import android.view.View;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import android.content.Context;
 
 /**
  @url https://github.com/ZhangHao555/BannerRecyclerView/blob/master/app/src/main/java/com/ahao/myapplication/banner/BannerLayoutManager.java
@@ -28,6 +29,16 @@ public class WindowsLayoutManager extends LinearLayoutManager implements Recycle
 
     public WindowsLayoutManager() {
         mOrientationHelper = OrientationHelper.createHorizontalHelper(this);
+    }
+	
+	@SuppressWarnings("UnusedDeclaration")
+    public WindowsLayoutManager(Context context) {
+        super(context);
+    }
+
+    @SuppressWarnings("UnusedDeclaration")
+    public WindowsLayoutManager(Context context, int orientation, boolean reverseLayout) {
+        super(context, orientation, reverseLayout);
     }
 
     @Override
