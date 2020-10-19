@@ -98,6 +98,26 @@ public class WindowsLayoutManager extends RecyclerView.LayoutManager implements 
         return offsetDx(dx, recycler);
     }
 
+	
+
+	@Override
+    public void onMeasure(RecyclerView.Recycler recycler, RecyclerView.State state, int widthSpec, int heightSpec) {
+		//获取count判断，必须要有
+        int count = state.getItemCount();
+        if (count > 0) {
+            if (measuredHeight <= 0) {
+                View view = recycler.getViewForPosition(0);
+                measureChild(view, widthSpec, heightSpec);
+                measuredWidth = View.MeasureSpec.getSize(widthSpec);
+                measuredHeight = view.getMeasuredHeight() * getSpanCount();
+            }
+            setMeasuredDimension(measuredWidth, measuredHeight);
+        } else {
+            super.onMeasure(recycler, state, widthSpec, heightSpec);
+        }
+    }
+
+	
     private int offsetDx(int dx, RecyclerView.Recycler recycler) {
         int realScroll = dx;
         // 向左
