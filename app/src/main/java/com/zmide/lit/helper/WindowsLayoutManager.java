@@ -23,6 +23,8 @@ public class WindowsLayoutManager extends LinearLayoutManager implements Recycle
 
     private boolean infinite = true;  //默认无限循环
 
+	public static final int HORIZONTAL = OrientationHelper.HORIZONTAL;
+	
     private int itemWidth;
 
     private int smoothScrollTime = 500;
@@ -31,16 +33,26 @@ public class WindowsLayoutManager extends LinearLayoutManager implements Recycle
         mOrientationHelper = OrientationHelper.createHorizontalHelper(this);
     }
 	
-	@SuppressWarnings("UnusedDeclaration")
+	/**
+     * Creates a vertical LinearLayoutManager
+     *
+     * @param context Current context, will be used to access resources.
+     */
     public WindowsLayoutManager(Context context) {
-        super(context);
+        this(context, HORIZONTAL, false);
     }
 
-    @SuppressWarnings("UnusedDeclaration")
+
+    /**
+     * @param context       Current context, will be used to access resources.
+     * @param orientation   Layout orientation. Should be {@link #HORIZONTAL} or {@link
+     *                      #VERTICAL}.
+     * @param reverseLayout When set to true, layouts from end to start.
+     */
     public WindowsLayoutManager(Context context, int orientation, boolean reverseLayout) {
         super(context, orientation, reverseLayout);
-    }
-
+		}
+		
     @Override
     public RecyclerView.LayoutParams generateDefaultLayoutParams() {
         return new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT, RecyclerView.LayoutParams.WRAP_CONTENT);
