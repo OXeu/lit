@@ -3,6 +3,7 @@ package com.zmide.lit.helper;
 import android.graphics.PointF;
 import androidx.recyclerview.widget.OrientationHelper;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import android.view.View;
 
 import java.lang.reflect.Field;
@@ -12,7 +13,7 @@ import java.lang.reflect.Method;
  @url https://github.com/ZhangHao555/BannerRecyclerView/blob/master/app/src/main/java/com/ahao/myapplication/banner/BannerLayoutManager.java
  */
 
-public class WindowsLayoutManager extends RecyclerView.LayoutManager implements RecyclerView.SmoothScroller.ScrollVectorProvider {
+public class WindowsLayoutManager extends LinearLayoutManager implements RecyclerView.SmoothScroller.ScrollVectorProvider {
 
     private final OrientationHelper mOrientationHelper;
 

@@ -18,7 +18,7 @@ import com.zmide.lit.view.LitWebView;
 import java.util.ArrayList;
 import java.util.Objects;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.LinearLayoutManager;
+
 import com.zmide.lit.adapter.web.WebAdapter;
 import com.zmide.lit.helper.WindowsLayoutManager;
 import com.zmide.lit.helper.WindowsSnapHelper;
