@@ -29,9 +29,6 @@ public class WindowsLayoutManager extends LinearLayoutManager implements Recycle
 
     private int smoothScrollTime = 500;
 
-    public WindowsLayoutManager() {
-        mOrientationHelper = OrientationHelper.createHorizontalHelper(this);
-    }
 	
 	/**
      * Creates a vertical LinearLayoutManager
@@ -39,7 +36,7 @@ public class WindowsLayoutManager extends LinearLayoutManager implements Recycle
      * @param context Current context, will be used to access resources.
      */
     public WindowsLayoutManager(Context context) {
-        super(context, HORIZONTAL, false);
+        this(context, HORIZONTAL, false);
     }
 
 
@@ -51,6 +48,7 @@ public class WindowsLayoutManager extends LinearLayoutManager implements Recycle
      */
     public WindowsLayoutManager(Context context, int orientation, boolean reverseLayout) {
         super(context, orientation, reverseLayout);
+		mOrientationHelper = OrientationHelper.createHorizontalHelper(this);
 		}
 		
     @Override

@@ -60,7 +60,7 @@ public class WebContainerPlus {
 		if (activity == null) {
 			activity = activityTemp;
 			rv = MainViewBindUtils.getWebRecyclerView();
-			layoutManager = new WindowsLayoutManager();
+			layoutManager = new WindowsLayoutManager(activity);
 			layoutManager.setHeightScale(1);
 			layoutManager.setWidthScale(1);
 			layoutManager.setInfinite(true);
