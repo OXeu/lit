@@ -39,7 +39,7 @@ public class WindowsLayoutManager extends LinearLayoutManager implements Recycle
      * @param context Current context, will be used to access resources.
      */
     public WindowsLayoutManager(Context context) {
-        this(context, HORIZONTAL, false);
+        super(context, HORIZONTAL, false);
     }
 
 
