@@ -20,6 +20,8 @@ import java.util.Objects;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import com.zmide.lit.adapter.web.WebAdapter;
+import com.zmide.lit.helper.WindowsLayoutManager;
+import com.zmide.lit.helper.WindowsSnapHelper;
 
 public class WebContainerPlus {
 
@@ -49,18 +51,28 @@ public class WebContainerPlus {
 	
 	private static MainActivity activity;
 	private static RecyclerView rv ;
-	private static LinearLayoutManager layoutManager;
+	private static WindowsLayoutManager layoutManager;
 	private static WebAdapter adapter;
+
+	private static WindowsSnapHelper snapHelper;
 
 	public static void init(MainActivity activityTemp, Intent intent) {
 		if (activity == null) {
 			activity = activityTemp;
 			rv = MainViewBindUtils.getWebRecyclerView();
-			layoutManager = new LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false);
+			layoutManager = new WindowsLayoutManager();
+			layoutManager.setHeightScale(1);
+			layoutManager.setWidthScale(1);
+			layoutManager.setInfinite(true);
 			rv.setLayoutManager(layoutManager);
 			
 			adapter = new WebAdapter(activity);
 			rv.setAdapter(adapter);
+			
+			snapHelper = new WindowsSnapHelper();
+			snapHelper.setInfinite(true);
+			snapHelper.attachToRecyclerView(rv);
+			
 			//设置适配器
 			mWindowsInterface = activityTemp;
 		}
