@@ -31,6 +31,11 @@ public class WindowsLayoutManager extends RecyclerView.LayoutManager implements 
         mOrientationHelper = OrientationHelper.createHorizontalHelper(this);
     }
 
+	@Override
+	public boolean isAutoMeasureEnabled() {
+		return false;
+	}
+	
     @Override
     public RecyclerView.LayoutParams generateDefaultLayoutParams() {
         return new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT, RecyclerView.LayoutParams.WRAP_CONTENT);
