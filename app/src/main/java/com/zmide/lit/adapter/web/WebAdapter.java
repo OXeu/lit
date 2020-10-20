@@ -123,10 +123,12 @@ public class WebAdapter extends RecyclerView.Adapter<WebAdapter.MyViewHolder> {
 
 	public void createWindow(MWeb mweb) {
 		webs.add(mweb);
+		notifyDataSetChanged();
 	}
 
 	public void createWindow(int windowId, MWeb web) {
 		webs.add(windowId, web);
+		notifyDataSetChanged();
 	}
 
 
@@ -134,6 +136,7 @@ public class WebAdapter extends RecyclerView.Adapter<WebAdapter.MyViewHolder> {
 		try {
 			return webs.remove(position);
 		} catch (Exception e) {}
+		notifyDataSetChanged();
 		return null;
 	}
 
@@ -142,7 +145,9 @@ public class WebAdapter extends RecyclerView.Adapter<WebAdapter.MyViewHolder> {
 			int p = webs.indexOf(mweb);
 			return webs.remove(p);	
 		} catch (Exception e) {}
+		notifyDataSetChanged();
 		return null;
+		
 	}
 
 	public ArrayList<MWeb> getMWebs() {
