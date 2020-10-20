@@ -18,6 +18,7 @@ import com.zmide.lit.view.LitWebView;
 import java.util.ArrayList;
 import java.util.Objects;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.zmide.lit.adapter.web.WebAdapter;
 import com.zmide.lit.helper.WindowsLayoutManager;
@@ -51,7 +52,7 @@ public class WebContainerPlus {
 	
 	private static MainActivity activity;
 	private static RecyclerView rv ;
-	private static WindowsLayoutManager layoutManager;
+	private static LinearLayoutManager layoutManager;
 	private static WebAdapter adapter;
 
 	private static WindowsSnapHelper snapHelper;
@@ -60,10 +61,11 @@ public class WebContainerPlus {
 		if (activity == null) {
 			activity = activityTemp;
 			rv = MainViewBindUtils.getWebRecyclerView();
-			layoutManager = new WindowsLayoutManager();
-			layoutManager.setHeightScale(1);
-			layoutManager.setWidthScale(1);
-			layoutManager.setInfinite(true);
+//			layoutManager = new WindowsLayoutManager();
+//			layoutManager.setHeightScale(1);
+//			layoutManager.setWidthScale(1);
+//			layoutManager.setInfinite(true);
+			layoutManager = new LinearLayoutManager(activity);
 			rv.setLayoutManager(layoutManager);
 			
 			adapter = new WebAdapter(activity);
