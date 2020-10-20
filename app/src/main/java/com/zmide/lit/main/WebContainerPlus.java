@@ -53,7 +53,7 @@ public class WebContainerPlus {
 	
 	private static MainActivity activity;
 	private static RecyclerView rv ;
-	private static LinearLayoutManager layoutManager;
+	private static CtrlableLinearLayoutManager layoutManager;
 	private static WebAdapter adapter;
 
 	private static WindowsSnapHelper snapHelper;
@@ -257,8 +257,10 @@ public class WebContainerPlus {
 		mRecyclerView.smoothScrollToPosition(position);
     }
 
-	private static void switchWindow(int wid) {
+	public static void switchWindow(int wid) {
+		layoutManager.setCanHorizontalScroll(true);
 		smoothMoveToPosition(rv,wid);
+		layoutManager.setCanHorizontalScroll(false);
 	}
 
 
