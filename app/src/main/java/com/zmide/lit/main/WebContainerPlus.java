@@ -260,7 +260,7 @@ public class WebContainerPlus {
 	public static void switchWindow(int wid) {
 		layoutManager.setCanHorizontalScroll(true);
 		smoothMoveToPosition(rv,wid);
-		layoutManager.setCanHorizontalScroll(false);
+		//layoutManager.setCanHorizontalScroll(false);
 	}
 
 
