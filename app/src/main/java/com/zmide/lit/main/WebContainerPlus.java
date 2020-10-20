@@ -65,7 +65,7 @@ public class WebContainerPlus {
 //			layoutManager.setHeightScale(1);
 //			layoutManager.setWidthScale(1);
 //			layoutManager.setInfinite(true);
-			layoutManager = new LinearLayoutManager(activity);
+			layoutManager = new LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false);
 			rv.setLayoutManager(layoutManager);
 			
 			adapter = new WebAdapter(activity);
