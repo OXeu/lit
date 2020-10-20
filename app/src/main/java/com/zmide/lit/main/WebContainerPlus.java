@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.zmide.lit.adapter.web.WebAdapter;
 import com.zmide.lit.helper.WindowsLayoutManager;
 import com.zmide.lit.helper.WindowsSnapHelper;
+import com.zmide.lit.helper.CtrlableLinearLayoutManager;
 
 public class WebContainerPlus {
 
@@ -65,7 +66,7 @@ public class WebContainerPlus {
 //			layoutManager.setHeightScale(1);
 //			layoutManager.setWidthScale(1);
 //			layoutManager.setInfinite(true);
-			layoutManager = new LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false);
+			layoutManager = new CtrlableLinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false);
 			rv.setLayoutManager(layoutManager);
 			
 			adapter = new WebAdapter(activity);
