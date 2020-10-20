@@ -206,7 +206,8 @@ public class WebContainerPlus {
 	
 	public static int getWindowId() {
 		if (adapter.getItemCount() > 0){
-			int index =  layoutManager.getCurrentPosition();
+			//int index =  layoutManager.getCurrentPosition();
+			int index =  layoutManager.findFirstVisibleItemPosition();
 			if(index>0)
 				return index;
 		}else
