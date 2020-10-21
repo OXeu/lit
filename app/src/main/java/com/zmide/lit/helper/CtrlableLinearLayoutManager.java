@@ -24,7 +24,7 @@ public class CtrlableLinearLayoutManager extends LinearLayoutManager {
             return super.canScrollVertically();
         }
     }
-	*/
+	
 	
 	@Override
     public boolean canScrollHorizontally() {
@@ -35,7 +35,7 @@ public class CtrlableLinearLayoutManager extends LinearLayoutManager {
             return super.canScrollHorizontally();
         }
     }
-	
+	*/
 	
     public void setCanHorizontalScroll(boolean b){
         mCanVerticalScroll = b;
