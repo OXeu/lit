@@ -148,7 +148,7 @@ public class WebAdapter extends RecyclerView.Adapter<WebAdapter.MyViewHolder> {
 			int p = webs.indexOf(mweb);
 			
 			MWeb web =  webs.remove(p);	
-			vnotifyDataSetChanged();
+			notifyDataSetChanged();
 			return web;
 		} catch (Exception e) {}
 		notifyDataSetChanged();
