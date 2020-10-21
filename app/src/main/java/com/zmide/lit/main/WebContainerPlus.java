@@ -43,14 +43,14 @@ public class WebContainerPlus {
 	 ##通过分析WebContainer代码，使用静态类管理RecyclerView和其Adapter是最好的办法
 	 # 需要初始化
 	 # 滑动切换即按下解锁RecyclerView允许滑动，滑动，松手锁定滑动(自动对齐)
-	 
+
 	 #首页改造完成
-	 
+
 	 10.11任务
 	 完成获取WebView等WebContainerPlus的重构
 	 */
 	private static WindowsInterface mWindowsInterface;
-	
+
 	private static MainActivity activity;
 	private static RecyclerView rv ;
 	private static CtrlableLinearLayoutManager layoutManager;
@@ -68,40 +68,41 @@ public class WebContainerPlus {
 //			layoutManager.setInfinite(true);
 			layoutManager = new CtrlableLinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false);
 			rv.setLayoutManager(layoutManager);
-			
+
 			adapter = new WebAdapter(activity);
 			rv.setAdapter(adapter);
 			
+
 			snapHelper = new WindowsSnapHelper();
 			snapHelper.setInfinite(true);
 			snapHelper.attachToRecyclerView(rv);
-			
+
 			//设置适配器
 			mWindowsInterface = activityTemp;
 		}
 		if (intent != null)
-		initWebs(intent);
+			initWebs(intent);
 	}
-	
-	
+
+
 	//获取当前ViewHolder
 	public static WebAdapter.MyViewHolder getViewHolder(int position) {
-                    //得到要更新的item的view
+		//得到要更新的item的view
 		View view = rv.getLayoutManager().findViewByPosition(position);
-            if (null != rv.getChildViewHolder(view)) {
-                WebAdapter.MyViewHolder viewHolder = (WebAdapter.MyViewHolder) rv.getChildViewHolder(view);
-                //do something
-				return viewHolder;
-            }
-		
+		if (null != rv.getChildViewHolder(view)) {
+			WebAdapter.MyViewHolder viewHolder = (WebAdapter.MyViewHolder) rv.getChildViewHolder(view);
+			//do something
+			return viewHolder;
+		}
+
 		return null;
     }
-	
-	
+
+
 	public static WebAdapter.MyViewHolder getViewHolder() {
 		return getViewHolder(getWindowId());
     }
-	
+
 	public static MWeb getWindow(WebView webView) {
 		ArrayList<MWeb> mWebs = adapter.getMWebs();
 		for (MWeb mWeb : mWebs) {
@@ -120,8 +121,8 @@ public class WebContainerPlus {
 			return createWindow(MDataBaseSettingUtils.getSingleSetting(Diy.WEBPAGE), getWindowId());
 		}
 	}
-	
-	
+
+
 	public static LitWebView getWebView() {
 		return getWindow().getWebView();
 	}
@@ -129,12 +130,12 @@ public class WebContainerPlus {
 	public static LitWebView getWebView(MWeb mWeb) {
 		return mWeb.getWebView();
 	}
-	
+
 	public static MWeb createWindow(String url, boolean isOnTop) {
 		MWeb web = new MWeb(activity);
 		if (url != null && !Objects.equals(url, "")) {
 			web.getWebView().loadUrl(url);
-		}else{
+		} else {
 			web.getWebView().loadUrl(MDataBaseSettingUtils.getSingleSetting(Diy.WEBPAGE));
 		}
 		if (isOnTop) {
@@ -159,19 +160,19 @@ public class WebContainerPlus {
 	}
 
 	public static MWeb createWindow(WebView webView) {
-		
+
 		//包装裸露的WebView
 		MWeb web = new MWeb(activity, webView);
 		adapter.createWindow(web);
 		mWindowsInterface.onWindowsCountChanged(adapter.getItemCount());
 		return web;
 	}
-	
+
 	public static ArrayList<MWeb> getAllWindows() {
 		return adapter.getMWebs();
 	}
-	
-	
+
+
 	public static void resumeData() {
 		ArrayList<WebState> states = MWebStateSaveUtils.resumeAllStates();
 		if (states != null) {
@@ -184,7 +185,7 @@ public class WebContainerPlus {
 			}
 		}
 	}
-	
+
 	public static void removeWindow(int wid) {
 		if (wid < adapter.getItemCount()) {
 			MWebStateSaveUtils.deleteStates(adapter.getMWeb(wid).getCode());
@@ -204,15 +205,15 @@ public class WebContainerPlus {
 			mWindowsInterface.onWindowsCountChanged(adapter.getItemCount());
 		}
 	}
-	
+
 	public static int getWindowId() {
-		if (adapter.getItemCount() > 0){
+		if (adapter.getItemCount() > 0) {
 			//int index =  layoutManager.getCurrentPosition();
 			int index =  layoutManager.findFirstVisibleItemPosition();
-			if(index>0)
+			if (index > 0)
 				return index;
-		}else
-			createWindow(null,true);
+		} else
+			createWindow(null, true);
 		return 0;
 	}
 
@@ -224,8 +225,8 @@ public class WebContainerPlus {
 	public static String getUrl() {
 		return getWindow().getUrl();
 	}
-	
-	
+
+
 	public static boolean isIndex() {
 		return Objects.equals(getWebView().getUrl(), MDataBaseSettingUtils.getSingleSetting(Diy.WEBPAGE));
 	}
@@ -237,52 +238,73 @@ public class WebContainerPlus {
 	public static String getTitle() {
 		return getWebView().getTitle();
 	}
-	
-	/**
-     * 目标项是否在最后一个可见项之后
-     */
-    private boolean mShouldScroll;
-    /**
-     * 记录目标项位置
-     */
-    private int mToPosition;
+
+
 
     /**
      * 滑动到指定位置
      *
-     * @param mRecyclerView
+     * @param rv
      * @param position
      */
-    private static void smoothMoveToPosition(RecyclerView mRecyclerView, final int position) {
-		mRecyclerView.smoothScrollToPosition(position);
+    private static void smoothMoveToPosition(RecyclerView rv, final int position) {
+		//目标项是否在最后一个可见项之后
+		boolean mShouldScroll;
+		//记录目标项位置
+		int mToPosition;
+
+
+		// 第一个可见位置
+        int firstItem = rv.getChildLayoutPosition(rv.getChildAt(0));
+        // 最后一个可见位置
+        int lastItem = rv.getChildLayoutPosition(rv.getChildAt(rv.getChildCount() - 1));
+
+        if (position < firstItem) {
+            // 如果跳转位置在第一个可见位置之前，就smoothScrollToPosition可以直接跳转
+            rv.smoothScrollToPosition(position);
+        } else if (position <= lastItem) {
+            // 跳转位置在第一个可见项之后，最后一个可见项之前
+            // smoothScrollToPosition根本不会动，此时调用smoothScrollBy来滑动到指定位置
+            int movePosition = position - firstItem;
+            if (movePosition >= 0 && movePosition < rv.getChildCount()) {
+                int top = rv.getChildAt(movePosition).getTop();
+                rv.smoothScrollBy(0, top);
+            }
+        } else {
+            // 如果要跳转的位置在最后可见项之后，则先调用smoothScrollToPosition将要跳转的位置滚动到可见位置
+            // 再通过onScrollStateChanged控制再次调用smoothMoveToPosition，执行上一个判断中的方法
+            rv.smoothScrollToPosition(position);
+            mToPosition = position;
+            mShouldScroll = true;
+        }
     }
 
 	public static void switchWindow(int wid) {
 		layoutManager.setCanHorizontalScroll(true);
-		smoothMoveToPosition(rv,wid);
+		smoothMoveToPosition(rv, wid);
 		//layoutManager.setCanHorizontalScroll(false);
 	}
 
 
 	public static void changeWindow(int wid) {
-		if(getWindowId() >= getWindowCount() - 1 && wid == 1)//最后一个页面,且向后滑
+		if (getWindowId() >= getWindowCount() - 1 && wid == 1)//最后一个页面,且向后滑
 			switchWindow(0);
-		else if(getWindowId() <= 0 && wid == -1)//第一个页面,且向前滑
+		else if (getWindowId() <= 0 && wid == -1)//第一个页面,且向前滑
 			switchWindow(getWindowCount() - 1);
 		else
 			switchWindow(getWindowId() + wid);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
+
+
+
+
 
 	//初始化窗口，用于首次启动初始化
 	//参数 外部打开链接的 Intent 参数
@@ -303,30 +325,30 @@ public class WebContainerPlus {
 		}
 		if (url != null) {
 			if (intent.getBooleanExtra("ifNew", true))
-			createWindow(url, true);
+				createWindow(url, true);
 			else
-			loadUrl(url);
+				loadUrl(url);
 		}
-		if (adapter.getItemCount()==0) {
+		if (adapter.getItemCount() == 0) {
 			createWindow(null, true);
 			//WebEnvironment.refreshFrame();
 			WindowsManager.hideWindows();
 		}
 	}
 
-	
-	
-
-	
 
 
-	
 
-	
-	
 
-	
-	
+
+
+
+
+
+
+
+
+
 	/* 1 2 3 4 5 6 7   4->6 size=7 , expectId=6 ,7-1<6不成立，正常
 	 * 0 1 2 3 4 5 6   //检验
 	 * 1 2 3 5 6 7
