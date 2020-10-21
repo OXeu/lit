@@ -97,7 +97,7 @@ public class WebAdapter extends RecyclerView.Adapter<WebAdapter.MyViewHolder> {
 
 
 		//初始化首页
-		IndexEnvironment.start(viewHolder);
+		
 
 		//绑定View
 		View view = web.getView();
@@ -105,6 +105,7 @@ public class WebAdapter extends RecyclerView.Adapter<WebAdapter.MyViewHolder> {
 			if (view.getParent() == null) {
 				viewHolder.mFrame.removeAllViews();
 				viewHolder.mFrame.addView(view);
+				IndexEnvironment.start(viewHolder);
 			}
 		}
 	}
@@ -134,16 +135,21 @@ public class WebAdapter extends RecyclerView.Adapter<WebAdapter.MyViewHolder> {
 
 	public MWeb removeWindow(int position) {
 		try {
-			return webs.remove(position);
+			MWeb web = webs.remove(position);
+			notifyDataSetChanged();
+			return web;
 		} catch (Exception e) {}
-		notifyDataSetChanged();
+		
 		return null;
 	}
 
 	public MWeb removeWindow(MWeb mweb) {
 		try {
 			int p = webs.indexOf(mweb);
-			return webs.remove(p);	
+			
+			MWeb web =  webs.remove(p);	
+			vnotifyDataSetChanged();
+			return web;
 		} catch (Exception e) {}
 		notifyDataSetChanged();
 		return null;
