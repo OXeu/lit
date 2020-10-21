@@ -4,6 +4,7 @@ package com.zmide.lit.helper;
 
 import android.content.Context;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import android.util.Log;
 
 public class CtrlableLinearLayoutManager extends LinearLayoutManager {
     private boolean mCanVerticalScroll = true;
@@ -23,9 +24,11 @@ public class CtrlableLinearLayoutManager extends LinearLayoutManager {
             return super.canScrollVertically();
         }
     }
+	*/
 	
 	@Override
     public boolean canScrollHorizontally() {
+		Log.d("canScroll",mCanHorizontalScroll+"");
         if (!mCanHorizontalScroll){
             return false;
         }else {
@@ -33,7 +36,7 @@ public class CtrlableLinearLayoutManager extends LinearLayoutManager {
         }
     }
 	
-	*/
+	
     public void setCanHorizontalScroll(boolean b){
         mCanVerticalScroll = b;
     }
