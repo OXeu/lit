@@ -268,7 +268,7 @@ public class WebContainerPlus {
             int movePosition = position - firstItem;
             if (movePosition >= 0 && movePosition < rv.getChildCount()) {
                 int top = rv.getChildAt(movePosition).getTop();
-                rv.smoothScrollBy(0, top);
+                rv.smoothScrollBy(20, top);
             }
         } else {
             // 如果要跳转的位置在最后可见项之后，则先调用smoothScrollToPosition将要跳转的位置滚动到可见位置
@@ -282,7 +282,6 @@ public class WebContainerPlus {
 	public static void switchWindow(int wid) {
 		layoutManager.setCanHorizontalScroll(true);
 		smoothMoveToPosition(rv, wid);
-		rv.scrollBy(1,0);
 		//layoutManager.setCanHorizontalScroll(false);
 	}
 
