@@ -105,6 +105,7 @@ public class WebAdapter extends RecyclerView.Adapter<WebAdapter.MyViewHolder> {
 			if (view.getParent() == null) {
 				viewHolder.mFrame.removeAllViews();
 				viewHolder.mFrame.addView(view);
+				viewHolder.webframeTitle.setText(web.getUrl());
 				IndexEnvironment.start(viewHolder);
 			}
 		}
@@ -176,16 +177,17 @@ public class WebAdapter extends RecyclerView.Adapter<WebAdapter.MyViewHolder> {
 	}
 
 	//自定义的ViewHolder，持有item的所有控件
-	public static class MyViewHolder extends RecyclerView.ViewHolder {
-		private static FrameLayout mFrame;
+	public class MyViewHolder extends RecyclerView.ViewHolder {
+		private FrameLayout mFrame;
 		@SuppressLint("StaticFieldLeak")
-		private static ImageView mIndexWallpaper;
+		private ImageView mIndexWallpaper;
 		@SuppressLint("StaticFieldLeak")
-		private static RelativeLayout mIndexParent;
+		private RelativeLayout mIndexParent;
 		@SuppressLint("StaticFieldLeak")
-		private static RelativeLayout mIndexSearchBar;
+		private RelativeLayout mIndexSearchBar;
 		@SuppressLint("StaticFieldLeak")
-		private static TextView mIndexTitle;
+		private TextView webframeTitle;
+		private TextView mIndexTitle;
 		public MyViewHolder(View view) {
 			super(view);
 			mFrame = view.findViewById(R.id.mainFrame);
@@ -193,25 +195,26 @@ public class WebAdapter extends RecyclerView.Adapter<WebAdapter.MyViewHolder> {
 			mIndexWallpaper = view.findViewById(R.id.indexWallpaper);
 			mIndexSearchBar = view.findViewById(R.id.indexSearchBar);
 			mIndexTitle = view.findViewById(R.id.indexTitle);
+			webframeTitle = view.findViewById(R.id.webframeTitle);
 		}
 
-		public static ImageView getIndexWallpaper() {
+		public ImageView getIndexWallpaper() {
 			return mIndexWallpaper;
 		}
 
-		public static RelativeLayout getIndexParent() {
+		public RelativeLayout getIndexParent() {
 			return mIndexParent;
 		}
 
-		public static RelativeLayout getIndexSearchBar() {
+		public RelativeLayout getIndexSearchBar() {
 			return mIndexSearchBar;
 		}
 
-		public static TextView getIndexTitle() {
+		public TextView getIndexTitle() {
 			return mIndexTitle;
 		}
 
-		public static FrameLayout getWebFrame() {
+		public FrameLayout getWebFrame() {
 			return mFrame;
 		}
 	}

@@ -10,9 +10,17 @@
 		android:background="@color/bgcolor"
 		android:id="@+id/mainFrame">
 
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Large Text"
+			android:textAppearance="?android:attr/textAppearanceLarge"
+			android:id="@+id/webframeTitle"/>
+
 	</FrameLayout>
 
-	<include layout="@layout/index" />
-		
+	<include
+		layout="@layout/index"/>
+
 </RelativeLayout>
 
