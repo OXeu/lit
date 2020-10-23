@@ -200,6 +200,11 @@ public class LitWebView extends WebView {
 		}
 		return true;
 	}
+
+	@Override
+	public boolean onInterceptTouchEvent(MotionEvent ev) {
+		return true;
+	}
 	
 	public interface OnScrollChangeListener {
 		
