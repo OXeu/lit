@@ -54,7 +54,7 @@ public class WebContainerPlus {
 
 	private static MainActivity activity;
 	private static RecyclerView rv ;
-	private static WindowsLayoutManager layoutManager;
+	private static CtrlableLinearLayoutManager layoutManager;
 	private static WebAdapter adapter;
 
 	private static PagerSnapHelper snapHelper;
@@ -63,11 +63,11 @@ public class WebContainerPlus {
 		if (activity == null) {
 			activity = activityTemp;
 			rv = MainViewBindUtils.getWebRecyclerView();
-			layoutManager = new WindowsLayoutManager();
-			layoutManager.setHeightScale(1);
-			layoutManager.setWidthScale(1);
-			layoutManager.setInfinite(true);
-			//layoutManager = new CtrlableLinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false);
+//			layoutManager = new WindowsLayoutManager();
+//			layoutManager.setHeightScale(1);
+//			layoutManager.setWidthScale(1);
+//			layoutManager.setInfinite(true);
+			layoutManager = new CtrlableLinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false);
 			rv.setLayoutManager(layoutManager);
 
 			adapter = new WebAdapter(activity);
@@ -87,6 +87,10 @@ public class WebContainerPlus {
 		}
 		if (intent != null)
 			initWebs(intent);
+	}
+	
+	public static CtrlableLinearLayoutManager getLayoutManager(){
+		return layoutManager;
 	}
 
 
@@ -213,8 +217,8 @@ public class WebContainerPlus {
 
 	public static int getWindowId() {
 		if (adapter.getItemCount() > 0) {
-			int index =  layoutManager.getCurrentPosition();
-			//int index =  layoutManager.findFirstVisibleItemPosition();
+			//int index =  layoutManager.getCurrentPosition();
+			int index =  layoutManager.findFirstVisibleItemPosition();
 			if (index > 0)
 				return index;
 		} else
@@ -285,7 +289,7 @@ public class WebContainerPlus {
     }
 
 	public static void switchWindow(int wid) {
-		//layoutManager.setCanHorizontalScroll(true);
+		layoutManager.setCanHorizontalScroll(true);
 		smoothMoveToPosition(rv, wid);
 		rv.smoothScrollBy(20, 0);
 		//layoutManager.setCanHorizontalScroll(false);

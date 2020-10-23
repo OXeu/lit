@@ -20,6 +20,9 @@ import com.zmide.lit.main.bottom.FunctionalBottomBar;
 import com.zmide.lit.main.bottom.SimplifyBottomBar;
 import android.content.Context;
 import android.app.Activity;
+import android.widget.RelativeLayout;
+import android.view.View.OnTouchListener;
+import android.view.MotionEvent;
 
 public class MWeb {
 	public int sid;
@@ -152,6 +155,13 @@ public class MWeb {
 		return null;
 	}
 	
+	public RelativeLayout getBtParent() {
+		if (view != null) {
+			return view.findViewById(R.id.bt_bar);
+		}
+		return null;
+	}
+	
 	private void initWebView(LitWebView litWebView, String url) {
 	
 	}
@@ -163,6 +173,18 @@ public class MWeb {
 	}
 	
 	public void initBtBar(){
+		getBtParent().setOnTouchListener(new OnTouchListener(){
+
+				@Override
+				public boolean onTouch(View view, MotionEvent event) {
+					if (event.getAction() == MotionEvent.ACTION_DOWN) {//如果是按下的话
+						WebContainerPlus.getLayoutManager().setCanHorizontalScroll(true);//设置Recyclerview无法滚动
+					} else if (event.getAction() == MotionEvent.ACTION_UP) {//如果是抬起的话
+						WebContainerPlus.getLayoutManager().setCanHorizontalScroll(false);//设置Recyclerview可以滚动
+					}
+					return false;
+				}
+			});
 		String type = MSharedPreferenceUtils.getSharedPreference().getString("bt_bar","0");
 		switch(type){
 			case "0"://经典底栏
