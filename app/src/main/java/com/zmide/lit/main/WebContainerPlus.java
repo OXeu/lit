@@ -93,8 +93,7 @@ public class WebContainerPlus {
 	//获取当前ViewHolder
 	public static WebAdapter.MyViewHolder getViewHolder(int position) {
 		//得到要更新的item的view
-		View view = rv.getLayoutManager().getCurrentPosition();
-		//View view = rv.getLayoutManager().findViewByPosition(position);
+		View view = rv.getLayoutManager().findViewByPosition(position);
 		if (null != rv.getChildViewHolder(view)) {
 			WebAdapter.MyViewHolder viewHolder = (WebAdapter.MyViewHolder) rv.getChildViewHolder(view);
 			//do something
@@ -214,8 +213,8 @@ public class WebContainerPlus {
 
 	public static int getWindowId() {
 		if (adapter.getItemCount() > 0) {
-			//int index =  layoutManager.getCurrentPosition();
-			int index =  layoutManager.findFirstVisibleItemPosition();
+			int index =  layoutManager.getCurrentPosition();
+			//int index =  layoutManager.findFirstVisibleItemPosition();
 			if (index > 0)
 				return index;
 		} else
