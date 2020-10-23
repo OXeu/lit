@@ -54,7 +54,7 @@ public class WebContainerPlus {
 
 	private static MainActivity activity;
 	private static RecyclerView rv ;
-	private static CtrlableLinearLayoutManager layoutManager;
+	private static WindowsLayoutManager layoutManager;
 	private static WebAdapter adapter;
 
 	private static PagerSnapHelper snapHelper;
@@ -63,11 +63,11 @@ public class WebContainerPlus {
 		if (activity == null) {
 			activity = activityTemp;
 			rv = MainViewBindUtils.getWebRecyclerView();
-//			layoutManager = new WindowsLayoutManager();
-//			layoutManager.setHeightScale(1);
-//			layoutManager.setWidthScale(1);
-//			layoutManager.setInfinite(true);
-			layoutManager = new CtrlableLinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false);
+			layoutManager = new WindowsLayoutManager();
+			layoutManager.setHeightScale(1);
+			layoutManager.setWidthScale(1);
+			layoutManager.setInfinite(true);
+			//layoutManager = new CtrlableLinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false);
 			rv.setLayoutManager(layoutManager);
 
 			adapter = new WebAdapter(activity);
