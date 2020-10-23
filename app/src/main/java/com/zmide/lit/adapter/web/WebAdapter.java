@@ -102,12 +102,12 @@ public class WebAdapter extends RecyclerView.Adapter<WebAdapter.MyViewHolder> {
 		//绑定View
 		View view = web.getView();
 		if (view != null) {
-			if (view.getParent() == null) {
-				viewHolder.mFrame.removeAllViews();
-				viewHolder.mFrame.addView(view);
-				viewHolder.webframeTitle.setText(web.getUrl());
+			if (view.getParent() != null) {
+				((ViewGroup) view.getParent()).removeView(view);
 				IndexEnvironment.start(viewHolder);
 			}
+			viewHolder.mFrame.removeAllViews();
+			viewHolder.mFrame.addView(view);
 		}
 	}
 
@@ -186,7 +186,6 @@ public class WebAdapter extends RecyclerView.Adapter<WebAdapter.MyViewHolder> {
 		@SuppressLint("StaticFieldLeak")
 		private RelativeLayout mIndexSearchBar;
 		@SuppressLint("StaticFieldLeak")
-		private TextView webframeTitle;
 		private TextView mIndexTitle;
 		public MyViewHolder(View view) {
 			super(view);
@@ -195,7 +194,6 @@ public class WebAdapter extends RecyclerView.Adapter<WebAdapter.MyViewHolder> {
 			mIndexWallpaper = view.findViewById(R.id.indexWallpaper);
 			mIndexSearchBar = view.findViewById(R.id.indexSearchBar);
 			mIndexTitle = view.findViewById(R.id.indexTitle);
-			webframeTitle = view.findViewById(R.id.webframeTitle);
 		}
 
 		public ImageView getIndexWallpaper() {
