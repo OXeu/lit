@@ -39,10 +39,10 @@ public class CtrlableLinearLayoutManager extends LinearLayoutManager {
 	
 	
     public void setCanHorizontalScroll(boolean b){
-        mCanVerticalScroll = b;
+        mCanHorizontalScroll = b;
     }
 	public void setCanVerticalScroll(boolean b){
-        mCanHorizontalScroll = b;
+        mCanVerticalScroll = b;
     }
 }
 
