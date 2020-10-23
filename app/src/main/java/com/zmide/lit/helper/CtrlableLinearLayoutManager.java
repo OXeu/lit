@@ -9,7 +9,7 @@ import android.util.Log;
 public class CtrlableLinearLayoutManager extends LinearLayoutManager {
     private boolean mCanVerticalScroll = true;
 
-	private boolean mCanHorizontalScroll = true;;
+	private boolean mCanHorizontalScroll = false;;
 
     public CtrlableLinearLayoutManager(Context context,int direction,boolean b) {
         super(context,direction,b);
