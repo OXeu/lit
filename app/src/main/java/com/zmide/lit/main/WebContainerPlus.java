@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.PagerSnapHelper;
 
 import com.zmide.lit.adapter.web.WebAdapter;
 import com.zmide.lit.helper.WindowsLayoutManager;
@@ -72,9 +73,13 @@ public class WebContainerPlus {
 			adapter = new WebAdapter(activity);
 			rv.setAdapter(adapter);
 			
-
-			snapHelper = new WindowsSnapHelper();
-			snapHelper.setInfinite(true);
+			
+			//有问题     00000000000000000000000000000000
+			//0000000000000000000000000000
+			//0000000000000000000000000000
+			//0000000000000000000000000000
+			//0000000000000000000000000000
+			snapHelper = new PagerSnapHelper();
 			snapHelper.attachToRecyclerView(rv);
 
 			//设置适配器
