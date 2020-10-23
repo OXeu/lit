@@ -185,7 +185,7 @@ public class MWeb {
 						MToastUtils.makeText("抬起");
 						WebContainerPlus.getLayoutManager().setCanHorizontalScroll(false);//设置Recyclerview可以滚动
 					}
-					return false;
+					return true;
 				}
 			});
 		String type = MSharedPreferenceUtils.getSharedPreference().getString("bt_bar","0");
