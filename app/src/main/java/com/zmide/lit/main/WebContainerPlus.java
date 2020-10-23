@@ -57,7 +57,7 @@ public class WebContainerPlus {
 	private static CtrlableLinearLayoutManager layoutManager;
 	private static WebAdapter adapter;
 
-	private static WindowsSnapHelper snapHelper;
+	private static PagerSnapHelper snapHelper;
 
 	public static void init(MainActivity activityTemp, Intent intent) {
 		if (activity == null) {
