@@ -24,6 +24,7 @@ import android.widget.RelativeLayout;
 import android.view.View.OnTouchListener;
 import android.view.MotionEvent;
 import com.zmide.lit.util.MToastUtils;
+import android.util.Log;
 
 public class MWeb {
 	public int sid;
@@ -178,6 +179,7 @@ public class MWeb {
 
 				@Override
 				public boolean onTouch(View view, MotionEvent event) {
+					Log.i("action",event.getAction()+"");
 					if (event.getAction() == MotionEvent.ACTION_DOWN) {//如果是按下的话
 					MToastUtils.makeText("按下").show();						WebContainerPlus.getLayoutManager().setCanHorizontalScroll(true);//设置Recyclerview无法滚动
 					} else if (event.getAction() == MotionEvent.ACTION_UP||event.getAction()==MotionEvent.ACTION_CANCEL) {//如果是抬起的话
