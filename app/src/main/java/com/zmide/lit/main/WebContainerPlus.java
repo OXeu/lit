@@ -93,7 +93,8 @@ public class WebContainerPlus {
 	//获取当前ViewHolder
 	public static WebAdapter.MyViewHolder getViewHolder(int position) {
 		//得到要更新的item的view
-		View view = rv.getLayoutManager().findViewByPosition(position);
+		View view = rv.getLayoutManager().getCurrentPosition();
+		//View view = rv.getLayoutManager().findViewByPosition(position);
 		if (null != rv.getChildViewHolder(view)) {
 			WebAdapter.MyViewHolder viewHolder = (WebAdapter.MyViewHolder) rv.getChildViewHolder(view);
 			//do something
@@ -285,7 +286,7 @@ public class WebContainerPlus {
     }
 
 	public static void switchWindow(int wid) {
-		layoutManager.setCanHorizontalScroll(true);
+		//layoutManager.setCanHorizontalScroll(true);
 		smoothMoveToPosition(rv, wid);
 		rv.smoothScrollBy(20, 0);
 		//layoutManager.setCanHorizontalScroll(false);
