@@ -7,7 +7,7 @@ import com.zmide.lit.base.MApplication;
 
 public class TouchableRelativeLayout extends RelativeLayout {
 
-	public TouchableRelativeLayout(Context context){
+	public TouchableRelativeLayout(Context context) {
 		super(context);
 	}
 
@@ -18,27 +18,14 @@ public class TouchableRelativeLayout extends RelativeLayout {
 	public TouchableRelativeLayout(Context context, AttributeSet attrs, int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
 	}
-	
+
 
 	@Override
 	public boolean dispatchTouchEvent(MotionEvent event) {
-		int action = event.getAction();
-        switch (action) {
-            case MotionEvent.ACTION_DOWN:
-                //不允许父View拦截事件
-                getParent().requestDisallowInterceptTouchEvent(true);
-                break;
-            case MotionEvent.ACTION_MOVE:
-                getParent().requestDisallowInterceptTouchEvent(true);
-                break;
-            case MotionEvent.ACTION_UP:
-            case MotionEvent.ACTION_CANCEL:
-                getParent().requestDisallowInterceptTouchEvent(false);
-                break;
-        }
-        return super.onTouchEvent(event);
+		getParent().requestDisallowInterceptTouchEvent(false);
+        return super.dispatchTouchEvent(event);
 	}
-    
-	
-    
+
+
+
 }
