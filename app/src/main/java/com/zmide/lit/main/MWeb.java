@@ -180,6 +180,7 @@ public class MWeb {
 
 				@Override
 				public boolean onTouch(View view, MotionEvent event) {
+					view.getParent().requestDisallowInterceptTouchEvent(true);
 					RecyclerView rv = MainViewBindUtils.getWebRecyclerView();
 					Log.i("action",event.getAction()+"");
 					switch (event.getAction()){
