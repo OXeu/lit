@@ -6,7 +6,7 @@ import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.webkit.WebView;
-
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.zmide.lit.R;
@@ -180,12 +180,19 @@ public class MWeb {
 
 				@Override
 				public boolean onTouch(View view, MotionEvent event) {
+					RecyclerView rv = MainViewBindUtils.getWebRecyclerView();
 					Log.i("action",event.getAction()+"");
-					if (event.getAction() == MotionEvent.ACTION_DOWN) {//如果是按下的话
+					switch (event.getAction()){
+						case MotionEvent.ACTION_DOWN://如果是按下的话
 					MToastUtils.makeText("按下").show();						WebContainerPlus.getLayoutManager().setCanHorizontalScroll(true);//设置Recyclerview无法滚动
-					} else if (event.getAction() == MotionEvent.ACTION_UP) {//如果是抬起的话
+					break;
+					case MotionEvent.ACTION_MOVE:
+						rv.onTouchEvent(event);
+						break;
+					case MotionEvent.ACTION_UP ://如果是抬起的话
 						MToastUtils.makeText("抬起").show();
 						WebContainerPlus.getLayoutManager().setCanHorizontalScroll(false);//设置Recyclerview可以滚动
+						break;
 					}
 					return true;
 				}
