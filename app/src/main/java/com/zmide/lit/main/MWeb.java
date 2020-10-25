@@ -182,20 +182,7 @@ public class MWeb {
 				public boolean onTouch(View view, MotionEvent event) {
 					view.getParent().requestDisallowInterceptTouchEvent(true);
 					RecyclerView rv = MainViewBindUtils.getWebRecyclerView();
-					Log.i("action",event.getAction()+"");
-					switch (event.getAction()){
-						case MotionEvent.ACTION_DOWN://如果是按下的话
-					MToastUtils.makeText("按下").show();		
-					break;
-					case MotionEvent.ACTION_MOVE:
-						rv.onTouchEvent(event);
-						break;
-
-					case MotionEvent.ACTION_UP ://如果是抬起的话
-						MToastUtils.makeText("抬起").show();
-						WebContainerPlus.getLayoutManager().setCanHorizontalScroll(false);//设置Recyclerview可以滚动
-						break;
-					}
+					
 					rv.onTouchEvent(event);
 					return true;
 				}
