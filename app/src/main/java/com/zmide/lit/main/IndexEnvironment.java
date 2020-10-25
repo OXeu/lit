@@ -199,8 +199,10 @@ public class IndexEnvironment {
 	}
 	
 	public static void start(WebAdapter.MyViewHolder viewholder){
+		if(viewholder ==null){
 		holder = viewholder;
 		initIndex();
 		MSharedPreferenceUtils.getSharedPreference().registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);
+		}
 	}
 }

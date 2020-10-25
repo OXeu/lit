@@ -17,7 +17,7 @@
 
 	</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-	<RelativeLayout
+	<com.zmide.lit.view.TouchableRelativeLayout
 		android:id="@+id/bt_bar"
 		android:layout_width="match_parent"
 		android:layout_height="48dp"

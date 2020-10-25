@@ -25,6 +25,7 @@ import android.view.View.OnTouchListener;
 import android.view.MotionEvent;
 import com.zmide.lit.util.MToastUtils;
 import android.util.Log;
+import com.zmide.lit.view.TouchableRelativeLayout;
 
 public class MWeb {
 	public int sid;
@@ -157,7 +158,7 @@ public class MWeb {
 		return null;
 	}
 	
-	public RelativeLayout getBtParent() {
+	public TouchableRelativeLayout getBtParent() {
 		if (view != null) {
 			return view.findViewById(R.id.bt_bar);
 		}
@@ -182,12 +183,13 @@ public class MWeb {
 					Log.i("action",event.getAction()+"");
 					if (event.getAction() == MotionEvent.ACTION_DOWN) {//如果是按下的话
 					MToastUtils.makeText("按下").show();						WebContainerPlus.getLayoutManager().setCanHorizontalScroll(true);//设置Recyclerview无法滚动
-					} else if (event.getAction() == MotionEvent.ACTION_UP||event.getAction()==MotionEvent.ACTION_CANCEL) {//如果是抬起的话
+					} else if (event.getAction() == MotionEvent.ACTION_UP) {//如果是抬起的话
 						MToastUtils.makeText("抬起").show();
 						WebContainerPlus.getLayoutManager().setCanHorizontalScroll(false);//设置Recyclerview可以滚动
 					}
 					return true;
 				}
+				
 			});
 		String type = MSharedPreferenceUtils.getSharedPreference().getString("bt_bar","0");
 		switch(type){

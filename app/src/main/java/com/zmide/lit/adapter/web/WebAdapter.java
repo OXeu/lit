@@ -105,7 +105,7 @@ public class WebAdapter extends RecyclerView.Adapter<WebAdapter.MyViewHolder> {
 			if (view.getParent() != null) {
 				((ViewGroup) view.getParent()).removeView(view);
 			} else {
-				IndexEnvironment.start(viewHolder);
+				IndexEnvironment.init(viewHolder);
 			}
 			viewHolder.mFrame.removeAllViews();
 			viewHolder.mFrame.addView(view);
