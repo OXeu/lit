@@ -199,7 +199,7 @@ public class IndexEnvironment {
 	}
 	
 	public static void start(WebAdapter.MyViewHolder viewholder){
-		if(viewholder ==null){
+		if(holder == null){
 		holder = viewholder;
 		initIndex();
 		MSharedPreferenceUtils.getSharedPreference().registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);
