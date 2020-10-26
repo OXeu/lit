@@ -17,7 +17,7 @@ public class FloatMemoryObserver {
     private Runnable runnable = new Runnable() {
         public void run() {
             update();
-            handler.postDelayed(this, 1000 * 120);// 间隔120秒
+            handler.postDelayed(this, 1000);// 间隔1秒
         }
     };
 
@@ -48,9 +48,9 @@ public class FloatMemoryObserver {
 		// 添加视图
 		contentView.addView(floatView);
 		FrameLayout.LayoutParams lm = (FrameLayout.LayoutParams)floatView.getLayoutParams();
-		lm.setMargins(50, 50, 50, 50);
+		lm.setMargins(50, 80, 50, 50);
 		floatView.setLayoutParams(lm);
-		handler.postDelayed(runnable,floatView,1000);
+		handler.postDelayed(runnable,1000);
 		// 添加动画
 		//floatView.startAnimation(AnimationUtils.loadAnimation(floatView.getContext(), R.anim.anim));
 	}
