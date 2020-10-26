@@ -45,9 +45,9 @@ public class FloatMemoryObserver {
 		floatView = LayoutInflater.from(activity).inflate(R.layout.float_memory, null);
 		// 添加视图
 		contentView.addView(floatView);
-		LinearLayout.LayoutParams lm = (LinearLayout.LayoutParams)floatView.getLayoutParams();
-		lm.setMargins(50, 50, 50, 50);
-		floatView.setLayoutParams(lm);
+		//LinearLayout.LayoutParams lm = (LinearLayout.LayoutParams)floatView.getLayoutParams();
+		//lm.setMargins(50, 50, 50, 50);
+		//floatView.setLayoutParams(lm);
 		handler.postDelayed(runnable,floatView,1000);
 		// 添加动画
 		//floatView.startAnimation(AnimationUtils.loadAnimation(floatView.getContext(), R.anim.anim));
