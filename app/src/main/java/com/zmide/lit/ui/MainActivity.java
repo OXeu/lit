@@ -85,7 +85,13 @@ public class MainActivity extends BaseActivity implements WindowsInterface {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		MExceptionUtils.init(this);
-		
+		boolean memory = "true".equals(MSharedPreferenceUtils.getSharedPreference().getString("memory","false"));
+		if(memory){
+			FloatMemoryObserver.start(MainActivity.this);
+		}
+		else{
+			FloatMemoryObserver.end();
+		}
 		Chiper.init(this);
 
 		StatusEnvironment.init(MainActivity.this);
