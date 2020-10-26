@@ -110,6 +110,7 @@ public class SettingChildActivity extends BaseActivity {
 					new SettingChild("反转手势", "反转小球前进后退手势", new String[]{""}, "isChangeGesture", "false", null, SettingChild.SWITCH),
 					new SettingChild("检测更新", "进入应用进行检测更新", new String[]{""}, "is_check_update", "true", null, SettingChild.SWITCH),
 					new SettingChild("调试模式", "异常时显示完整错误", new String[]{""}, "debug", "false", null, SettingChild.SWITCH),
+					new SettingChild("性能监测", "监测应用内存使用情况", new String[]{""}, "memory", "false", null, SettingChild.SWITCH),
                 };
 				break;
 			case Mode.BACKUP:

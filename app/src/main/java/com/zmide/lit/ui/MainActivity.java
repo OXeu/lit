@@ -51,6 +51,7 @@ import static com.zmide.lit.main.MainViewBindUtils.getBallCardView;
 import static com.zmide.lit.main.MainViewBindUtils.getBallText;
 import static com.zmide.lit.main.MainViewBindUtils.getWebRecyclerView;
 import com.zmide.lit.main.WebContainerPlus;
+import com.zmide.lit.windows.FloatMemoryObserver;
 
 
 public class MainActivity extends BaseActivity implements WindowsInterface {
@@ -153,6 +154,16 @@ public class MainActivity extends BaseActivity implements WindowsInterface {
 	private SharedPreferences.OnSharedPreferenceChangeListener sharedPreferenceChangeListener = (sharedPreferences, key) -> {
 		MThemeConfig();
 		initRendering();
+		if("memory".equals(key)){
+			//性能监测
+			boolean memory = "true".equals(MSharedPreferenceUtils.getSharedPreference().getString("memory","false"));
+			if(memory){
+				FloatMemoryObserver.start(MainActivity.this);
+			}
+			else{
+				FloatMemoryObserver.end();
+			}
+		}
 	};
 	
 	
