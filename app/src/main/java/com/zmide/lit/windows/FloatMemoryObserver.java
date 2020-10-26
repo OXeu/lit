@@ -63,7 +63,7 @@ public class FloatMemoryObserver {
     
 	
 	private String getMemoryInfo(){
-		ActivityManager activityManager = (ActivityManager) activity.getSystemService(ACTIVITY_SERVICE);
+		ActivityManager activityManager = (ActivityManager) activity.getSystemService(Activity.ACTIVITY_SERVICE);
         //最大分配内存
         int memory = activityManager.getMemoryClass();
         String text = "memory: "+memory;
