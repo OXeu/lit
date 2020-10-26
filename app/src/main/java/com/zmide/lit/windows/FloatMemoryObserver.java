@@ -36,6 +36,7 @@ public class FloatMemoryObserver {
 	}
 
 	private void close() {
+		if(floatView != null && contentView != null)
 		contentView.removeView(floatView);
 	}
 	
