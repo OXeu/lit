@@ -107,7 +107,7 @@ public class FloatMemoryObserver {
 
                 String others_mem = memInfo[0].getMemoryStat("summary.system");
 
-                final int dalvikPss = convertToInt(java_mem,0)
+                int dalvikPss = convertToInt(java_mem,0)
 					+ convertToInt(native_mem,0)
 					+ convertToInt(graphics_mem,0)
 					+ convertToInt(stack_mem,0)
