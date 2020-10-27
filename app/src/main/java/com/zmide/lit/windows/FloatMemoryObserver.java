@@ -89,7 +89,7 @@ public class FloatMemoryObserver {
         try {
             // 统计进程的内存信息 totalPss
 			ActivityManager mActivityManager = (ActivityManager) activity.getSystemService(Context.ACTIVITY_SERVICE);
-            final Debug.MemoryInfo[] memInfo = mActivityManager.getProcessMemoryInfo(new int[]{android.os.Process.myPid()});
+            Debug.MemoryInfo[] memInfo = mActivityManager.getProcessMemoryInfo(new int[]{android.os.Process.myPid()});
             if (memInfo.length > 0) {
 
                 /**
