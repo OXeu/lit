@@ -14,6 +14,7 @@ import android.widget.FrameLayout;
 import android.os.Debug;
 import android.content.Context;
 import android.util.Log;
+import java.util.Arrays;
 public class FloatMemoryObserver {
 	private View floatView;
     private Handler handler = new Handler();
@@ -96,7 +97,9 @@ public class FloatMemoryObserver {
                 /**
                  * 读取内存信息,跟Android Profiler 分析一致
                  */
-				Log.i("Memory","memoryInfo:"+memInfo.toString());
+				Log.i("Memory","memoryInfo:"+Arrays.toString(memInfo));
+				int totalPss = memInfo[0].getTotalPss();
+				Log.i("Memory","totalPss:"+totalPss+"");
                 String java_mem = memInfo[0].getMemoryStat("summary.java-heap");
 				Log.i("Memory","java:"+java_mem+"");
                 String native_mem = memInfo[0].getMemoryStat("summary.native-heap");
