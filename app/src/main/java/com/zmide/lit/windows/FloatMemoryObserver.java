@@ -13,6 +13,7 @@ import android.widget.LinearLayout.LayoutParams;
 import android.widget.FrameLayout;
 import android.os.Debug;
 import android.content.Context;
+import android.util.Log;
 public class FloatMemoryObserver {
 	private View floatView;
     private Handler handler = new Handler();
@@ -118,8 +119,12 @@ public class FloatMemoryObserver {
                     // Mem in MB
                     mem = dalvikPss / 1024.0D;
                 }
+				Log.i("Memory",mem+"");
+				Log.e("memory",memInfo+"");
             }
         } catch (Exception e) {
+			Log.e("Error",e.getMessage());
+			Log.e("Error",e.getStackTrace().toString()+"");
             e.printStackTrace();
         }
         return mem;
@@ -131,7 +136,7 @@ public class FloatMemoryObserver {
      * @param defaultValue 发生异常时，返回默认值
      * @return
      */
-    public final static int convertToInt(Object value, int defaultValue){
+    public static int convertToInt(Object value, int defaultValue){
 
         if (value == null || "".equals(value.toString().trim())){
             return defaultValue;
