@@ -96,18 +96,19 @@ public class FloatMemoryObserver {
                 /**
                  * 读取内存信息,跟Android Profiler 分析一致
                  */
+				Log.i("Memory","memoryInfo:"+memInfo.toString());
                 String java_mem = memInfo[0].getMemoryStat("summary.java-heap");
-
+				Log.i("Memory","java:"+java_mem+"");
                 String native_mem = memInfo[0].getMemoryStat("summary.native-heap");
-
+				Log.i("Memory","native:"+native_mem+"");
                 String graphics_mem = memInfo[0].getMemoryStat("summary.graphics");
-
+				Log.i("Memory","graphics:"+graphics_mem+"");
                 String stack_mem = memInfo[0].getMemoryStat("summary.stack");
-
+				Log.i("Memory","stack:"+stack_mem+"");
                 String code_mem = memInfo[0].getMemoryStat("summary.code");
-
+				Log.i("Memory","code:"+code_mem+"");
                 String others_mem = memInfo[0].getMemoryStat("summary.system");
-
+				Log.i("Memory","other:"+others_mem+"");
                 int dalvikPss = convertToInt(java_mem,0)
 					+ convertToInt(native_mem,0)
 					+ convertToInt(graphics_mem,0)
@@ -119,7 +120,7 @@ public class FloatMemoryObserver {
                     // Mem in MB
                     mem = dalvikPss / 1024.0D;
                 }
-				Log.i("Memory",mem+"");
+				Log.i("Memory","total:"+mem+"");
 				Log.e("memory",memInfo+"");
             }
         } catch (Exception e) {
