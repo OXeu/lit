@@ -43,7 +43,7 @@ public class UnTouchableRecyclerView extends RecyclerView {
 	
 	@Override
 	public boolean dispatchTouchEvent(MotionEvent ev){
-		return false;
+		return true;
 	} 
 	
 	

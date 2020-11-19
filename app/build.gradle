@@ -93,10 +93,10 @@ android {
 			//对齐
 			zipAlignEnabled true
 			//移除无用的resource文件,关闭混淆需关闭此项
-			shrinkResources true
+			shrinkResources false
 			
 			//混淆
-			minifyEnabled true
+			minifyEnabled false
 			signingConfig signingConfigs.app
 			proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 		}
