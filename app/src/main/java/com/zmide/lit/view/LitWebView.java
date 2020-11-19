@@ -28,6 +28,7 @@ import com.zmide.lit.util.MSharedPreferenceUtils;
 import com.zmide.lit.util.MToastUtils;
 
 import java.util.Objects;
+import com.zmide.lit.main.IndexEnvironment;
 
 //import org.adblockplus.libadblockplus.android.webview.AdblockWebView;
 
@@ -37,9 +38,15 @@ public class LitWebView extends WebView {
 	private OnScrollChangeListener mOnScrollChangeListener;
 	private int codeId = hashCode();
 	private int oldY;
-	private SharedPreferences.OnSharedPreferenceChangeListener onSharedPreferenceChangeListener = (sharedPreferences, key) -> {
+	private SharedPreferences.OnSharedPreferenceChangeListener onSharedPreferenceChangeListener = (sharedPreferences, key
+
+	private IndexEnvironment mIndexEnvironment;) -> {
 		initWebView("");
 	};
+	
+	public void setIndex(IndexEnvironment mIndexEnvironment) {
+		this.mIndexEnvironment = mIndexEnvironment;
+	}
 	
 	public LitWebView(Context context, AttributeSet attrs) {
 		super(context, attrs);
@@ -154,7 +161,7 @@ public class LitWebView extends WebView {
 		});
 		
 		setOnScrollChangeListener(new MScrollListener());
-		setWebViewClient(new MWebViewClient(activity));
+		setWebViewClient(new MWebViewClient(activity ,mIndexEnvironment));
 		setWebChromeClient(new MWebChromeClient(activity));
 		
 		

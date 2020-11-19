@@ -33,16 +33,17 @@ import java.util.Objects;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
-import static com.zmide.lit.main.IndexEnvironment.hideIndex;
-import static com.zmide.lit.main.IndexEnvironment.showIndex;
 import static com.zmide.lit.main.StatusEnvironment.updateStatusColor;
 import static com.zmide.lit.util.MDataBaseSettingUtils.WebIndex;
 
 public class MWebViewClient extends WebViewClient {
 	private Activity a;
+
+	private IndexEnvironment mIndexEnvironment;
 	
-	public MWebViewClient(Activity mainActivity) {
+	public MWebViewClient(Activity mainActivity,IndexEnvironment indexEnvironment) {
 		this.a = mainActivity;
+		mIndexEnvironment = indexEnvironment;
 		WebsiteUtils.loadWebsiteSettings(a);
 	}
 	
@@ -127,11 +128,11 @@ public class MWebViewClient extends WebViewClient {
 					 }
 					 */
 		if (!url.equals(WebIndex)) {
-			hideIndex();
+			mIndexEnvironment.hideIndex();
 			updateStatusColor(view);
 			MWebStateSaveUtils.saveState(((LitWebView) view).getCodeId(), url);
 		} else
-			showIndex();
+			mIndexEnvironment.showIndex();
 		WebSettings settings = view.getSettings();
 		String domain = WebsiteUtils.getDomain(WebContainerPlus.getUrl());
 		WebsiteSetting websiteSetting = WebsiteUtils.getWebsiteSetting(a,domain);

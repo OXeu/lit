@@ -19,6 +19,8 @@ import java.util.ArrayList;
 import com.zmide.lit.main.IndexEnvironment;
 import android.annotation.SuppressLint;
 import com.zmide.lit.main.MWeb;
+import android.app.Activity;
+import com.zmide.lit.view.LitWebView;
 
 /**
  * Created by xeu on 2020/1/1 23:20.
@@ -55,6 +57,8 @@ public class WebAdapter extends RecyclerView.Adapter<WebAdapter.MyViewHolder> {
 	private LayoutInflater mInflater;
 
 	private ArrayList<MWeb> webs = new ArrayList<>();
+
+	private IndexEnvironment mIndexEnvironment;
 
 	//提供一个合适的构造方法
 	public WebAdapter(MainActivity ac) {
@@ -101,11 +105,14 @@ public class WebAdapter extends RecyclerView.Adapter<WebAdapter.MyViewHolder> {
 
 		//绑定View
 		View view = web.getView();
+		LitWebView mWebView = viewHolder.mFrame.findViewById(R.id.mainWebView);
+		mWebView.setIndex(mIndexEnvironment);
+		mIndexEnvironment = new IndexEnvironment(mActivity,viewHolder);
 		if (view != null) {
 			if (view.getParent() != null) {
 				((ViewGroup) view.getParent()).removeView(view);
 			} else {
-				IndexEnvironment.start(viewHolder);
+				//mIndexEnvironment.showIndex();
 			}
 			viewHolder.mFrame.removeAllViews();
 			viewHolder.mFrame.addView(view);

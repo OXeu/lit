@@ -49,16 +49,21 @@ public class IndexEnvironment {
 
 	private static WebAdapter.MyViewHolder holder;
 	
-	public static void init(MainActivity mainActivity) {
-		if (activity == null)
+	public IndexEnvironment(MainActivity mainActivity,WebAdapter.MyViewHolder viewholder) {
 			activity = mainActivity;
+			if(holder == null){
+				holder = viewholder;
+				initIndex();
+				MSharedPreferenceUtils.getSharedPreference().registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);
+			}
+			
 	}
 	
-	private static SharedPreferences.OnSharedPreferenceChangeListener sharedPreferenceChangeListener = (sharedPreferences, key) -> {
+	private SharedPreferences.OnSharedPreferenceChangeListener sharedPreferenceChangeListener = (sharedPreferences, key) -> {
 		initIndex();
 	};
 	
-	public static void hideIndex() {
+	public void hideIndex() {
 		StatusEnvironment.updateStatusColor(WebContainerPlus.getWebView());
 		ImageView mIndexWallpaper = holder.getIndexWallpaper();
 		RelativeLayout mIndexParent = holder.getIndexParent();
@@ -75,7 +80,7 @@ public class IndexEnvironment {
 	}
 	
 	
-	public static void showIndex() {
+	public void showIndex() {
 		BarUtils.setStatusBarColor(activity, 0x00000000);
 		ImageView mIndexWallpaper = holder.getIndexWallpaper();
 		RelativeLayout mIndexParent = holder.getIndexParent();
@@ -97,7 +102,7 @@ public class IndexEnvironment {
 	
 	
 	@SuppressLint("ClickableViewAccessibility")
-	private static void initIndex() {
+	private void initIndex() {
 		RelativeLayout mIndexSearchBar = holder.getIndexSearchBar();
 		TextView mIndexTitle = holder.getIndexTitle();
 		RelativeLayout mIndexParent = holder.getIndexParent();
@@ -198,11 +203,5 @@ public class IndexEnvironment {
 		}
 	}
 	
-	public static void start(WebAdapter.MyViewHolder viewholder){
-		if(holder == null){
-		holder = viewholder;
-		initIndex();
-		MSharedPreferenceUtils.getSharedPreference().registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);
-		}
-	}
+	
 }
