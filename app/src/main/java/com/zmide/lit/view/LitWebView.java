@@ -197,10 +197,18 @@ public class LitWebView extends WebView {
 		if (event.getAction() == MotionEvent.ACTION_DOWN) {
 			if (this.getScrollY() <= 0)
 				this.scrollTo(0, 1);
+				
 		}
 		return super.onTouchEvent(event);
+		
 	}
 
+	@Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+		getParent().getParent().getParent().getParent().requestDisallowInterceptTouchEvent(false);
+      
+        return super.onInterceptTouchEvent(ev);
+    }
 	
 	public interface OnScrollChangeListener {
 		
