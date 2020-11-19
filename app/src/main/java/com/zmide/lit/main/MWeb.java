@@ -183,8 +183,8 @@ public class MWeb {
 					view.getParent().requestDisallowInterceptTouchEvent(true);
 					RecyclerView rv = MainViewBindUtils.getWebRecyclerView();
 					
-					rv.onTouchEvent(event);
-					return true;
+					//rv.onTouchEvent(event);
+					return false;
 				}
 				
 			});
