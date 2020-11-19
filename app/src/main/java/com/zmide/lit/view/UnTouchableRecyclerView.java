@@ -38,7 +38,7 @@ public class UnTouchableRecyclerView extends RecyclerView {
 	@Override
 	public boolean onInterceptTouchEvent(MotionEvent ev) {
 		
-		return super.onInterceptTouchEvent(ev);
+		return false;
 	}
 	
 	@Override
