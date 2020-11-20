@@ -62,21 +62,22 @@ public class SettingChildActivity extends BaseActivity {
 					new SettingChild("通用设置"),
 					new SettingChild("主题模式", "设置主题模式", new String[]{"日间模式", "夜间模式", "跟随系统"}, "themeMode", "2", null, SettingChild.CHOOSE),
 					new SettingChild("全屏模式", "隐藏状态栏和导航栏", new String[]{""}, "isfullscreen", "false", null, SettingChild.SWITCH),
-
-
-					new SettingChild("网页设置"),
-					new SettingChild(true, "允许JavaScript", "关闭将导致部分网页异常", new String[]{""}, "javascript", "true", null, SettingChild.SWITCH),
+					
+					new SettingChild("剪贴板"),
 					new SettingChild(false, "剪贴板权限管理", "如开启后无法复制，请关闭（关闭后下面两项设置项不会生效），重启后生效", new String[]{""}, "clip_manage", "true", null, SettingChild.SWITCH),
 					new SettingChild(false, "剪贴板权限", "修改网页写入剪贴板权限", new String[]{"询问", "允许", "拒绝"}, "clip_enable", "0", null, SettingChild.CHOOSE),
 					new SettingChild(false, "剪贴板权限拒绝提示", "拒绝网页写入剪贴板权限后提示", new String[]{""}, "clip_refuse_toast", "true", null, SettingChild.SWITCH),
-					new SettingChild(true, "字体大小", "调整网页字体大小", new String[]{"小", "中", "大"}, "webfont", "1", null, SettingChild.CHOOSE),
-					new SettingChild(true, "缓存策略", "更改网页缓存策略", new String[]{"本地优先（默认）", "本地优先（无论是否过期）", "仅从本地", "仅从网络"}, "cache_mode", "0", null, SettingChild.CHOOSE2),
-					new SettingChild(true, "支持缩放", "支持缩放", new String[]{""}, "zoom", "true", null, SettingChild.SWITCH),
-					new SettingChild(true, "插件执行成功提示", "插件执行成功后弹出提示框", new String[]{""}, "plugin_suc", "false", null, SettingChild.SWITCH),
-					new SettingChild(true, "下拉刷新", "下拉刷新当前浏览的网页", new String[]{""}, "can_refresh", "false", null, SettingChild.SWITCH),
-					new SettingChild(true, "插件执行失败提示", "插件执行失败后弹出提示框", new String[]{""}, "plugin_fail", "false", null, SettingChild.SWITCH),
-					new SettingChild(true, "允许打开外部应用", "允许打开外部应用", new String[]{""}, "oapp", "true", null, SettingChild.SWITCH),
+					
 
+					new SettingChild("网页设置"),
+					new SettingChild(true, "允许JavaScript", "关闭将导致部分网页异常", new String[]{""}, "javascript", "true", null, SettingChild.SWITCH),
+					new SettingChild(true, "字体大小", "调整网页字体大小", new String[]{"小", "中", "大"}, "webfont", "1", null, SettingChild.CHOOSE),
+					new SettingChild(true, "缓存策略", "网页加载策略(网页本地缓存策略)", new String[]{"优先本地（默认）", "优先本地缓存（无论是否过期）", "仅从本地加载", "仅从服务器加载"}, "cache_mode", "0", null, SettingChild.CHOOSE2),
+					new SettingChild(true, "支持缩放", "支持缩放", new String[]{""}, "zoom", "true", null, SettingChild.SWITCH),
+					
+					new SettingChild(true, "下拉刷新", "下拉刷新当前浏览的网页", new String[]{""}, "can_refresh", "false", null, SettingChild.SWITCH),
+					new SettingChild(true, "允许打开外部应用", "允许打开外部应用", new String[]{""}, "oapp", "true", null, SettingChild.SWITCH),
+					
 					new SettingChild("其他设置"),
 					new SettingChild("启动恢复", "启动时恢复上次未关闭标签页", new String[]{"禁用","询问","总是"}, "state_resume_type", "0", null, SettingChild.CHOOSE),
 					new SettingChild("下载路径", "自定义下载路径", "download_uri_path", "应用私有文件夹", new OnClickListener(){
@@ -92,8 +93,8 @@ public class SettingChildActivity extends BaseActivity {
 				st = new SettingChild[]{
 					new SettingChild("主页", "设置默认主页", new String[]{""}, "webpage", "经典主页", new Intent(SettingChildActivity.this, DiyActivity.class), SettingChild.INTENT),
 					new SettingChild("UA", "设置User Agent", new String[]{""}, "ua", "", new Intent(SettingChildActivity.this, DiyActivity.class).putExtra("type", Diy.UA), SettingChild.INTENT),
-					new SettingChild("插件", "JavaScript脚本", new String[]{""}, "plugin", "", new Intent(SettingChildActivity.this, DiyActivity.class).putExtra("type", Diy.PLUGIN), SettingChild.INTENT),
-					new SettingChild("搜索引擎", "切换简洁版搜索引擎", new String[]{""}, "search_engine", "", new Intent(SettingChildActivity.this, DiyActivity.class).putExtra("type", Diy.SEARCH_ENGINE), SettingChild.INTENT),
+					new SettingChild("脚本", "JavaScript脚本", new String[]{""}, "plugin", "", new Intent(SettingChildActivity.this, DiyActivity.class).putExtra("type", Diy.PLUGIN), SettingChild.INTENT),
+					new SettingChild("搜索引擎", "切换默认搜索引擎", new String[]{""}, "search_engine", "", new Intent(SettingChildActivity.this, DiyActivity.class).putExtra("type", Diy.SEARCH_ENGINE), SettingChild.INTENT),
 				};
 				break;
 			case Mode.CUSTOM:
@@ -106,9 +107,14 @@ public class SettingChildActivity extends BaseActivity {
 				break;
 			case Mode.LAB:
 				st = new SettingChild[]{
+					new SettingChild("实验功能(不推荐使用的功能)"),
 					new SettingChild("负片模式", "夜间模式下对网页色彩进行负片处理", new String[]{""}, "web_isdark", "false", null, SettingChild.SWITCH),
 					new SettingChild("反转手势", "反转小球前进后退手势", new String[]{""}, "isChangeGesture", "false", null, SettingChild.SWITCH),
 					new SettingChild("检测更新", "进入应用进行检测更新", new String[]{""}, "is_check_update", "true", null, SettingChild.SWITCH),
+					
+					new SettingChild("开发者选项"),
+					new SettingChild(true, "脚本执行成功提示", "脚本执行成功后弹出提示框", new String[]{""}, "plugin_suc", "false", null, SettingChild.SWITCH),
+					new SettingChild(true, "脚本执行失败提示", "脚本执行失败后弹出提示框", new String[]{""}, "plugin_fail", "false", null, SettingChild.SWITCH),
 					new SettingChild("调试模式", "异常时显示完整错误", new String[]{""}, "debug", "false", null, SettingChild.SWITCH),
 					new SettingChild("性能监测", "监测应用内存使用情况", new String[]{""}, "memory", "false", null, SettingChild.SWITCH),
                 };
@@ -133,7 +139,7 @@ public class SettingChildActivity extends BaseActivity {
 										openDirectory();
 										MToastUtils.makeText("请设置文件保存路径后重试").show();
 									}
-									}catch(Exception e){
+									}catch(SecurityException e){
 										openDirectory();
 										MToastUtils.makeText("请设置文件保存路径后重试").show();
 										
