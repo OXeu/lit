@@ -44,10 +44,10 @@ public class IndexEnvironment {
 	
 	
 	
-	private static MainActivity activity;
-	private static SharedPreferences mSharedPreferences = MSharedPreferenceUtils.getSharedPreference();
+	private  MainActivity activity;
+	private  SharedPreferences mSharedPreferences = MSharedPreferenceUtils.getSharedPreference();
 
-	private static WebAdapter.MyViewHolder holder;
+	private  WebAdapter.MyViewHolder holder;
 	
 	public IndexEnvironment(MainActivity mainActivity,WebAdapter.MyViewHolder viewholder) {
 			activity = mainActivity;
