@@ -38,15 +38,11 @@ public class LitWebView extends WebView {
 	private OnScrollChangeListener mOnScrollChangeListener;
 	private int codeId = hashCode();
 	private int oldY;
-	private SharedPreferences.OnSharedPreferenceChangeListener onSharedPreferenceChangeListener = (sharedPreferences, key
-
-	private IndexEnvironment mIndexEnvironment;) -> {
-		initWebView("");
-	};
 	
 	public void setIndex(IndexEnvironment mIndexEnvironment) {
 		this.mIndexEnvironment = mIndexEnvironment;
 	}
+	private IndexEnvironment mIndexEnvironment;
 	
 	public LitWebView(Context context, AttributeSet attrs) {
 		super(context, attrs);
@@ -61,6 +57,11 @@ public class LitWebView extends WebView {
 	public void setCodeId(int code) {
 		this.codeId = code;
 	}
+	
+	private SharedPreferences.OnSharedPreferenceChangeListener onSharedPreferenceChangeListener = (sharedPreferences, key) -> {
+		initWebView("");
+	};
+	
 	
 	public void initWebView(String url) {
 		WebSettings webSettings = getSettings();
