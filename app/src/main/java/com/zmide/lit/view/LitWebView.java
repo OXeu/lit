@@ -39,10 +39,12 @@ public class LitWebView extends WebView {
 	private int codeId = hashCode();
 	private int oldY;
 	
-	public void setIndex(IndexEnvironment mIndexEnvironment) {
-		this.mIndexEnvironment = mIndexEnvironment;
-		}
 	private IndexEnvironment mIndexEnvironment = new IndexEnvironment();
+	public void setIndex(IndexEnvironment indexEnvironment) {
+		this.mIndexEnvironment = indexEnvironment;
+		initWebView(null);
+		}
+	
 	
 	public LitWebView(Context context, AttributeSet attrs) {
 		super(context, attrs);
