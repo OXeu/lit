@@ -59,11 +59,17 @@ public class IndexEnvironment {
 			
 	}
 	
+	public IndexEnvironment() {
+
+	}
+	
 	private SharedPreferences.OnSharedPreferenceChangeListener sharedPreferenceChangeListener = (sharedPreferences, key) -> {
 		initIndex();
 	};
 	
 	public void hideIndex() {
+		if(holder==null|activity==null)
+			return;
 		StatusEnvironment.updateStatusColor(WebContainerPlus.getWebView());
 		ImageView mIndexWallpaper = holder.getIndexWallpaper();
 		RelativeLayout mIndexParent = holder.getIndexParent();
@@ -81,6 +87,8 @@ public class IndexEnvironment {
 	
 	
 	public void showIndex() {
+		if(holder==null|activity==null)
+			return;
 		BarUtils.setStatusBarColor(activity, 0x00000000);
 		ImageView mIndexWallpaper = holder.getIndexWallpaper();
 		RelativeLayout mIndexParent = holder.getIndexParent();
@@ -103,6 +111,8 @@ public class IndexEnvironment {
 	
 	@SuppressLint("ClickableViewAccessibility")
 	private void initIndex() {
+		if(holder==null|activity==null)
+			return;
 		RelativeLayout mIndexSearchBar = holder.getIndexSearchBar();
 		TextView mIndexTitle = holder.getIndexTitle();
 		RelativeLayout mIndexParent = holder.getIndexParent();

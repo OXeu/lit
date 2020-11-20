@@ -41,8 +41,8 @@ public class LitWebView extends WebView {
 	
 	public void setIndex(IndexEnvironment mIndexEnvironment) {
 		this.mIndexEnvironment = mIndexEnvironment;
-	}
-	private IndexEnvironment mIndexEnvironment;
+		}
+	private IndexEnvironment mIndexEnvironment = new IndexEnvironment();
 	
 	public LitWebView(Context context, AttributeSet attrs) {
 		super(context, attrs);
