@@ -68,7 +68,7 @@ public class IndexEnvironment {
 	};
 	
 	public void hideIndex() {
-		if(holder==null|activity==null)
+		if(holder==null||activity==null)
 			return;
 		StatusEnvironment.updateStatusColor(WebContainerPlus.getWebView());
 		ImageView mIndexWallpaper = holder.getIndexWallpaper();
@@ -87,7 +87,7 @@ public class IndexEnvironment {
 	
 	
 	public void showIndex() {
-		if(holder==null|activity==null)
+		if(holder==null||activity==null)
 			return;
 		BarUtils.setStatusBarColor(activity, 0x00000000);
 		ImageView mIndexWallpaper = holder.getIndexWallpaper();
