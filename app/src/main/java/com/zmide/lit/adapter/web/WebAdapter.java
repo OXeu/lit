@@ -105,11 +105,7 @@ public class WebAdapter extends RecyclerView.Adapter<WebAdapter.MyViewHolder> {
 
 		//绑定View
 		View view = web.getView();
-		LitWebView mWebView = viewHolder.mFrame.findViewById(R.id.mainWebView);
-		mIndexEnvironment = new IndexEnvironment(mActivity,viewHolder);
-		mWebView.setIndex(mIndexEnvironment);
-		
-		if (view != null) {
+			if (view != null) {
 			if (view.getParent() != null) {
 				((ViewGroup) view.getParent()).removeView(view);
 			} else {
@@ -117,6 +113,11 @@ public class WebAdapter extends RecyclerView.Adapter<WebAdapter.MyViewHolder> {
 			}
 			viewHolder.mFrame.removeAllViews();
 			viewHolder.mFrame.addView(view);
+			LitWebView mWebView = viewHolder.mFrame.findViewById(R.id.mainWebView);
+			mIndexEnvironment = new IndexEnvironment(mActivity,viewHolder);
+			mWebView.setIndex(mIndexEnvironment);
+
+				
 		}
 	}
 
