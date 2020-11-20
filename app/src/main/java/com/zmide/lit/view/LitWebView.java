@@ -206,8 +206,8 @@ public class LitWebView extends WebView {
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 		if (event.getAction() == MotionEvent.ACTION_DOWN) {
-			if (this.getScrollY() <= 0)
-				this.scrollTo(0, 1);
+			if (this.getScrollY() <= 0){}
+				//this.scrollTo(0, 1);
 				
 		}
 		return super.onTouchEvent(event);
