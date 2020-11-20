@@ -121,6 +121,7 @@ public class SettingChildActivity extends BaseActivity {
 							public void onClick(View v,Editor editor) {
 								String uris = MSharedPreferenceUtils.getWritablePath();
 								Uri uri = null;
+								try{
 								if(uris!=null){
 									uri = Uri.parse(uris);
 									String fName = editor.getText()+"";
@@ -131,6 +132,11 @@ public class SettingChildActivity extends BaseActivity {
 									else{
 										openDirectory();
 										MToastUtils.makeText("请设置文件保存路径后重试").show();
+									}
+									}catch(Exception e){
+										openDirectory();
+										MToastUtils.makeText("请设置文件保存路径后重试").show();
+										
 									}
 									
 								

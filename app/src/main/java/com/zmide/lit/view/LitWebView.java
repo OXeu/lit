@@ -208,6 +208,7 @@ public class LitWebView extends WebView {
 		if (event.getAction() == MotionEvent.ACTION_DOWN) {
 			if (this.getScrollY() <= 0){}
 				//this.scrollTo(0, 1);
+				//妈的，这是谁写在这里的，绝了
 				
 		}
 		return super.onTouchEvent(event);
