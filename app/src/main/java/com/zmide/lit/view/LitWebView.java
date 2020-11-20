@@ -42,7 +42,7 @@ public class LitWebView extends WebView {
 	private IndexEnvironment mIndexEnvironment = new IndexEnvironment();
 	public void setIndex(IndexEnvironment indexEnvironment) {
 		this.mIndexEnvironment = indexEnvironment;
-		initWebView(null);
+		initWebView("");
 		}
 	
 	
@@ -170,6 +170,7 @@ public class LitWebView extends WebView {
 		
 		if (url != null && !url.equals(""))
 			loadUrl(url);
+		else if ("".equals(url)){}
 		else if (url == null)
 			loadUrl(MDataBaseSettingUtils.getSingleSetting(Diy.WEBPAGE));
 	}
