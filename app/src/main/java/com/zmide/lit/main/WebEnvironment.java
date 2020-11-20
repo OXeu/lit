@@ -18,7 +18,6 @@ public class WebEnvironment {
 	public static void init(MainActivity mainActivity) {
 		if (activity == null)
 			activity = mainActivity;
-		IndexEnvironment.init(activity);
 	}
 	
 	
