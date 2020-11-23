@@ -158,7 +158,7 @@ public class MWeb {
 		return null;
 	}
 	
-	public TouchableRelativeLayout getBtParent() {
+	public RelativeLayout getBtParent() {
 		if (view != null) {
 			return view.findViewById(R.id.bt_bar);
 		}
@@ -180,8 +180,6 @@ public class MWeb {
 
 				@Override
 				public boolean onTouch(View view, MotionEvent event) {
-					view.getParent().requestDisallowInterceptTouchEvent(true);
-					RecyclerView rv = MainViewBindUtils.getWebRecyclerView();
 					
 					//rv.onTouchEvent(event);
 					return false;
@@ -191,7 +189,7 @@ public class MWeb {
 		String type = MSharedPreferenceUtils.getSharedPreference().getString("bt_bar","0");
 		switch(type){
 			case "0"://经典底栏
-			ClassicalBottomBar.loadBar();
+			ClassicalBottomBar.loadBar(getBtParent());
 			break;
 			case "1"://手势底栏
 			FunctionalBottomBar.loadBar();
