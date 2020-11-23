@@ -1,7 +1,8 @@
 package com.zmide.lit.main.bottom;
-import android.widget.RelativeLayout;
-import android.view.View;
+import com.zmide.lit.R;
 import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.RelativeLayout;
 
 public class ClassicalBottomBar {
 
