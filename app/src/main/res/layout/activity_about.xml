@@ -85,15 +85,23 @@
 
         </LinearLayout>
 		
+		<LinearLayout
+			android:width="match_parent"
+			android:height="wrap_content"
+			android:orientation="horizontal"
+			android:gravity="center_vertical|right"
+			android:layout_above="@id/aboutCopyright"
+			android:layout_marginBottom="24dp"
+			>
 		
 		<TextView
 			android:id="@+id/aboutUpdate"
-			android:layout_width="match_parent"
-			android:layout_height="48dp"
-			android:layout_above="@id/aboutQQGroup"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			
 			android:layout_marginLeft="24dp"
 			android:layout_marginRight="24dp"
-			android:layout_marginBottom="0dp"
+			
 			android:background="@drawable/ripple_blue_24"
 			android:gravity="center"
 			android:onClick="@{event::UpdateClick}"
@@ -102,16 +110,17 @@
 		
 		<TextView
 			android:id="@+id/aboutQQGroup"
-			android:layout_width="match_parent"
-			android:layout_height="48dp"
-			android:layout_above="@id/aboutCopyright"
-			android:layout_margin="24dp"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginRight="24dp"
+			android:layout_marginLeft="24dp"
 			android:background="@drawable/ripple_blue_24"
 			android:gravity="center"
 			android:onClick="@{event::joinQQGroup}"
 			android:text="@string/joinQQGroup"
 			android:textColor="#FFFFFF" />
 		
+		</LinearLayout>
 		
 		<TextView
 			android:id="@+id/aboutCopyright"
