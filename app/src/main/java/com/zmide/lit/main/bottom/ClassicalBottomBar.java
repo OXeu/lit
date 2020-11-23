@@ -7,7 +7,7 @@ import android.widget.RelativeLayout;
 public class ClassicalBottomBar {
 
 	public static void loadBar(RelativeLayout btParent) {
-		View view = LayoutInflater.from(btParent.getContext()).inflate(R.layout.bottom_bar);
+		View view = LayoutInflater.from(btParent.getContext()).inflate(R.layout.bottom_bar,null);
 		btParent.addView(view);
 	}
     
