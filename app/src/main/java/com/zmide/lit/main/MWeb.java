@@ -1,31 +1,24 @@
 package com.zmide.lit.main;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.webkit.WebView;
-import androidx.recyclerview.widget.RecyclerView;
+import android.widget.RelativeLayout;
+
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.zmide.lit.R;
-import com.zmide.lit.ui.MainActivity;
+import com.zmide.lit.main.bottom.ClassicalBottomBar;
+import com.zmide.lit.main.bottom.FunctionalBottomBar;
+import com.zmide.lit.main.bottom.SimplifyBottomBar;
 import com.zmide.lit.util.MFileUtils;
 import com.zmide.lit.util.MSharedPreferenceUtils;
 import com.zmide.lit.util.MWebStateSaveUtils;
 import com.zmide.lit.view.LitWebView;
-import com.zmide.lit.main.bottom.ClassicalBottomBar;
-import com.zmide.lit.main.bottom.FunctionalBottomBar;
-import com.zmide.lit.main.bottom.SimplifyBottomBar;
-import android.content.Context;
-import android.app.Activity;
-import android.widget.RelativeLayout;
-import android.view.View.OnTouchListener;
-import android.view.MotionEvent;
-import com.zmide.lit.util.MToastUtils;
-import android.util.Log;
-import com.zmide.lit.view.TouchableRelativeLayout;
 
 public class MWeb {
 	public int sid;
@@ -102,8 +95,10 @@ public class MWeb {
 	
 	public void setTitle(String title) {
 		this.title = title;
+		getBtClass().onTitleChanged(title);
 	}
-	
+
+
 	public String getIcon() {
 		Bitmap favicon = getWebView().getFavicon();
 		if (favicon != null)
@@ -164,38 +159,35 @@ public class MWeb {
 		}
 		return null;
 	}
-	
+
 	private void initWebView(LitWebView litWebView, String url) {
-	
+
 	}
-	
-	
-	
+
+
 	public int getCode() {
 		return getWebView().getCodeId();
 	}
-	
-	public void initBtBar(){
-		getBtParent().setOnTouchListener(new OnTouchListener(){
 
-				@Override
-				public boolean onTouch(View view, MotionEvent event) {
-					
-					//rv.onTouchEvent(event);
-					return false;
-				}
-				
-			});
-		String type = MSharedPreferenceUtils.getSharedPreference().getString("bt_bar","0");
-		switch(type){
+
+	private BottomBar getBtClass() {
+		return null;
+	}
+
+	public void initBtBar() {
+		getBtParent().setOnTouchListener((view, event) -> {
+			return false;
+		});
+		String type = MSharedPreferenceUtils.getSharedPreference().getString("bt_bar", "0");
+		switch (type) {
 			case "0"://经典底栏
-			ClassicalBottomBar.loadBar(getBtParent());
-			break;
+				ClassicalBottomBar.loadBar(getBtParent());
+				break;
 			case "1"://手势底栏
-			FunctionalBottomBar.loadBar();
-			break;
+				FunctionalBottomBar.loadBar();
+				break;
 			case "2"://简洁底栏
-			SimplifyBottomBar.loadBar();
+				SimplifyBottomBar.loadBar();
 			break;
 			}
 		}

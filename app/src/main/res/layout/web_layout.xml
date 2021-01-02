@@ -17,10 +17,18 @@
 
 	</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
+
+	<ImageView
+		android:layout_width="match_parent"
+		android:layout_height="8dp"
+		android:layout_above="@id/bt_bar"
+		android:background="@drawable/shadow_top_bottom" />
+
+
 	<RelativeLayout
 		android:id="@+id/bt_bar"
 		android:layout_width="match_parent"
-		android:layout_height="48dp"
+		android:layout_height="60dp"
 		android:layout_alignParentBottom="true" />
 
 </RelativeLayout>
