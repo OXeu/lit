@@ -19,6 +19,7 @@ import com.zmide.lit.util.MFileUtils;
 import com.zmide.lit.util.MSharedPreferenceUtils;
 import com.zmide.lit.util.MWebStateSaveUtils;
 import com.zmide.lit.view.LitWebView;
+import com.zmide.lit.main.bottom.BaseBottom;
 
 public class MWeb {
 	public int sid;
@@ -168,28 +169,30 @@ public class MWeb {
 	public int getCode() {
 		return getWebView().getCodeId();
 	}
-
-
-	private BottomBar getBtClass() {
-		return null;
+	
+	public BaseBottom getBtClass(){
+		String type = MSharedPreferenceUtils.getSharedPreference().getString("bt_bar", "0");
+		switch (type) {
+			case "0"://经典底栏
+				return ClassicalBottomBar.getInstance();
+				
+			case "1"://手势底栏
+				return FunctionalBottomBar.getInstance();
+				
+			case "2"://简洁底栏
+				return SimplifyBottomBar.getInstance();
+				
+		}
+		return ClassicalBottomBar.getInstance();
 	}
 
+
+	
 	public void initBtBar() {
 		getBtParent().setOnTouchListener((view, event) -> {
 			return false;
 		});
-		String type = MSharedPreferenceUtils.getSharedPreference().getString("bt_bar", "0");
-		switch (type) {
-			case "0"://经典底栏
-				ClassicalBottomBar.loadBar(getBtParent());
-				break;
-			case "1"://手势底栏
-				FunctionalBottomBar.loadBar();
-				break;
-			case "2"://简洁底栏
-				SimplifyBottomBar.loadBar();
-			break;
-			}
+		getBtClass().loadBar(getBtParent());
 		}
 	
 	
