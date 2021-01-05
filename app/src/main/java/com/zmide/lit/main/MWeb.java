@@ -63,6 +63,7 @@ public class MWeb {
 		getSwipe().setOnRefreshListener(()->getWebView().reload());
 		getSwipe().setOnChildScrollUpCallback((parent, child) -> getWebView().getScrollY() > 0);
 		canRefresh();
+		initBtBar();
 		MSharedPreferenceUtils.getWebViewSharedPreference().registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);
 	}
 	
