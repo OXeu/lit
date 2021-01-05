@@ -2,7 +2,6 @@ package com.zmide.lit.main.bottom;
 
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -11,6 +10,7 @@ import android.view.View.OnClickListener;
 import com.zmide.lit.main.WindowsManager;
 import com.zmide.lit.main.MenuDialog;
 import com.zmide.lit.main.SearchEnvironment;
+import com.zmide.lit.util.MToastUtils;
 
 public class ClassicalBottomBar extends BaseBottom {
 
@@ -20,8 +20,8 @@ public class ClassicalBottomBar extends BaseBottom {
 	@Override
 	public void loadBar(RelativeLayout btParent) {
 		View view = LayoutInflater.from(btParent.getContext()).inflate(R.layout.bottom_bar, null);
-		ImageView leftBt = view.findViewById(R.id.leftBt);
-		ImageView rightBt = view.findViewById(R.id.rightBt);
+		View leftBt = view.findViewById(R.id.leftBt);
+		View rightBt = view.findViewById(R.id.rightBt);
 		title = view.findViewById(R.id.title);
 		leftBt.setOnClickListener(new OnClickListener(){
 
@@ -52,6 +52,7 @@ public class ClassicalBottomBar extends BaseBottom {
 
 	@Override
 	public void onTitleChanged(String title) {
+		MToastUtils.makeText(title).show();
 		super.onTitleChanged(title);
 		this.title.setText(title);
 	}
