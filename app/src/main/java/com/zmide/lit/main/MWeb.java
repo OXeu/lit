@@ -175,16 +175,16 @@ public class MWeb {
 		String type = MSharedPreferenceUtils.getSharedPreference().getString("bt_bar", "0");
 		switch (type) {
 			case "0"://经典底栏
-				return ClassicalBottomBar.getInstance();
+				return new ClassicalBottomBar();
 				
 			case "1"://手势底栏
-				return FunctionalBottomBar.getInstance();
+				return new FunctionalBottomBar();
 				
 			case "2"://简洁底栏
-				return SimplifyBottomBar.getInstance();
+				return new SimplifyBottomBar();
 				
 		}
-		return ClassicalBottomBar.getInstance();
+		return new ClassicalBottomBar();
 	}
 
 

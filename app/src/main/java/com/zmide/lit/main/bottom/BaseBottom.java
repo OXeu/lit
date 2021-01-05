@@ -18,12 +18,8 @@ public class BaseBottom implements WebInterface {
 	public void onUrlChanged(String url) {
 	}
 	
-	private static BaseBottom instance;
-	public static BaseBottom getInstance(){
-		if(instance == null)
-			instance = new BaseBottom();
-		return instance;
-	}
+	
+	
 	
 	public void loadBar(RelativeLayout btParent){}
     
