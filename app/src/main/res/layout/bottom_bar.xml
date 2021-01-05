@@ -3,28 +3,27 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
 	android:layout_height="60dp"
-	android:background="@color/bgcolor"
-	>
-	
+	android:background="@color/bgcolor">
+
 	<LinearLayout
 		android:id="@+id/leftBt"
-		android:background="@drawable/ripple_circle"
+		android:background="@drawable/ripple_5"
 		android:layout_alignParentStart="true"
 		android:layout_centerVertical="true"
 		android:layout_height="match_parent"
 		android:layout_width="wrap_content"
 		android:paddingRight="24dp"
 		android:gravity="center"
-		android:paddingLeft="24dp">
+		android:paddingLeft="40dp">
 
-	<ImageView
-		android:layout_width="32dp"
-		android:layout_height="32dp"
-		android:contentDescription="@string/windows"
-		android:padding="8dp"
-		android:src="@drawable/ic_window"
-		android:tint="@color/accent"/>
-	
+		<ImageView
+			android:layout_width="32dp"
+			android:layout_height="32dp"
+			android:contentDescription="@string/windows"
+			android:padding="8dp"
+			android:src="@drawable/ic_window"
+			android:tint="@color/accent"/>
+
 	</LinearLayout>
 
 	<RelativeLayout
@@ -84,19 +83,18 @@
 
 	<LinearLayout
 		android:id="@+id/rightBt"
-		android:background="@drawable/ripple_circle"
+		android:background="@drawable/ripple_normal"
 		android:layout_alignParentEnd="true"
 		android:layout_centerVertical="true"
 		android:layout_height="match_parent"
 		android:layout_width="wrap_content"
-		android:paddingRight="24dp"
+		android:paddingRight="40dp"
 		android:gravity="center"
 		android:paddingLeft="24dp">
 
 		<ImageView
 			android:layout_width="32dp"
 			android:layout_height="32dp"
-			
 			android:contentDescription="@string/menu"
 			android:padding="8dp"
 			android:src="@drawable/ic_menu"
