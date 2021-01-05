@@ -12,7 +12,16 @@ import com.zmide.lit.main.WindowsManager;
 import com.zmide.lit.main.MenuDialog;
 import com.zmide.lit.main.SearchEnvironment;
 
-public class ClassicalBottomBar extends BaseBottom{
+public class ClassicalBottomBar extends BaseBottom {
+
+	private static ClassicalBottomBar instance;
+	
+	public static BaseBottom getInstance(){
+		if(instance == null)
+			instance = new ClassicalBottomBar();
+		return instance;
+	}
+	
 	
 	private TextView title;
 	@Override
