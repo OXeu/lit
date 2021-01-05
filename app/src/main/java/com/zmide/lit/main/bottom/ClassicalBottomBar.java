@@ -16,13 +16,13 @@ public class ClassicalBottomBar extends BaseBottom {
 
 	
 	
-	private TextView title;
+	private TextView titleBar;
 	@Override
 	public void loadBar(RelativeLayout btParent) {
 		View view = LayoutInflater.from(btParent.getContext()).inflate(R.layout.bottom_bar, null);
 		View leftBt = view.findViewById(R.id.leftBt);
 		View rightBt = view.findViewById(R.id.rightBt);
-		title = view.findViewById(R.id.title);
+		titleBar = view.findViewById(R.id.title_bar);
 		leftBt.setOnClickListener(new OnClickListener(){
 
 				@Override
@@ -39,7 +39,7 @@ public class ClassicalBottomBar extends BaseBottom {
 				}
 			});
 			
-		title.setOnClickListener(new OnClickListener(){
+		titleBar.setOnClickListener(new OnClickListener(){
 
 				@Override
 				public void onClick(View v) {
@@ -53,8 +53,7 @@ public class ClassicalBottomBar extends BaseBottom {
 	@Override
 	public void onTitleChanged(String title) {
 		MToastUtils.makeText(title).show();
-		super.onTitleChanged(title);
-		this.title.setText(title);
+		this.titleBar.setText(title);
 	}
 	
 	
