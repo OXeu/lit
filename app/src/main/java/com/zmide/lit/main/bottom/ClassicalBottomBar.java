@@ -63,9 +63,9 @@ public class ClassicalBottomBar extends BaseBottom {
 
 	@Override
 	public void onTitleChanged(String title) {
-		MToastUtils.makeText(title).show();
+		//MToastUtils.makeText(title).show();
 		titleBar.setText(title);
-		MToastUtils.makeText(titleBar.getText().toString()).show();
+		MToastUtils.makeText(titleBar.getText().toString()+title).show();
 	}
 	
 	
