@@ -53,13 +53,13 @@ public class ClassicalBottomBar extends BaseBottom {
 
 		btParent.addView(view);
 		
-		leftBt.setOnTouchListener((view, event) -> {
+		leftBt.setOnTouchListener((view2, event) -> {
 			return false;
 		});
-		rightBt.setOnTouchListener((view, event) -> {
+		rightBt.setOnTouchListener((view2, event) -> {
 			return false;
 		});
-		titleBar.setOnTouchListener((view, event) -> {
+		titleBar.setOnTouchListener((view2, event) -> {
 			return false;
 		});
 	}
