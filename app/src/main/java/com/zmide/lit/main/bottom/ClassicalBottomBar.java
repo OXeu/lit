@@ -11,6 +11,7 @@ import com.zmide.lit.main.WindowsManager;
 import com.zmide.lit.main.MenuDialog;
 import com.zmide.lit.main.SearchEnvironment;
 import com.zmide.lit.util.MToastUtils;
+import com.zmide.lit.main.MWeb;
 
 public class ClassicalBottomBar extends BaseBottom {
 
@@ -18,10 +19,13 @@ public class ClassicalBottomBar extends BaseBottom {
 	
 	private TextView titleBar ;
 
-	private RelativeLayout btParent;
+	
+
+	private MWeb Mweb;
 	@Override
-	public void loadBar(RelativeLayout btParent) {
-		this.btParent = btParent;
+	public void loadBar(MWeb mweb) {
+		Mweb = mweb;
+		RelativeLayout btParent = mweb.getBtParent();
 		View view = LayoutInflater.from(btParent.getContext()).inflate(R.layout.bottom_bar, null);
 		View leftBt = view.findViewById(R.id.leftBt);
 		View rightBt = view.findViewById(R.id.rightBt);
@@ -66,7 +70,7 @@ public class ClassicalBottomBar extends BaseBottom {
 
 	@Override
 	public void onTitleChanged(String title) {
-		View view = LayoutInflater.from(btParent.getContext()).inflate(R.layout.bottom_bar, null);
+		View view = LayoutInflater.from(Mweb.getBtParent().getContext()).inflate(R.layout.bottom_bar, null);
 		this.titleBar = view.findViewById(R.id.title_bar);
 		//MToastUtils.makeText(title).show();
 		titleBar.setText(title);

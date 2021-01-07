@@ -193,7 +193,7 @@ public class MWeb {
 		getBtParent().setOnTouchListener((view, event) -> {
 			return false;
 		});
-		getBtClass().loadBar(getBtParent());
+		getBtClass().loadBar(this);
 		}
 	
 	

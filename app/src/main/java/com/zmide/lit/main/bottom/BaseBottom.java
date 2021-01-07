@@ -3,6 +3,7 @@ import android.widget.RelativeLayout;
 import com.zmide.lit.interfaces.WindowsInterface;
 import com.zmide.lit.interfaces.WebInterface;
 import android.graphics.Bitmap;
+import com.zmide.lit.main.MWeb;
 
 public class BaseBottom implements WebInterface {
 
@@ -21,7 +22,7 @@ public class BaseBottom implements WebInterface {
 	
 	
 	
-	public void loadBar(RelativeLayout btParent){}
+	public void loadBar(MWeb mweb){}
     
 	
 }
