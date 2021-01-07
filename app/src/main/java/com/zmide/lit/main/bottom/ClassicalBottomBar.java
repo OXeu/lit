@@ -23,6 +23,7 @@ public class ClassicalBottomBar extends BaseBottom {
 		View leftBt = view.findViewById(R.id.leftBt);
 		View rightBt = view.findViewById(R.id.rightBt);
 		titleBar = view.findViewById(R.id.title_bar);
+		titleBar.setText("酸奶酪Yogurt");
 		leftBt.setOnClickListener(new OnClickListener(){
 
 				@Override
