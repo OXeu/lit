@@ -16,7 +16,7 @@ public class ClassicalBottomBar extends BaseBottom {
 
 	
 	
-	private TextView titleBar;
+	private TextView titleBar ;
 	@Override
 	public void loadBar(RelativeLayout btParent) {
 		View view = LayoutInflater.from(btParent.getContext()).inflate(R.layout.bottom_bar, null);
@@ -54,7 +54,8 @@ public class ClassicalBottomBar extends BaseBottom {
 	@Override
 	public void onTitleChanged(String title) {
 		MToastUtils.makeText(title).show();
-		this.titleBar.setText(title);
+		titleBar.setText(title);
+		MToastUtils.makeText(titleBar.getText().toString()).show();
 	}
 	
 	
